@@ -51,6 +51,13 @@ def test_rabbitmq_queue():
         ch.cancel()
         q.close()
 
-    response = q.enqueue(msg=json.dumps(dict(did="AAAAA", size=123)))
+    response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
     q.consume(consumer_callback)
+
+
+def consumer_callback(ch, mtd, props, body):
+    msg = json.loads(body)
+
+    print(msg)
+    ch.basic_ack(delivery_tag=mtd.delivery_tag)
