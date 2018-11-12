@@ -107,10 +107,9 @@ class RabbitMQClient(QueueClient):
             self.channel.exchange_declare('dummy', passive=True)
             return True
         except ConnectionClosed:
-            print("Connection Closed, retry connecting")
+            return False
         except ChannelClosed:
-            print("Channel Closed, retry connecting")
-        return False
+            return False
 
     def close(self):
 
