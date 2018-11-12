@@ -1,4 +1,5 @@
 import pika
+from pika.exceptions import ConnectionClosed
 
 from gdcqc.core import ServiceQueue
 
@@ -13,7 +14,6 @@ class RabbitMQServiceQueue(ServiceQueue):
         self.vhost = vhost
         self.durable = durable
         self.queue_id = queue_id
-        self._dquequed_element = None
 
         self.channel = None
         self.connection = None
@@ -26,7 +26,7 @@ class RabbitMQServiceQueue(ServiceQueue):
 
     def _get_channel(self):
 
-        if self.connection is None or self.connection.is_open is False:
+        if self.ping() is False:
             self.setup()
         return self.channel
 
@@ -52,22 +52,31 @@ class RabbitMQServiceQueue(ServiceQueue):
         channel.start_consuming()
 
     def dequeue(self):
-        self._dquequed_element = None
+        """ Opens connection, performs consume and closes connection, returns response.  """
+        channel = self._get_channel()
+        mtd, props, body = channel.basic_get(self.queue_id)
 
-        def _callback(ch, mtd, props, body):
-            ch.basic_ack(delivery_tag=mtd.delivery_tag)
-            self._dquequed_element = body
-            self.close()
-
-        self.consume(_callback)
-        return self._dquequed_element
+        if body:
+            # acknowledge receipt if something was received
+            channel.basic_ack(delivery_tag=mtd.delivery_tag)
+        return body
 
     def status(self):
-        raise NotImplementedError("Feature not supported for broker, use consume")
+        channel = self._get_channel()
+        return channel.is_open()
 
     def ping(self):
         """ Not required """
-        return 1
+        if self.channel is None:
+            return False
+
+        # try to use the channel
+        try:
+            self.channel.exchange_declare('dummy', passive=True)
+            return True
+        except ConnectionClosed:
+            self.logger.warning("Connection Closed, retry connecting")
+        return False
 
     def close(self):
 

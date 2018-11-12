@@ -17,9 +17,6 @@ class ServiceQueue(object):
         self.queue_id = queue_id
         self.logger = logging.getLogger(self.__module__ + "." + self.__class__.__name__)
 
-        self.setup()
-        self.ping()
-
     @abstractmethod
     def setup(self):
         """Implement to initialize the queue for use"""

@@ -8,9 +8,13 @@ class DepotServiceQueue(ServiceQueue):
 
     def __init__(self, depot_url, queue_id):
 
+        super(DepotServiceQueue, self).__init__(queue_id=queue_id)
+
         self._is_closing = False
         self.depot_server_url = depot_url
-        super(DepotServiceQueue, self).__init__(queue_id=queue_id)
+
+        self.setup()
+        self.ping()
 
     def setup(self):
         if self.status() is False:
