@@ -2,7 +2,9 @@ import pika
 from pika.exceptions import ConnectionClosed
 
 from gdcqc.core import ServiceQueue
+import logging
 
+logging.
 
 class RabbitMQServiceQueue(ServiceQueue):
 
@@ -75,7 +77,7 @@ class RabbitMQServiceQueue(ServiceQueue):
             self.channel.exchange_declare('dummy', passive=True)
             return True
         except ConnectionClosed:
-            self.logger.warning("Connection Closed, retry connecting")
+            print("Connection Closed, retry connecting")
         return False
 
     def close(self):
@@ -84,8 +86,3 @@ class RabbitMQServiceQueue(ServiceQueue):
             self.channel.close()
         if self.connection:
             self.connection.close()
-
-
-if __name__ == '__main__':
-    qs = RabbitMQServiceQueue("172.21.23.222", username="dev_gdc", password="s3cr3t", queue_id="test")
-    print(qs.dequeue())
