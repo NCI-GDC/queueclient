@@ -1,5 +1,6 @@
 import collections
 import logging
+import time
 from abc import ABCMeta, abstractmethod
 
 
@@ -12,23 +13,46 @@ class ServiceQueue(object):
         Args:
             queue_id (str): A reasonable identifier for this queue
         """
+        self._is_closing = False
         self.queue_id = queue_id
         self.logger = logging.getLogger(self.__module__ + "." + self.__class__.__name__)
-        self.ping()
-        self.setup()
 
     @abstractmethod
     def setup(self):
         """Implement to initialize the queue for use"""
-        raise NotImplemented("ServiceQueue Initialization not implemented")
+        raise NotImplementedError("ServiceQueue Initialization not implemented")
 
     @abstractmethod
-    def enqueue(self, msg):
-        raise NotImplemented("Method not implemented")
+    def enqueue(self, msg, durable=True):
+        """ Publishes a message to a queue """
+        raise NotImplementedError("Method not implemented")
 
     @abstractmethod
     def dequeue(self):
-        raise NotImplemented("Method not implemented")
+        """ Blocks and read a single entry from the queue and disconnects"""
+        raise NotImplementedError("Method not implemented")
+
+    def consume(self, callback):
+        """ Listens for incoming data in queue
+            Args:
+                callback: function in the form
+                    def callback(msg):
+                        do something
+        """
+        while True:
+
+            if self._is_closing:
+                self._is_closing = False
+                break
+
+            msg = self.dequeue()
+            if msg:
+                callback(msg)
+            time.sleep(5)
+
+    def close(self):
+        """ Close all connections """
+        self._is_closing = True
 
     @abstractmethod
     def status(self):
@@ -36,12 +60,12 @@ class ServiceQueue(object):
         Returns:
             bool: True if queue is active, False otherwise
         """
-        raise NotImplemented("Method not implemented")
+        raise NotImplementedError("Method not implemented")
 
     @abstractmethod
     def ping(self):
         """Used for preliminary verification the queue is usable"""
-        raise NotImplemented("Boom Boom !!! ServiceQueue not implemented properly for use")
+        raise NotImplementedError("Boom Boom !!! ServiceQueue not implemented properly for use")
 
 
 class InMemoryQueue(ServiceQueue):
@@ -54,7 +78,7 @@ class InMemoryQueue(ServiceQueue):
     def setup(self):
         pass
 
-    def enqueue(self, msg):
+    def enqueue(self, msg, durable=False):
         self.q.appendleft(msg)
         return True
 

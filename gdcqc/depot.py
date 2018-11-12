@@ -8,8 +8,13 @@ class DepotServiceQueue(ServiceQueue):
 
     def __init__(self, depot_url, queue_id):
 
-        self.depot_server_url = depot_url
         super(DepotServiceQueue, self).__init__(queue_id=queue_id)
+
+        self._is_closing = False
+        self.depot_server_url = depot_url
+
+        self.setup()
+        self.ping()
 
     def setup(self):
         if self.status() is False:
@@ -24,7 +29,7 @@ class DepotServiceQueue(ServiceQueue):
             self.logger.error(e.message, exc_info=1)
         return False
 
-    def enqueue(self, msg):
+    def enqueue(self, msg, durable=False):
         try:
             url = "{}/delegate/{}".format(self.depot_server_url, self.queue_id)
             response = requests.put(url, json=msg)
