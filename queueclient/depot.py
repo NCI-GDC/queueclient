@@ -1,14 +1,14 @@
 import requests
 from requests import HTTPError
 
-from gdcqc.core import ServiceQueue
+from queueclient.core import QueueClient
 
 
-class DepotServiceQueue(ServiceQueue):
+class DepotQueueClient(QueueClient):
 
     def __init__(self, depot_url, queue_id):
 
-        super(DepotServiceQueue, self).__init__(queue_id=queue_id)
+        super(DepotQueueClient, self).__init__(queue_id=queue_id)
 
         self._is_closing = False
         self.depot_server_url = depot_url
@@ -53,14 +53,14 @@ class DepotServiceQueue(ServiceQueue):
         response = requests.put(url)
         if response.status_code == 200:
             return True
-        raise HTTPError("Depot ServiceQueue could not be setup correctly")
+        raise HTTPError("Depot QueueClient could not be setup correctly")
 
     def ping(self):
 
         ping_url = "{}/".format(self.depot_server_url)
         response = requests.get(url=ping_url)
         if response.status_code != 200:
-            raise HTTPError("Boom Boom !!!, Depot ServiceQueue not reachable @ {}".format(ping_url))
+            raise HTTPError("Boom Boom !!!, Depot QueueClient not reachable @ {}".format(ping_url))
 
         message = response.json()
         self.logger.info("Using Depot Version: {}".format(message["version"]))

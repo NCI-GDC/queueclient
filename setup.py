@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="gdcqc",
+    name="queueclient",
     version="1.0.0",
     description="Generic Queue Client",
     packages=find_packages(exclude=('tests', 'docs')),

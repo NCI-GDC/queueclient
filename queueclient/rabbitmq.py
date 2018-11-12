@@ -1,10 +1,10 @@
 import pika
 from pika.exceptions import ConnectionClosed, ChannelClosed
 
-from gdcqc.core import ServiceQueue
+from queueclient.core import QueueClient
 
 
-class RabbitMQServiceQueue(ServiceQueue):
+class RabbitMQClient(QueueClient):
 
     def __init__(self, host="rabbitmq.service.consul", vhost="/dev",
                  port=5672, queue_id="dev", username="guest", password="guest", durable=True):
@@ -22,7 +22,7 @@ class RabbitMQServiceQueue(ServiceQueue):
         self.params = pika.ConnectionParameters(host=host, heartbeat=600, blocked_connection_timeout=300,
                                                 port=port, virtual_host=vhost, credentials=creds)
 
-        super(RabbitMQServiceQueue, self).__init__(queue_id=queue_id)
+        super(RabbitMQClient, self).__init__(queue_id=queue_id)
 
     def _get_channel(self):
 
@@ -45,6 +45,17 @@ class RabbitMQServiceQueue(ServiceQueue):
         return True
 
     def consume(self, callback):
+        """ Listens for incoming data in queue
+            Args:
+                callback: function in the form
+                    def callback(ch, mtd, props, body):
+                        Args:
+                            ch: current channel
+                            mtd:
+                            props:`
+                            body: response retrieved from queue`
+                        do something
+        """
         channel = self._get_channel()
 
         channel.basic_qos(prefetch_count=1)

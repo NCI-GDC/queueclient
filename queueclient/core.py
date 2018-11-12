@@ -4,7 +4,7 @@ import time
 from abc import ABCMeta, abstractmethod
 
 
-class ServiceQueue(object):
+class QueueClient(object):
 
     __metaclass__ = ABCMeta
 
@@ -20,7 +20,7 @@ class ServiceQueue(object):
     @abstractmethod
     def setup(self):
         """Implement to initialize the queue for use"""
-        raise NotImplementedError("ServiceQueue Initialization not implemented")
+        raise NotImplementedError("QueueClient Initialization not implemented")
 
     @abstractmethod
     def enqueue(self, msg, durable=True):
@@ -65,14 +65,14 @@ class ServiceQueue(object):
     @abstractmethod
     def ping(self):
         """Used for preliminary verification the queue is usable"""
-        raise NotImplementedError("Boom Boom !!! ServiceQueue not implemented properly for use")
+        raise NotImplementedError("Boom Boom !!! QueueClient not implemented properly for use")
 
 
-class InMemoryQueue(ServiceQueue):
+class InMemoryQueueClient(QueueClient):
 
     def __init__(self, queue_id):
 
-        super(InMemoryQueue, self).__init__(queue_id=queue_id)
+        super(InMemoryQueueClient, self).__init__(queue_id=queue_id)
         self.q = collections.deque()
 
     def setup(self):

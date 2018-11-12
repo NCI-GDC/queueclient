@@ -1,13 +1,13 @@
 import json
 import uuid
 
-from gdcqc import InMemoryQueue, DepotServiceQueue, RabbitMQServiceQueue
+from queueclient import InMemoryQueueClient, DepotQueueClient, RabbitMQClient
 
 
 def test_inmemory_queue():
     """Tests initializing supported queue types"""
     # get default queue
-    q = InMemoryQueue(str(uuid.uuid4()))
+    q = InMemoryQueueClient(str(uuid.uuid4()))
     assert q.status() is True
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
@@ -22,7 +22,7 @@ def test_inmemory_queue():
 
 def test_depot_queue(depot_fixture):
     """Tests reading and writing to supported queue types"""
-    q = DepotServiceQueue(depot_fixture, queue_id=str(uuid.uuid4()))
+    q = DepotQueueClient(depot_fixture, queue_id=str(uuid.uuid4()))
     assert q.status() is True
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
@@ -39,7 +39,7 @@ def test_depot_queue(depot_fixture):
 def test_rabbitmq_queue():
     """Tests reading and writing to supported queue types"""
 
-    q = RabbitMQServiceQueue(host="localhost", vhost="/")
+    q = RabbitMQClient(host="localhost", vhost="/")
 
     def consumer_callback(ch, mtd, props, body):
         msg = json.loads(body)

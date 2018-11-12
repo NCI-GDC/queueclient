@@ -11,13 +11,14 @@ implementation based on pythons double ended queue
 Sample usage:
 
 ```python
-    from gdcqc import InMemoryQueue
+    from queueclient import InMemoryQueueClient
     
-    q = InMemoryQueue(queue_id='uuid')
+    q = InMemoryQueueClient(queue_id='uuid')
     
     # msg can be any python object
     q.enqueue(msg="message")
     
+    # from worker
     msg = q.dequeue()
     assert msg == "message"
 
@@ -28,15 +29,21 @@ Sample usage:
 Sample usage:
 
 ```python
-    from gdcqc import DepotServiceQueue
+    from queueclient import DepotQueueClient
     
-    q = DepotServiceQueue("http://depot.service", queue_id="uuid")
+    q = DepotQueueClient("http://depot.service", queue_id="uuid")
     assert q.status() is True
 
     # msg can be any json object
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
+```
 
-    # retrieve
+```python
+    from queueclient import DepotQueueClient
+    
+    q = DepotQueueClient("http://depot.service", queue_id="uuid")
+
+    # retrieve previous message
     msg = q.dequeue()
     assert msg
     assert msg["did"] == "AAAAA"
@@ -50,7 +57,7 @@ Sample usage:
 
 ```python
     import json
-    from gdcqc import RabbitMQServiceQueue
+    from queueclient import RabbitMQClient
     
     # requires a custom call back function, and assumes body is a json object
     def consumer_callback(ch, mtd, props, body):
@@ -61,7 +68,7 @@ Sample usage:
         assert msg["size"] == 123
         ch.basic_ack(delivery_tag=mtd.delivery_tag)
     
-    q = RabbitMQServiceQueue(host="localhost", port=5672, vhost="/", queue_id="qid", username="guest", password="guest")
+    q = RabbitMQClient(host="localhost", port=5672, vhost="/", queue_id="qid", username="guest", password="guest")
     response = q.enqueue(msg=json.dumps(dict(did="AAAAA", size=123)))
     assert response is True
     
