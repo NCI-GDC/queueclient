@@ -19,21 +19,29 @@ class QueueClient(object):
 
     @abstractmethod
     def setup(self):
-        """Implement to initialize the queue for use"""
+        """ Implement this to initialize the queue for use """
         raise NotImplementedError("QueueClient Initialization not implemented")
 
     @abstractmethod
     def enqueue(self, msg, durable=True):
-        """ Publishes a message to a queue """
+        """ Publishes a message to a queue
+        Args:
+            msg (object): JSON serializable object
+            durable (bool): if supported by queue, persist data even if service is restarted
+        """
         raise NotImplementedError("Method not implemented")
 
     @abstractmethod
     def dequeue(self):
-        """ Blocks and read a single entry from the queue and disconnects"""
+        """ Blocks and read a single entry from the queue and disconnects
+        Returns:
+            object: a deserialized object received from queue
+        """
         raise NotImplementedError("Method not implemented")
 
     def consume(self, callback):
-        """ Listens for incoming data in queue
+        """ Listens for incoming data in queue, initial impl uses a simple loop that sleeps for 5 seconds
+            RabbitMQ uses different implementation
             Args:
                 callback: function in the form
                     def callback(msg):
@@ -79,6 +87,9 @@ class InMemoryQueueClient(QueueClient):
         pass
 
     def enqueue(self, msg, durable=False):
+        if durable:
+            raise ValueError("durable functionality is not supported")
+
         self.q.appendleft(msg)
         return True
 

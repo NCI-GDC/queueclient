@@ -30,6 +30,10 @@ class DepotQueueClient(QueueClient):
         return False
 
     def enqueue(self, msg, durable=False):
+
+        if durable:
+            raise ValueError("durable functionality is not supported")
+
         try:
             url = "{}/delegate/{}".format(self.depot_server_url, self.queue_id)
             response = requests.put(url, json=msg)

@@ -1,3 +1,5 @@
+import json
+
 import pika
 from pika.exceptions import ConnectionClosed, ChannelClosed
 
@@ -8,7 +10,16 @@ class RabbitMQClient(QueueClient):
 
     def __init__(self, host="rabbitmq.service.consul", vhost="/dev",
                  port=5672, queue_id="dev", username="guest", password="guest", durable=True):
-
+        """
+        Args:
+            host (str): RabbitMQ server host or IP
+            vhost (str): Virtaul host defined on RabbitMQ
+            port (int): defaults to 5672, the default rabbitmq port
+            queue_id (str): queue name to bind to, created if it does not exist
+            username (str): username
+            password (str): password
+            durable (bool): durable queues survive server restarts
+        """
         self.host = host
         self.port = port
         self.vhost = vhost
@@ -37,10 +48,19 @@ class RabbitMQClient(QueueClient):
         self.channel.queue_declare(self.queue_id, durable=self.durable)
 
     def enqueue(self, msg, durable=True):
-
+        """ Adds an item to the queue `queue-id` using default exchange
+        Args:
+            msg (object): JSON serializable object
+            durable (bool): if True, the entry survives server restart
+        Returns:
+            bool: True
+        """
+        msg = json.dumps(msg)
         channel = self._get_channel()
-        delivery_mode = 2 if durable else 1
+        delivery_mode = 2 if durable else 1  # mode 2 == durable, 1 == not durable
         props = pika.BasicProperties(delivery_mode=delivery_mode)
+
+        # TODO use of non default exchange
         channel.basic_publish('', routing_key=self.queue_id, body=msg, properties=props)
         return True
 
@@ -70,6 +90,7 @@ class RabbitMQClient(QueueClient):
         if body:
             # acknowledge receipt if something was received
             channel.basic_ack(delivery_tag=mtd.delivery_tag)
+        body = json.loads(body)
         return body
 
     def status(self):
