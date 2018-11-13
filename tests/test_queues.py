@@ -44,7 +44,9 @@ def test_rabbitmq_queue():
     rbmq_user = os.environ.get("RABBITMQ_USER", "guest")
     rbmq_pwd = os.environ.get("RABBITMQ_PWD", "guest")
     rbmq_vhost = os.environ.get("RABBITMQ_VHOST", "/")
-    q = RabbitMQClient(host=rbmq_host, vhost=rbmq_vhost, username=rbmq_user, password=rbmq_pwd)
+    rbmq_qid = os.environ.get("RABBITMQ_QUEUE", "xtest")
+    q = RabbitMQClient(host=rbmq_host, vhost=rbmq_vhost, username=rbmq_user,
+                       password=rbmq_pwd, queue_id=rbmq_qid, durable=False)
 
     def consumer_callback(ch, mtd, props, body):
         msg = json.loads(body)
