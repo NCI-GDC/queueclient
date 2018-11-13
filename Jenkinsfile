@@ -24,16 +24,17 @@ pipeline {
                 sh """
                 #. venv/bin/activate
                 export PATH=${VIRTUAL_ENV}/bin:${PATH}
-                tox
+                coverage run --branch --source=queueclient -m pytest -vvvs --junit-xml=.report/pytest.xml
+                coverage html -d .report/coverage
                 """
             }
             post {
                 always {
-                    junit keepLongStdio: true, testResults: 'report/*.xml'
+                    junit keepLongStdio: true, testResults: '.report/*.xml'
                     publishHTML target: [
                         reportDir: 'report/coverage',
                         reportFiles: 'index.html',
-                        reportName: 'Coverage Report - Unit Test'
+                        reportName: 'Coverage Report - PyTest'
                     ]
                 }
             }
