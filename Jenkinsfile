@@ -32,7 +32,7 @@ pipeline {
                 always {
                     junit keepLongStdio: true, testResults: '.report/*.xml'
                     publishHTML target: [
-                        reportDir: 'report/coverage',
+                        reportDir: '.report/coverage',
                         reportFiles: 'index.html',
                         reportName: 'Coverage Report - PyTest'
                     ]
