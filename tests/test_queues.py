@@ -1,4 +1,5 @@
 import json
+import os
 import uuid
 
 from queueclient import InMemoryQueueClient, DepotQueueClient, RabbitMQClient
@@ -39,7 +40,11 @@ def test_depot_queue(depot_fixture):
 def test_rabbitmq_queue():
     """Tests reading and writing to supported queue types"""
 
-    q = RabbitMQClient(host="localhost", vhost="/")
+    rbmq_host = os.environ.get("RABBITMQ_SERVER", "localhost")
+    rbmq_user = os.environ.get("RABBITMQ_USER", "guest")
+    rbmq_pwd = os.environ.get("RABBITMQ_PWD", "guest")
+    rbmq_vhost = os.environ.get("RABBITMQ_VHOST", "/")
+    q = RabbitMQClient(host=rbmq_host, vhost=rbmq_vhost, username=rbmq_user, password=rbmq_pwd)
 
     def consumer_callback(ch, mtd, props, body):
         msg = json.loads(body)
