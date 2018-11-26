@@ -61,8 +61,7 @@ class RabbitMQClient(QueueClient):
         props = pika.BasicProperties(delivery_mode=delivery_mode)
 
         # TODO use of non default exchange
-        channel.basic_publish('', routing_key=self.queue_id, body=msg, properties=props)
-        return True
+        return channel.basic_publish('', routing_key=self.queue_id, body=msg, properties=props)
 
     def consume(self, callback):
         """ Listens for incoming data in queue
