@@ -31,7 +31,7 @@ Sample usage:
 ```python
     from queueclient import DepotQueueClient
     
-    q = DepotQueueClient("http://depot.service", queue_id="uuid")
+    q = DepotQueueClient(host="depot.service.consul", queue_id="uuid")
     assert q.status() is True
 
     # msg can be any json object
@@ -41,7 +41,7 @@ Sample usage:
 ```python
     from queueclient import DepotQueueClient
     
-    q = DepotQueueClient("http://depot.service", queue_id="uuid")
+    q = DepotQueueClient(host="depot.service.consul", queue_id="uuid")
 
     # retrieve previous message
     msg = q.dequeue()
@@ -69,7 +69,7 @@ Sample usage:
         ch.basic_ack(delivery_tag=mtd.delivery_tag)
     
     q = RabbitMQClient(host="localhost", port=5672, vhost="/", queue_id="qid", username="guest", password="guest")
-    response = q.enqueue(msg=json.dumps(dict(did="AAAAA", size=123)))
+    response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
     
     # this line blocks, call q.close() to cancel

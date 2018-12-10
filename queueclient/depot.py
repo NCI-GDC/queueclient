@@ -6,12 +6,12 @@ from queueclient.core import QueueClient
 
 class DepotQueueClient(QueueClient):
 
-    def __init__(self, depot_url, queue_id):
+    def __init__(self, queue_id, host="depot.service.consul",  port=80, version="v0"):
 
         super(DepotQueueClient, self).__init__(queue_id=queue_id)
 
         self._is_closing = False
-        self.depot_server_url = depot_url
+        self.depot_server_url = "http://{}:{}/{}".format(host, port, version)
 
         self.setup()
         self.ping()
@@ -30,7 +30,13 @@ class DepotQueueClient(QueueClient):
         return False
 
     def enqueue(self, msg, durable=False):
-
+        """ Submits a JSON object to Depot Server
+        Args:
+            msg (object): JSON object
+            durable (bool): Not supported by server
+        Returns:
+            bool: True if task was submitted successfully
+        """
         if durable:
             raise ValueError("durable functionality is not supported")
 
@@ -43,6 +49,10 @@ class DepotQueueClient(QueueClient):
         return False
 
     def dequeue(self):
+        """ Retrieves a single JSON object from Depot Server
+        Returns:
+            object: JSON object
+        """
         try:
             url = "{}/work/{}".format(self.depot_server_url, self.queue_id)
             response = requests.get(url)

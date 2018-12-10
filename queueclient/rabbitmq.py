@@ -55,6 +55,7 @@ class RabbitMQClient(QueueClient):
         Returns:
             bool: True
         """
+        # to json
         msg = json.dumps(msg)
         channel = self._get_channel()
         delivery_mode = 2 if durable else 1  # mode 2 == durable, 1 == not durable

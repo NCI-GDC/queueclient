@@ -40,7 +40,7 @@ class QueueClient(object):
         raise NotImplementedError("Method not implemented")
 
     def consume(self, callback):
-        """ Listens for incoming data in queue, initial impl uses a simple loop that sleeps for 5 seconds
+        """ Listens for incoming data in queue, initial impl uses a simple loop that sleeps for 1 second
             RabbitMQ uses different implementation
             Args:
                 callback: function in the form
@@ -56,7 +56,7 @@ class QueueClient(object):
             msg = self.dequeue()
             if msg:
                 callback(msg)
-            time.sleep(5)
+            time.sleep(1)
 
     def close(self):
         """ Close all connections """
