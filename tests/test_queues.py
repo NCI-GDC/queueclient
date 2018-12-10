@@ -39,7 +39,8 @@ def test_listening_inmemory_queue():
 
 def test_depot_queue(depot_fixture):
     """Tests reading and writing to supported queue types"""
-    q = DepotQueueClient(depot_fixture, queue_id=str(uuid.uuid4()))
+    host, port = depot_fixture
+    q = DepotQueueClient(host=host, port=port, queue_id=str(uuid.uuid4()))
     assert q.status() is True
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
@@ -55,7 +56,8 @@ def test_depot_queue(depot_fixture):
 
 def test_listening_depot_queue(depot_fixture):
     # add dummy data to queue
-    q = DepotQueueClient(depot_fixture, queue_id=str(uuid.uuid4()))
+    host, port = depot_fixture
+    q = DepotQueueClient(host=host, port=port, queue_id=str(uuid.uuid4()))
     assert q.status() is True
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))

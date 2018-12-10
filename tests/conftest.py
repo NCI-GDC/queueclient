@@ -38,4 +38,4 @@ def depot_fixture(request):
         # stop Moto server
         mock.stop()
     request.addfinalizer(tear_down)
-    return "http://{}:{}/v0".format(mock.server.host, mock.server.port)
+    return mock.server.host, mock.server.port
