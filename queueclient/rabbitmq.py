@@ -1,4 +1,6 @@
+import functools
 import json
+import threading
 
 import pika
 from pika.exceptions import ConnectionClosed, ChannelClosed
@@ -33,6 +35,7 @@ class RabbitMQClient(QueueClient):
         self.params = pika.ConnectionParameters(host=host, heartbeat=600, blocked_connection_timeout=300,
                                                 port=port, virtual_host=vhost, credentials=creds)
 
+        self.active_consumers = []
         super(RabbitMQClient, self).__init__(queue_id=queue_id)
 
     def _get_channel(self):
@@ -47,14 +50,8 @@ class RabbitMQClient(QueueClient):
         self.channel = self.connection.channel()
         self.channel.queue_declare(self.queue_id, durable=self.durable)
 
-    def enqueue(self, msg, durable=True):
-        """ Adds an item to the queue `queue-id` using default exchange
-        Args:
-            msg (object): JSON serializable object
-            durable (bool): if True, the entry survives server restart
-        Returns:
-            bool: True
-        """
+    def enqueue(self, msg, durable=True, exchange=""):
+
         # to json
         msg = json.dumps(msg)
         channel = self._get_channel()
@@ -62,24 +59,27 @@ class RabbitMQClient(QueueClient):
         props = pika.BasicProperties(delivery_mode=delivery_mode)
 
         # TODO use of non default exchange
-        return channel.basic_publish('', routing_key=self.queue_id, body=msg, properties=props)
+        return channel.basic_publish(exchange, routing_key=self.queue_id, body=msg, properties=props)
 
     def consume(self, callback):
         """ Listens for incoming data in queue
             Args:
                 callback: function in the form
-                    def callback(ch, mtd, props, body):
-                        Args:
-                            ch: current channel
-                            mtd:
-                            props:`
+                    def callback(body):
+                        Args:`
                             body: response retrieved from queue`
                         do something
         """
         channel = self._get_channel()
 
         channel.basic_qos(prefetch_count=1)
-        channel.basic_consume(callback, queue=self.queue_id)
+
+        # async handling for consuming requests so it does not get dropped via heartbeat mechanism
+        # Note: basic_consume has a method signature requirement for its callback function
+        # this partial is to ensure this requirement is met
+        on_basic_consume = functools.partial(self._basic_callback, callback=callback)
+
+        channel.basic_consume(on_basic_consume, queue=self.queue_id)
         channel.start_consuming()
 
     def dequeue(self):
@@ -113,7 +113,37 @@ class RabbitMQClient(QueueClient):
 
     def close(self):
 
+        for t in self.active_consumers:
+            t.join()
+
         if self.channel:
             self.channel.close()
         if self.connection:
             self.connection.close()
+
+    def _basic_callback(self, channel, method, props, body, callback):
+        """ Wraps user provided callback function in a thread """
+        delivery_tag = method.delivery_tag
+        try:
+            t = threading.Thread(target=self._handle_callback, args=(channel, delivery_tag, body, callback))
+            t.start()
+
+            self.active_consumers.append(t)
+        except Exception as e:
+            self.logger.error("Exception while processing request", exc_info=1)
+            raise e
+
+    def _handle_callback(self, channel, delivery_tag, body, callback):
+        """ Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
+        def ack_message():
+            if channel.is_open:
+                channel.basic_ack(delivery_tag)
+            else:
+                self.logger("Channel is already closed, message cannot be acknowledged")
+        try:
+            callback(body)
+            self.connection.add_callback_threadsafe(ack_message)
+
+        except Exception as e:
+            self.logger.error("Exception while processing request", exc_info=1)
+            raise e
