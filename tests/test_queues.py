@@ -2,7 +2,7 @@ import json
 import os
 import uuid
 
-from queueclient import InMemoryQueueClient, DepotQueueClient, RabbitMQClient
+from queueclient import InMemoryQueueClient, DepotQueueClient, RabbitMQClient, QueueFactory
 
 
 def test_inmemory_queue():
@@ -76,12 +76,9 @@ def test_rabbitmq_queue():
     """Tests reading and writing to supported queue types"""
 
     rbmq_host = os.environ.get("RABBITMQ_SERVER", "localhost")
-    rbmq_user = os.environ.get("RABBITMQ_USER", "guest")
-    rbmq_pwd = os.environ.get("RABBITMQ_PWD", "guest")
     rbmq_vhost = os.environ.get("RABBITMQ_VHOST", "/")
     rbmq_qid = os.environ.get("RABBITMQ_QUEUE", "xtest")
-    q = RabbitMQClient(host=rbmq_host, vhost=rbmq_vhost, username=rbmq_user,
-                       password=rbmq_pwd, queue_id=rbmq_qid, durable=False)
+    q = QueueFactory.get_rabbitmq_client(queue_id=rbmq_qid, host=rbmq_host, vhost=rbmq_vhost, durable=False)
 
     def consumer_callback(body):
         msg = json.loads(body)
