@@ -117,6 +117,7 @@ class RabbitMQClient(QueueClient):
             t.join()
 
         if self.channel:
+            self.channel.stop_consuming()
             self.channel.close()
         if self.connection:
             self.connection.close()
@@ -129,9 +130,8 @@ class RabbitMQClient(QueueClient):
             t.start()
 
             self.active_consumers.append(t)
-        except Exception as e:
+        except Exception:
             self.logger.error("Exception while processing request", exc_info=1)
-            raise e
 
     def _handle_callback(self, channel, delivery_tag, body, callback):
         """ Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
@@ -142,8 +142,9 @@ class RabbitMQClient(QueueClient):
                 self.logger("Channel is already closed, message cannot be acknowledged")
         try:
             callback(body)
-            self.connection.add_callback_threadsafe(ack_message)
+
+            if self.connection.is_open:
+                self.connection.add_callback_threadsafe(ack_message)
 
         except Exception as e:
             self.logger.error("Exception while processing request", exc_info=1)
-            raise e

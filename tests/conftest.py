@@ -1,8 +1,11 @@
+import logging
 from threading import Thread
 
 import pytest
 from depot import Depot
 from werkzeug.serving import make_server
+
+logging.basicConfig(level=logging.ERROR)
 
 
 class DepotServer(Thread):
