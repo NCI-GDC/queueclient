@@ -83,14 +83,12 @@ def test_rabbitmq_queue():
     q = RabbitMQClient(host=rbmq_host, vhost=rbmq_vhost, username=rbmq_user,
                        password=rbmq_pwd, queue_id=rbmq_qid, durable=False)
 
-    def consumer_callback(ch, mtd, props, body):
+    def consumer_callback(body):
         msg = json.loads(body)
 
         assert msg
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
-        ch.basic_ack(delivery_tag=mtd.delivery_tag)
-        ch.cancel()
         q.close()
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
