@@ -29,11 +29,12 @@ class DepotQueueClient(QueueClient):
             self.logger.error(e.message, exc_info=1)
         return False
 
-    def enqueue(self, msg, durable=False):
+    def enqueue(self, msg, durable=False, exchange=""):
         """ Submits a JSON object to Depot Server
         Args:
             msg (object): JSON object
             durable (bool): Not supported by server
+            exchange (str): unused attrib
         Returns:
             bool: True if task was submitted successfully
         """

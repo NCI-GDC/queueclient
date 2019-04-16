@@ -35,7 +35,6 @@ class RabbitMQClient(QueueClient):
         self.params = pika.ConnectionParameters(host=host, heartbeat=600, blocked_connection_timeout=300,
                                                 port=port, virtual_host=vhost, credentials=creds)
 
-        self.active_consumers = []
         super(RabbitMQClient, self).__init__(queue_id=queue_id)
 
     def _get_channel(self):
@@ -112,10 +111,6 @@ class RabbitMQClient(QueueClient):
             return False
 
     def close(self):
-
-        for t in self.active_consumers:
-            t.join()
-
         if self.channel:
             self.channel.stop_consuming()
             self.channel.close()
@@ -128,8 +123,7 @@ class RabbitMQClient(QueueClient):
         try:
             t = threading.Thread(target=self._handle_callback, args=(channel, delivery_tag, body, callback))
             t.start()
-
-            self.active_consumers.append(t)
+            t.join()
         except Exception:
             self.logger.error("Exception while processing request", exc_info=1)
 
