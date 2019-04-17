@@ -89,7 +89,11 @@ class RabbitMQClient(QueueClient):
         if body:
             # acknowledge receipt if something was received
             channel.basic_ack(delivery_tag=mtd.delivery_tag)
-        body = json.loads(body)
+
+            # py3 returns bytes
+            if isinstance(body, bytes):
+                body = body.decode("utf-8")
+                body = json.loads(body)
         return body
 
     def status(self):
@@ -135,6 +139,9 @@ class RabbitMQClient(QueueClient):
             else:
                 self.logger("Channel is already closed, message cannot be acknowledged")
         try:
+            # py3 returns bytes
+            if isinstance(body, bytes):
+                body = body.decode("utf-8")
             callback(body)
 
             if self.connection.is_open:
