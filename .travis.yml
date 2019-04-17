@@ -13,4 +13,4 @@ install:
     - pip install -r dev-requirements.txt
     - yes | python setup.py install
 
-script: "pifpaf run rabbitmq -- python -m pytest -vvvs --junit-xml=.report/pytest.xml"
+script: "python -m pytest -vvvs --junit-xml=.report/pytest.xml"
