@@ -1,4 +1,4 @@
 git+ssh://git@github.com/NCI-GDC/depot.git@ae74895c62987c679a228c801fc2db7993734f3b#egg=depot
-pytest
-pytest-cov
+pytest>=4.0.2
+pytest-cov>=2.6.0
 tox
