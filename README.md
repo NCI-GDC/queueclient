@@ -60,13 +60,12 @@ Sample usage:
     from queueclient import RabbitMQClient
     
     # requires a custom call back function, and assumes body is a json object
-    def consumer_callback(ch, mtd, props, body):
+    def consumer_callback(body):
         msg = json.loads(body)
 
         assert msg
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
-        ch.basic_ack(delivery_tag=mtd.delivery_tag)
     
     q = RabbitMQClient(host="localhost", port=5672, vhost="/", queue_id="qid", username="guest", password="guest")
     response = q.enqueue(msg=dict(did="AAAAA", size=123))

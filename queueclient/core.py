@@ -23,11 +23,12 @@ class QueueClient(object):
         raise NotImplementedError("QueueClient Initialization not implemented")
 
     @abstractmethod
-    def enqueue(self, msg, durable=True):
+    def enqueue(self, msg, durable=True, exchange=""):
         """ Publishes a message to a queue
         Args:
             msg (object): JSON serializable object
             durable (bool): if supported by queue, persist data even if service is restarted
+            exchange (str): useful for selectively targeting workers
         """
         raise NotImplementedError("Method not implemented")
 
