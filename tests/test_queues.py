@@ -95,4 +95,4 @@ def test_rabbitmq_queue():
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
-    q.consume(consumer_callback)
+    q.consume(consumer_callback, requeue_failed=False)
