@@ -87,13 +87,18 @@ class RabbitMQClient(QueueClient):
         mtd, props, body = channel.basic_get(self.queue_id)
 
         if body:
-            # acknowledge receipt if something was received
-            channel.basic_ack(delivery_tag=mtd.delivery_tag)
-
-            # py3 returns bytes
-            if isinstance(body, bytes):
-                body = body.decode("utf-8")
+            try:
+                # py3 returns bytes
+                if isinstance(body, bytes):
+                    body = body.decode("utf-8")
                 body = json.loads(body)
+
+                # acknowledge receipt
+                channel.basic_ack(delivery_tag=mtd.delivery_tag)
+            except Exception as e:
+                # requeue failure
+                channel.basic_nack(delivery_tag=mtd.delivery_tag, requeue=True)
+                raise e
         return body
 
     def status(self):
@@ -138,6 +143,10 @@ class RabbitMQClient(QueueClient):
                 channel.basic_ack(delivery_tag)
             else:
                 self.logger("Channel is already closed, message cannot be acknowledged")
+
+        def nack_message():
+            if channel.is_open:
+                channel.basic_nack(delivery_tag=delivery_tag, requeue=True)
         try:
             # py3 returns bytes
             if isinstance(body, bytes):
@@ -147,5 +156,8 @@ class RabbitMQClient(QueueClient):
             if self.connection.is_open:
                 self.connection.add_callback_threadsafe(ack_message)
 
-        except Exception as e:
+        except Exception:
+            if self.connection.is_open:
+                self.connection.add_callback_threadsafe(nack_message)
+
             self.logger.error("Exception while processing request", exc_info=1)

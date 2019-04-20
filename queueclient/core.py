@@ -40,13 +40,14 @@ class QueueClient(object):
         """
         raise NotImplementedError("Method not implemented")
 
-    def consume(self, callback):
+    def consume(self, callback, requeue_failed=True):
         """ Listens for incoming data in queue, initial impl uses a simple loop that sleeps for 1 second
             RabbitMQ uses different implementation
             Args:
                 callback: function in the form
                     def callback(msg):
                         do something
+                requeue_failed (bool): requeue failed messages
         """
         while True:
 
@@ -56,7 +57,12 @@ class QueueClient(object):
 
             msg = self.dequeue()
             if msg:
-                callback(msg)
+                try:
+                    callback(msg)
+                except Exception:
+                    if requeue_failed:
+                        self.enqueue(msg)
+                    self.logger.error("Exception while processing request", exc_info=1)
             time.sleep(1)
 
     def close(self):
@@ -87,7 +93,7 @@ class InMemoryQueueClient(QueueClient):
     def setup(self):
         pass
 
-    def enqueue(self, msg, durable=False):
+    def enqueue(self, msg, durable=False, exchange=""):
         if durable:
             raise ValueError("durable functionality is not supported")
 
