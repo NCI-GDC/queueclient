@@ -96,3 +96,25 @@ def test_rabbitmq_queue():
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
     q.consume(consumer_callback, requeue_failed=False)
+
+
+def test_on_failure_callback():
+    rbmq_host = os.environ.get("RABBITMQ_SERVER", "localhost")
+    rbmq_vhost = os.environ.get("RABBITMQ_VHOST", "/")
+    rbmq_qid = os.environ.get("RABBITMQ_QUEUE", "xtest")
+    q = QueueFactory.get_rabbitmq_client(queue_id=rbmq_qid, host=rbmq_host, vhost=rbmq_vhost, durable=False)
+
+    def consumer_callback(body):
+        raise ValueError("misunderstood teens")
+
+    def f_call(body):
+        msg = json.loads(body)
+
+        assert msg
+        assert msg["did"] == "AAAAA"
+        assert msg["size"] == 123
+        q.close()
+
+    response = q.enqueue(msg=dict(did="AAAAA", size=123))
+    assert response is True
+    q.consume(consumer_callback, requeue_failed=False, on_failure_callback=f_call)

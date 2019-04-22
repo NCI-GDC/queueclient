@@ -40,7 +40,7 @@ class QueueClient(object):
         """
         raise NotImplementedError("Method not implemented")
 
-    def consume(self, callback, requeue_failed=True):
+    def consume(self, callback, requeue_failed=True, on_failure_callback=None):
         """ Listens for incoming data in queue, initial impl uses a simple loop that sleeps for 1 second
             RabbitMQ uses different implementation
             Args:
@@ -48,6 +48,7 @@ class QueueClient(object):
                     def callback(msg):
                         do something
                 requeue_failed (bool): requeue failed messages
+                on_failure_callback (function): external handling of failed tasks, same signature as callback
         """
         while True:
 
@@ -62,6 +63,8 @@ class QueueClient(object):
                 except Exception:
                     if requeue_failed:
                         self.enqueue(msg)
+                    if on_failure_callback:
+                        on_failure_callback(msg)
                     self.logger.error("Exception while processing request", exc_info=1)
             time.sleep(1)
 

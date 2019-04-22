@@ -60,7 +60,7 @@ class RabbitMQClient(QueueClient):
         # TODO use of non default exchange
         return channel.basic_publish(exchange, routing_key=self.queue_id, body=msg, properties=props)
 
-    def consume(self, callback, requeue_failed=True):
+    def consume(self, callback, requeue_failed=True, on_failure_callback=None):
         """ Listens for incoming data in queue
             Args:
                 callback: function in the form
@@ -68,6 +68,8 @@ class RabbitMQClient(QueueClient):
                         Args:`
                             body: response retrieved from queue`
                         do something
+                requeue_failed (bool): If True requeue task on failure
+                on_failure_callback (function): external handling of failed tasks, same signature as callback
         """
         channel = self._get_channel()
 
@@ -76,7 +78,10 @@ class RabbitMQClient(QueueClient):
         # async handling for consuming requests so it does not get dropped via heartbeat mechanism
         # Note: basic_consume has a method signature requirement for its callback function
         # this partial is to ensure this requirement is met
-        on_basic_consume = functools.partial(self._basic_callback, callback=callback, requeue_failed=requeue_failed)
+        on_basic_consume = functools.partial(self._basic_callback,
+                                             callback=callback,
+                                             requeue_failed=requeue_failed,
+                                             on_failure=on_failure_callback)
 
         channel.basic_consume(on_basic_consume, queue=self.queue_id)
         channel.start_consuming()
@@ -126,18 +131,18 @@ class RabbitMQClient(QueueClient):
         if self.connection:
             self.connection.close()
 
-    def _basic_callback(self, channel, method, props, body, callback, requeue_failed=True):
+    def _basic_callback(self, channel, method, props, body, callback, requeue_failed=True, on_failure=None):
         """ Wraps user provided callback function in a thread """
         delivery_tag = method.delivery_tag
         try:
             t = threading.Thread(target=self._handle_callback,
-                                 args=(channel, delivery_tag, body, callback, requeue_failed))
+                                 args=(channel, delivery_tag, body, callback, requeue_failed, on_failure))
             t.start()
             t.join()
         except Exception:
             self.logger.error("Exception while processing request", exc_info=1)
 
-    def _handle_callback(self, channel, delivery_tag, body, callback, requeue_failed=True):
+    def _handle_callback(self, channel, delivery_tag, body, callback, requeue_failed=True, on_failure=None):
         """ Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
         def ack_message():
             if channel.is_open:
@@ -148,6 +153,8 @@ class RabbitMQClient(QueueClient):
         def nack_message():
             if channel.is_open:
                 channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue_failed)
+            on_failure(body)
+
         try:
             # py3 returns bytes
             if isinstance(body, bytes):
