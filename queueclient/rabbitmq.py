@@ -153,7 +153,8 @@ class RabbitMQClient(QueueClient):
         def nack_message():
             if channel.is_open:
                 channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue_failed)
-            on_failure(body)
+            if on_failure:
+                on_failure(body)
 
         try:
             # py3 returns bytes
