@@ -33,7 +33,7 @@ class QueueClient(object):
         raise NotImplementedError("Method not implemented")
 
     @abstractmethod
-    def dequeue(self):
+    def dequeue(self, requeue=True):
         """ Blocks and read a single entry from the queue and disconnects
         Returns:
             object: a deserialized object received from queue
@@ -60,12 +60,12 @@ class QueueClient(object):
             if msg:
                 try:
                     callback(msg)
-                except Exception:
+                except Exception as e:
                     if requeue_failed:
                         self.enqueue(msg)
                     if on_failure_callback:
                         on_failure_callback(msg)
-                    self.logger.error("Exception while processing request", exc_info=1)
+                    self.logger.error("Exception while processing request {}".format(e), exc_info=1)
             time.sleep(1)
 
     def close(self):

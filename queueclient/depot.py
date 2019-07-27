@@ -49,7 +49,7 @@ class DepotQueueClient(QueueClient):
             self.logger.error(e.message, exc_info=1)
         return False
 
-    def dequeue(self):
+    def dequeue(self, requeue=True):
         """ Retrieves a single JSON object from Depot Server
         Returns:
             object: JSON object
@@ -60,7 +60,7 @@ class DepotQueueClient(QueueClient):
             if response.status_code == 200:
                 return response.json()
         except HTTPError as e:
-            self.logger.error(e.message, exc_info=1)
+            self.logger.error(e, exc_info=1)
         return None
 
     def _create(self):
