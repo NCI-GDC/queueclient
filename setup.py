@@ -8,6 +8,6 @@ setup(
     install_requires=[
         "pika==1.1.0",
         "requests>=2.7",
-        "simplejson=1.36.0"
+        "simplejson==3.16.0"
     ]
 )
