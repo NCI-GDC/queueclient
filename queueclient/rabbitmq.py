@@ -44,12 +44,13 @@ class RabbitMQClient(QueueClient):
         except Exception as e:
             raise ValueError("RabbitMQ connection unsuccessful %s", e)
 
-    def enqueue(self, msg, durable=True, routing_key="queueclient"):
+    def enqueue(self, msg, durable=True, routing_key=None):
         if not isinstance(self.client, RabbitPublisher):
             self.client = RabbitPublisher(self.host, self.vhost, self.port,
                                           self.queue_id, self.username, self.password, self.durable, self.exchange,
                                           self.exchange_type, self.routing_key)
             self.connect()
+        routing_key = routing_key or self.routing_key
         self.client.basic_publish(msg, durable, routing_key)
         return True
 
@@ -197,10 +198,11 @@ class RabbitConsumer(RabbitConnection):
         self.logger.error('Channel %i closed: %s', channel, reason)
 
     def on_exchange_declare_ok(self, _header):
-        self.channel.queue_declare(self.queue_id, durable=self.durable, callback=self.on_queue_declare_ok)
+        self.channel.queue_declare(queue=self.queue_id, durable=self.durable, callback=self.on_queue_declare_ok)
 
     def on_queue_declare_ok(self, _header):
-        self.channel.queue_bind(self.queue_id, self.exchange, routing_key=self.routing_key, callback=self.on_bind_ok)
+        self.channel.queue_bind(queue=self.queue_id, exchange=self.exchange,
+                                routing_key=self.routing_key, callback=self.on_bind_ok)
 
     def on_bind_ok(self, _header):
         self.channel.basic_qos(prefetch_count=1, callback=self.on_basic_qos_ok)
@@ -212,7 +214,7 @@ class RabbitConsumer(RabbitConnection):
                                              callback=self._callback,
                                              requeue_failed=self._requeue_failed,
                                              on_failure=self._on_failure_callback)
-        self.consumer_tag = self.channel.basic_consume(self.queue_id, on_basic_consume)
+        self.consumer_tag = self.channel.basic_consume(queue=self.queue_id, consumer_callback=on_basic_consume)
         self._is_consuming = True
 
     def on_consumer_cancelled(self, _frame):
@@ -261,7 +263,7 @@ class RabbitConsumer(RabbitConnection):
             self._is_closing = True
             self.logger.info('Stopping')
             if self._is_consuming:
-                self.channel.basic_cancel(self.consumer_tag, self.on_cancel_ok)
+                self.channel.basic_cancel(consumer_tag=self.consumer_tag, callback=self.on_cancel_ok)
                 self.connection.ioloop.start()
             else:
                 self.connection.ioloop.stop()
@@ -278,7 +280,7 @@ class RabbitPublisher(RabbitConnection):
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange=self.exchange, exchange_type=self.exchange_type, durable=self.durable)
         self.channel.queue_declare(self.queue_id, durable=self.durable)
-        self.channel.queue_bind(self.queue_id, self.exchange, routing_key=self.routing_key)
+        self.channel.queue_bind(queue=self.queue_id, exchange=self.exchange, routing_key=self.routing_key)
         self.logger.debug("Blocking Connection established to {}".format(self.conn_params))
 
     def basic_publish(self, msg, durability, routing_key):
