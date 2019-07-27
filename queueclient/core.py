@@ -18,17 +18,17 @@ class QueueClient(object):
         self.logger = logging.getLogger(self.__module__ + "." + self.__class__.__name__)
 
     @abstractmethod
-    def setup(self):
+    def connect(self):
         """ Implement this to initialize the queue for use """
         raise NotImplementedError("QueueClient Initialization not implemented")
 
     @abstractmethod
-    def enqueue(self, msg, durable=True, exchange=""):
+    def enqueue(self, msg, durable=True, routing_key=""):
         """ Publishes a message to a queue
         Args:
             msg (object): JSON serializable object
             durable (bool): if supported by queue, persist data even if service is restarted
-            exchange (str): useful for selectively targeting workers
+            routing_key (str): useful for selectively targeting workers
         """
         raise NotImplementedError("Method not implemented")
 
@@ -93,10 +93,10 @@ class InMemoryQueueClient(QueueClient):
         super(InMemoryQueueClient, self).__init__(queue_id=queue_id)
         self.q = collections.deque()
 
-    def setup(self):
+    def connect(self):
         pass
 
-    def enqueue(self, msg, durable=False, exchange=""):
+    def enqueue(self, msg, durable=False, routing_key=""):
         if durable:
             raise ValueError("durable functionality is not supported")
 

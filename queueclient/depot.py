@@ -13,10 +13,10 @@ class DepotQueueClient(QueueClient):
         self._is_closing = False
         self.depot_server_url = "http://{}:{}/{}".format(host, port, version)
 
-        self.setup()
+        self.connect()
         self.ping()
 
-    def setup(self):
+    def connect(self):
         if self.status() is False:
             self._create()
 
@@ -29,12 +29,12 @@ class DepotQueueClient(QueueClient):
             self.logger.error(e.message, exc_info=1)
         return False
 
-    def enqueue(self, msg, durable=False, exchange=""):
+    def enqueue(self, msg, durable=False, routing_key=""):
         """ Submits a JSON object to Depot Server
         Args:
             msg (object): JSON object
             durable (bool): Not supported by server
-            exchange (str): unused attrib
+            routing_key (str): unused attrib
         Returns:
             bool: True if task was submitted successfully
         """
