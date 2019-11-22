@@ -110,3 +110,4 @@ src/
 *.log.*
 *.tmp
 *.fx*
+*.swp
