@@ -49,7 +49,6 @@ def test_depot_queue(depot_fixture):
     assert q.status() is True
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
-
     assert response is True
 
     # retrieve
@@ -57,6 +56,15 @@ def test_depot_queue(depot_fixture):
     assert msg
     assert msg["did"] == "AAAAA"
     assert msg["size"] == 123
+
+    response = q.enqueue(msg=dict(did="BBBBB", size=321))
+    assert response is True
+
+    q.clear()
+    msg = q.dequeue()
+    assert msg is None, "No work should be left to do because queue has been cleared"
+
+
 
 
 def test_listening_depot_queue(depot_fixture):

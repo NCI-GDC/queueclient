@@ -63,6 +63,10 @@ class DepotQueueClient(QueueClient):
             self.logger.error(e, exc_info=1)
         return None
 
+    def clear(self):
+        r = requests.put('{}/clear/{}'.format(self.depot_server_url, self.queue_id))
+        return r.status_code == 200
+
     def _create(self):
         url = "{}/new/{}".format(self.depot_server_url, self.queue_id)
         response = requests.put(url)
