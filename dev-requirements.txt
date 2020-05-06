@@ -2,3 +2,5 @@ git+ssh://git@github.com/NCI-GDC/depot.git@ae74895c62987c679a228c801fc2db7993734
 pytest>=4.0.2
 pytest-cov>=2.6.0
 tox
+pre-commit==1.21.0
+cfgv==2.0.1
