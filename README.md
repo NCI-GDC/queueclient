@@ -100,4 +100,20 @@ detect-secrets scan --update .secrets.baseline
 detect-secrets audit .secrets.baseline
 ```
 
+### Running Test
+Tests uses [pifpaf](https://pypi.org/project/pifpaf/) to spin up daemon rabbitmq-server locally which requires RabbitMQ installed, to install on ubuntu
+```bash
+$ sudo apt install rabbitmq-server
+```
 
+run tests via tox
+```bash 
+$ tox
+```
+
+or manually
+```bash
+$ python -m pip install .
+$ python -m pip install -r dev-requirements.txt
+$ pifpaf run rabbitmq -- python -m pytest
+```
