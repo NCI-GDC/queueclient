@@ -6,14 +6,22 @@
 #
 attrs==22.2.0
     # via pytest
+cffi==1.15.1
+    # via xattr
 click==8.0.4
-    # via flask
+    # via
+    #   flask
+    #   pifpaf
 coverage[toml]==6.2
     # via pytest-cov
+daiquiri==3.2.1
+    # via pifpaf
 dataclasses==0.8
     # via werkzeug
 depot @ git+ssh://git@github.com/NCI-GDC/depot.git@0.0.1
     # via -r dev-requirements.in
+fixtures==4.0.1
+    # via pifpaf
 flask==2.0.3
     # via depot
 importlib-metadata==4.8.3
@@ -26,15 +34,27 @@ iniconfig==1.1.1
 itsdangerous==2.0.1
     # via flask
 jinja2==3.0.3
-    # via flask
+    # via
+    #   flask
+    #   pifpaf
 markupsafe==2.0.1
     # via jinja2
 packaging==21.3
     # via pytest
+pbr==5.11.1
+    # via
+    #   fixtures
+    #   pifpaf
+pifpaf==3.1.5
+    # via -r dev-requirements.in
 pluggy==1.0.0
     # via pytest
+psutil==5.9.4
+    # via pifpaf
 py==1.11.0
     # via pytest
+pycparser==2.21
+    # via cffi
 pyparsing==3.0.9
     # via packaging
 pytest==7.0.1
@@ -43,6 +63,8 @@ pytest==7.0.1
     #   pytest-cov
 pytest-cov==4.0.0
     # via -r dev-requirements.in
+python-json-logger==2.0.6
+    # via daiquiri
 tomli==1.2.3
     # via
     #   coverage
@@ -51,5 +73,7 @@ typing-extensions==4.1.1
     # via importlib-metadata
 werkzeug==2.0.3
     # via flask
+xattr==0.10.1
+    # via pifpaf
 zipp==3.6.0
     # via importlib-metadata
