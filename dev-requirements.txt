@@ -1,7 +1,7 @@
 git+ssh://git@github.com/NCI-GDC/depot.git@0.0.1#egg=depot
 pytest>=4.0.2
 pytest-cov>=2.6.0
-pifpaf
+pifpaf<2.1      # for python35
 tox
 pre-commit==1.21.0
 cfgv==2.0.1
