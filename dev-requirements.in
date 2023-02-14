@@ -1,0 +1,9 @@
+-c requirements.txt
+
+pytest
+pytest-cov
+tox
+pifpaf<2.1      # for python35
+daiquiri<=1.3   # for python36 used by pifpaf
+
+git+ssh://git@github.com/NCI-GDC/depot.git@0.0.1#egg=depot
