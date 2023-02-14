@@ -1,0 +1,6 @@
+-c requirements.txt
+
+pytest
+pytest-cov
+
+git+ssh://git@github.com/NCI-GDC/depot.git@0.0.1#egg=depot
