@@ -1,3 +1,6 @@
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commitlogoColor=white)](https://github.com/pre-commit/pre-commit)
+
+---
 ## Quick Guide
 
 Simple queue client which provides a generic interface for interacting with multiple queuing systems, currently supports:
@@ -73,4 +76,44 @@ Sample usage:
     
     # this line blocks, call q.close() to cancel
     q.consume(consumer_callback)
+```
+
+    
+## Setup pre-commit hook to check for secrets
+
+We use [pre-commit](https://pre-commit.com/) to setup pre-commit hooks for this repo.
+We use [detect-secrets](https://github.com/Yelp/detect-secrets) to search for secrets being committed into the repo. 
+
+To install the pre-commit hook, run
+```
+pre-commit install
+```
+
+To update the .secrets.baseline file run
+```
+detect-secrets scan --update .secrets.baseline
+```
+
+`.secrets.baseline` contains all the string that were caught by detect-secrets but are not stored in plain text. Audit the baseline to view the secrets . 
+
+```
+detect-secrets audit .secrets.baseline
+```
+
+### Running Test
+Tests uses [pifpaf](https://pypi.org/project/pifpaf/) to spin up daemon rabbitmq-server locally which requires RabbitMQ installed, to install on ubuntu
+```bash
+$ sudo apt install rabbitmq-server
+```
+
+run tests via tox
+```bash 
+$ tox
+```
+
+or manually
+```bash
+$ python -m pip install .
+$ python -m pip install -r dev-requirements.txt
+$ pifpaf run rabbitmq -- python -m pytest
 ```
