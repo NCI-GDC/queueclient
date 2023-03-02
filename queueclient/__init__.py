@@ -6,10 +6,16 @@ from queueclient.rabbitmq import RabbitMQClient
 
 
 class QueueFactory(object):
-
     @staticmethod
-    def get_rabbitmq_client(queue_id, host="rabbitmq.service.consul", vhost="/dev",
-                            port=5672, username="guest", password="guest", durable=True):
+    def get_rabbitmq_client(
+        queue_id,
+        host="rabbitmq.service.consul",
+        vhost="/dev",
+        port=5672,
+        username="guest",
+        password="guest",
+        durable=True,
+    ):
 
         rabbitmq_url = os.environ.get("RABBITMQ_SERVER", host)
         rabbitmq_port = int(os.environ.get("RABBITMQ_PORT", port))
@@ -17,16 +23,20 @@ class QueueFactory(object):
         rabbitmq_user = os.environ.get("RABBITMQ_USER", username)
         rabbitmq_pwd = os.environ.get("RABBITMQ_PWD", password)
 
-        return RabbitMQClient(host=rabbitmq_url,
-                              port=rabbitmq_port,
-                              vhost=rabbitmq_vhost,
-                              queue_id=queue_id,
-                              username=rabbitmq_user,
-                              password=rabbitmq_pwd,
-                              durable=durable)
+        return RabbitMQClient(
+            host=rabbitmq_url,
+            port=rabbitmq_port,
+            vhost=rabbitmq_vhost,
+            queue_id=queue_id,
+            username=rabbitmq_user,
+            password=rabbitmq_pwd,
+            durable=durable,
+        )
 
     @staticmethod
-    def get_depot_client(queue_id, host="depot.service.consul",  port=80, version="v0"):
+    def get_depot_client(queue_id, host="depot.service.consul", port=80, version="v0"):
         depot_server = os.environ.get("DEPOT_SERVER", host)
         depot_port = int(os.environ.get("DEPOT_PORT", port))
-        return DepotQueueClient(host=depot_server, queue_id=queue_id, port=depot_port, version=version)
+        return DepotQueueClient(
+            host=depot_server, queue_id=queue_id, port=depot_port, version=version
+        )

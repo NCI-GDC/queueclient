@@ -5,8 +5,7 @@ from queueclient.core import QueueClient
 
 
 class DepotQueueClient(QueueClient):
-
-    def __init__(self, queue_id, host="depot.service.consul",  port=80, version="v0"):
+    def __init__(self, queue_id, host="depot.service.consul", port=80, version="v0"):
 
         super(DepotQueueClient, self).__init__(queue_id=queue_id)
 
@@ -30,7 +29,7 @@ class DepotQueueClient(QueueClient):
         return False
 
     def enqueue(self, msg, durable=False, routing_key=""):
-        """ Submits a JSON object to Depot Server
+        """Submits a JSON object to Depot Server
         Args:
             msg (object): JSON object
             durable (bool): Not supported by server
@@ -50,7 +49,7 @@ class DepotQueueClient(QueueClient):
         return False
 
     def dequeue(self, requeue=True):
-        """ Retrieves a single JSON object from Depot Server
+        """Retrieves a single JSON object from Depot Server
         Returns:
             object: JSON object
         """
@@ -64,7 +63,7 @@ class DepotQueueClient(QueueClient):
         return None
 
     def clear(self):
-        r = requests.put('{}/clear/{}'.format(self.depot_server_url, self.queue_id))
+        r = requests.put("{}/clear/{}".format(self.depot_server_url, self.queue_id))
         return r.status_code == 200
 
     def _create(self):
@@ -79,7 +78,9 @@ class DepotQueueClient(QueueClient):
         ping_url = "{}/".format(self.depot_server_url)
         response = requests.get(url=ping_url)
         if response.status_code != 200:
-            raise HTTPError("Boom Boom !!!, Depot QueueClient not reachable @ {}".format(ping_url))
+            raise HTTPError(
+                "Boom Boom !!!, Depot QueueClient not reachable @ {}".format(ping_url)
+            )
 
         message = response.json()
         self.logger.info("Using Depot Version: {}".format(message["version"]))
