@@ -7,10 +7,10 @@ from queueclient.core import QueueClient
 class DepotQueueClient(QueueClient):
     def __init__(self, queue_id, host="depot.service.consul", port=80, version="v0"):
 
-        super(DepotQueueClient, self).__init__(queue_id=queue_id)
+        super().__init__(queue_id=queue_id)
 
         self._is_closing = False
-        self.depot_server_url = "http://{}:{}/{}".format(host, port, version)
+        self.depot_server_url = f"http://{host}:{port}/{version}"
 
         self.connect()
         self.ping()
@@ -21,7 +21,7 @@ class DepotQueueClient(QueueClient):
 
     def status(self):
         try:
-            url = "{}/status/{}".format(self.depot_server_url, self.queue_id)
+            url = f"{self.depot_server_url}/status/{self.queue_id}"
             response = requests.get(url)
             return response.status_code == 200
         except HTTPError as e:
@@ -41,7 +41,7 @@ class DepotQueueClient(QueueClient):
             raise ValueError("durable functionality is not supported")
 
         try:
-            url = "{}/delegate/{}".format(self.depot_server_url, self.queue_id)
+            url = f"{self.depot_server_url}/delegate/{self.queue_id}"
             response = requests.put(url, json=msg)
             return response.status_code == 200
         except HTTPError as e:
@@ -54,7 +54,7 @@ class DepotQueueClient(QueueClient):
             object: JSON object
         """
         try:
-            url = "{}/work/{}".format(self.depot_server_url, self.queue_id)
+            url = f"{self.depot_server_url}/work/{self.queue_id}"
             response = requests.get(url)
             if response.status_code == 200:
                 return response.json()
@@ -63,11 +63,11 @@ class DepotQueueClient(QueueClient):
         return None
 
     def clear(self):
-        r = requests.put("{}/clear/{}".format(self.depot_server_url, self.queue_id))
+        r = requests.put(f"{self.depot_server_url}/clear/{self.queue_id}")
         return r.status_code == 200
 
     def _create(self):
-        url = "{}/new/{}".format(self.depot_server_url, self.queue_id)
+        url = f"{self.depot_server_url}/new/{self.queue_id}"
         response = requests.put(url)
         if response.status_code == 200:
             return True
@@ -75,11 +75,11 @@ class DepotQueueClient(QueueClient):
 
     def ping(self):
 
-        ping_url = "{}/".format(self.depot_server_url)
+        ping_url = f"{self.depot_server_url}/"
         response = requests.get(url=ping_url)
         if response.status_code != 200:
             raise HTTPError(
-                "Boom Boom !!!, Depot QueueClient not reachable @ {}".format(ping_url)
+                f"Boom Boom !!!, Depot QueueClient not reachable @ {ping_url}"
             )
 
         message = response.json()

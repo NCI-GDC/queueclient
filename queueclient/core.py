@@ -4,7 +4,7 @@ import time
 from abc import ABCMeta, abstractmethod
 
 
-class QueueClient(object):
+class QueueClient:
 
     __metaclass__ = ABCMeta
 
@@ -66,7 +66,7 @@ class QueueClient(object):
                     if on_failure_callback:
                         on_failure_callback(msg)
                     self.logger.error(
-                        "Exception while processing request {}".format(e), exc_info=1
+                        f"Exception while processing request {e}", exc_info=1
                     )
             time.sleep(1)
 
@@ -93,7 +93,7 @@ class QueueClient(object):
 class InMemoryQueueClient(QueueClient):
     def __init__(self, queue_id):
 
-        super(InMemoryQueueClient, self).__init__(queue_id=queue_id)
+        super().__init__(queue_id=queue_id)
         self.q = collections.deque()
 
     def connect(self):

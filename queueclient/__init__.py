@@ -5,7 +5,7 @@ from queueclient.depot import DepotQueueClient
 from queueclient.rabbitmq import RabbitMQClient
 
 
-class QueueFactory(object):
+class QueueFactory:
     @staticmethod
     def get_rabbitmq_client(
         queue_id,

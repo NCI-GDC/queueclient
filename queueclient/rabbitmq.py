@@ -33,7 +33,7 @@ class RabbitMQClient(QueueClient):
             durable (bool): durable queues survive server restarts
         """
 
-        super(RabbitMQClient, self).__init__(queue_id=queue_id)
+        super().__init__(queue_id=queue_id)
 
         self.host = host
         self.port = port
@@ -172,7 +172,7 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_connection_closed(self, _conn, reason):
         self.channel = None
-        self.logger.error("Connection closed unexpectedly {}, {}".format(_conn, reason))
+        self.logger.error(f"Connection closed unexpectedly {_conn}, {reason}")
         if self._is_closing:
             # closing is intentional
             self.connection.ioloop.stop()
@@ -299,9 +299,7 @@ class RabbitConsumer(RabbitMQClient):
             ack_message()
         except Exception as e:
             nack_message()
-            self.logger.error(
-                "Exception while processing request {}".format(e), exc_info=1
-            )
+            self.logger.error(f"Exception while processing request {e}", exc_info=1)
 
     def start(self):
         self.connection.ioloop.start()
@@ -346,9 +344,7 @@ class RabbitPublisher(RabbitMQClient):
                 exchange=self.exchange,
                 routing_key=self.routing_key,
             )
-        self.logger.debug(
-            "Blocking Connection established to {}".format(self.conn_params)
-        )
+        self.logger.debug(f"Blocking Connection established to {self.conn_params}")
 
     def basic_publish(self, msg, durability, routing_key):
 
@@ -370,7 +366,7 @@ class RabbitPublisher(RabbitMQClient):
             )
         except pika.exceptions.UnroutableError as e:
             self.logger.error(
-                "Message could not be routed to queue with error {}".format(e),
+                f"Message could not be routed to queue with error {e}",
                 exc_info=1,
             )
 
