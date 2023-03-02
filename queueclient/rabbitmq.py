@@ -8,10 +8,20 @@ from queueclient.core import QueueClient
 
 
 class RabbitMQClient(QueueClient):
-
-    def __init__(self, host="localhost", vhost="/dev",
-                 port=5672, queue_id="dev", username="guest", password="guest", durable=True,
-                 exchange=None, exchange_type=None, routing_key=None, heartbeat=0):
+    def __init__(
+        self,
+        host="localhost",
+        vhost="/dev",
+        port=5672,
+        queue_id="dev",
+        username="guest",
+        password="guest",
+        durable=True,
+        exchange=None,
+        exchange_type=None,
+        routing_key=None,
+        heartbeat=0,
+    ):
         """
         Args:
             host (str): RabbitMQ server host or IP
@@ -49,10 +59,14 @@ class RabbitMQClient(QueueClient):
         self._is_consuming = False
 
         credentials = pika.PlainCredentials(username, password, erase_on_connect=True)
-        self.conn_params = pika.ConnectionParameters(host=host,
-                                                     heartbeat=self.heartbeat,
-                                                     blocked_connection_timeout=300,
-                                                     port=port, virtual_host=vhost, credentials=credentials)
+        self.conn_params = pika.ConnectionParameters(
+            host=host,
+            heartbeat=self.heartbeat,
+            blocked_connection_timeout=300,
+            port=port,
+            virtual_host=vhost,
+            credentials=credentials,
+        )
 
         self.client = None
 
@@ -64,29 +78,47 @@ class RabbitMQClient(QueueClient):
 
     def enqueue(self, msg, durable=True, routing_key=None):
         if not isinstance(self.client, RabbitPublisher):
-            self.client = RabbitPublisher(self.host, self.v_host, self.port,
-                                          self.queue_id, self.username, self.password, self.durable, self.exchange,
-                                          self.exchange_type, self.routing_key)
+            self.client = RabbitPublisher(
+                self.host,
+                self.v_host,
+                self.port,
+                self.queue_id,
+                self.username,
+                self.password,
+                self.durable,
+                self.exchange,
+                self.exchange_type,
+                self.routing_key,
+            )
             self.connect()
         routing_key = routing_key or self.routing_key or self.queue_id
         self.client.basic_publish(msg, durable, routing_key)
         return True
 
     def consume(self, callback, requeue_failed=True, on_failure_callback=None):
-        """ Listens for incoming data in queue
-            Args:
-                callback: function in the form
-                    def callback(body):
-                        Args:`
-                            body: response retrieved from queue`
-                        do something
-                requeue_failed (bool): If True requeue task on failure
-                on_failure_callback (function): external handling of failed tasks, same signature as callback
+        """Listens for incoming data in queue
+        Args:
+            callback: function in the form
+                def callback(body):
+                    Args:`
+                        body: response retrieved from queue`
+                    do something
+            requeue_failed (bool): If True requeue task on failure
+            on_failure_callback (function): external handling of failed tasks, same signature as callback
         """
 
-        self.client = RabbitConsumer(self.host, self.v_host, self.port,
-                                     self.queue_id, self.username, self.password, self.durable, self.exchange,
-                                     self.exchange_type, self.routing_key)
+        self.client = RabbitConsumer(
+            self.host,
+            self.v_host,
+            self.port,
+            self.queue_id,
+            self.username,
+            self.password,
+            self.durable,
+            self.exchange,
+            self.exchange_type,
+            self.routing_key,
+        )
         self.client._callback = callback
         self.client._requeue_failed = requeue_failed
         self.client._on_failure_callback = on_failure_callback
@@ -95,11 +127,20 @@ class RabbitMQClient(QueueClient):
         self.client.start()
 
     def dequeue(self, requeue=True):
-        """ Opens connection, performs consume and closes connection, returns response.  """
+        """Opens connection, performs consume and closes connection, returns response."""
 
-        self.client = RabbitPublisher(self.host, self.v_host, self.port,
-                                      self.queue_id, self.username, self.password, self.durable, self.exchange,
-                                      self.exchange_type, self.routing_key)
+        self.client = RabbitPublisher(
+            self.host,
+            self.v_host,
+            self.port,
+            self.queue_id,
+            self.username,
+            self.password,
+            self.durable,
+            self.exchange,
+            self.exchange_type,
+            self.routing_key,
+        )
 
         self.connect()
         body = self.client.basic_get(requeue)
@@ -110,7 +151,7 @@ class RabbitMQClient(QueueClient):
         return self.client.channel.is_open()
 
     def ping(self):
-        """ Not required """
+        """Not required"""
         if self.client.channel is None:
             return False
 
@@ -121,12 +162,13 @@ class RabbitMQClient(QueueClient):
 
 
 class RabbitConsumer(RabbitMQClient):
-
     def connect(self):
-        self.connection = pika.SelectConnection(self.conn_params,
-                                                on_open_callback=self.on_connection_open,
-                                                on_close_callback=self.on_connection_closed,
-                                                on_open_error_callback=self.on_connection_open_error)
+        self.connection = pika.SelectConnection(
+            self.conn_params,
+            on_open_callback=self.on_connection_open,
+            on_close_callback=self.on_connection_closed,
+            on_open_error_callback=self.on_connection_open_error,
+        )
 
     def on_connection_closed(self, _conn, reason):
         self.channel = None
@@ -139,7 +181,7 @@ class RabbitConsumer(RabbitMQClient):
             self.stop()
 
     def on_connection_open_error(self, _unused_connection, err):
-        self.logger.error('Connection open failed: %s', err)
+        self.logger.error("Connection open failed: %s", err)
 
     def on_connection_open(self, _conn):
         self.connection.channel(on_open_callback=self.on_channel_open)
@@ -150,24 +192,42 @@ class RabbitConsumer(RabbitMQClient):
 
         # setup exchange
         if self.exchange and self.exchange_type:
-            self.channel.exchange_declare(exchange=self.exchange, durable=self.durable,
-                                          exchange_type=self.exchange_type, callback=self.on_exchange_declare_ok)
+            self.channel.exchange_declare(
+                exchange=self.exchange,
+                durable=self.durable,
+                exchange_type=self.exchange_type,
+                callback=self.on_exchange_declare_ok,
+            )
         else:
-            self.channel.queue_declare(queue=self.queue_id, durable=self.durable, callback=self.on_queue_declare_ok)
+            self.channel.queue_declare(
+                queue=self.queue_id,
+                durable=self.durable,
+                callback=self.on_queue_declare_ok,
+            )
 
     def on_channel_closed(self, channel, reason):
         self.channel = None
-        if self._is_closing and not self.connection.is_closing and not self.connection.is_closed:
+        if (
+            self._is_closing
+            and not self.connection.is_closing
+            and not self.connection.is_closed
+        ):
             self.connection.close()
-        self.logger.error('Channel %i closed: %s', channel, reason)
+        self.logger.error("Channel %i closed: %s", channel, reason)
 
     def on_exchange_declare_ok(self, _header):
-        self.channel.queue_declare(queue=self.queue_id, durable=self.durable, callback=self.on_queue_declare_ok)
+        self.channel.queue_declare(
+            queue=self.queue_id, durable=self.durable, callback=self.on_queue_declare_ok
+        )
 
     def on_queue_declare_ok(self, _header):
         if self.exchange:
-            self.channel.queue_bind(queue=self.queue_id, exchange=self.exchange,
-                                    routing_key=self.routing_key, callback=self.on_bind_ok)
+            self.channel.queue_bind(
+                queue=self.queue_id,
+                exchange=self.exchange,
+                routing_key=self.routing_key,
+                callback=self.on_bind_ok,
+            )
         else:
             self.channel.basic_qos(prefetch_count=1, callback=self.on_basic_qos_ok)
 
@@ -177,34 +237,53 @@ class RabbitConsumer(RabbitMQClient):
     def on_basic_qos_ok(self, _header):
         # start consuming
         self.channel.add_on_cancel_callback(self.on_consumer_cancelled)
-        on_basic_consume = functools.partial(self._basic_callback,
-                                             callback=self._callback,
-                                             requeue_failed=self._requeue_failed,
-                                             on_failure=self._on_failure_callback)
-        self.consumer_tag = self.channel.basic_consume(queue=self.queue_id, on_message_callback=on_basic_consume)
+        on_basic_consume = functools.partial(
+            self._basic_callback,
+            callback=self._callback,
+            requeue_failed=self._requeue_failed,
+            on_failure=self._on_failure_callback,
+        )
+        self.consumer_tag = self.channel.basic_consume(
+            queue=self.queue_id, on_message_callback=on_basic_consume
+        )
         self._is_consuming = True
 
     def on_consumer_cancelled(self, _frame):
         if self.channel:
             self.channel.close()
-        self.logger.error('RabbitConsumer channel closed unexpectedly: %s', _frame)
+        self.logger.error("RabbitConsumer channel closed unexpectedly: %s", _frame)
 
     def close(self):
         self._is_closing = True
         if self.channel is not None:
             self.channel.close()
-        if self.connection and not self.connection.is_closed and not self.connection.is_closing:
+        if (
+            self.connection
+            and not self.connection.is_closed
+            and not self.connection.is_closing
+        ):
             self.connection.close()
 
-    def _basic_callback(self, channel, method, props, body, callback, requeue_failed=True, on_failure=None):
-        """ Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
+    def _basic_callback(
+        self,
+        channel,
+        method,
+        props,
+        body,
+        callback,
+        requeue_failed=True,
+        on_failure=None,
+    ):
+        """Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
         delivery_tag = method.delivery_tag
 
         def ack_message():
             if channel.is_open:
                 channel.basic_ack(delivery_tag)
             else:
-                self.logger.info("Channel is already closed, message cannot be acknowledged")
+                self.logger.info(
+                    "Channel is already closed, message cannot be acknowledged"
+                )
 
         def nack_message():
             if channel.is_open:
@@ -220,7 +299,9 @@ class RabbitConsumer(RabbitMQClient):
             ack_message()
         except Exception as e:
             nack_message()
-            self.logger.error("Exception while processing request {}".format(e), exc_info=1)
+            self.logger.error(
+                "Exception while processing request {}".format(e), exc_info=1
+            )
 
     def start(self):
         self.connection.ioloop.start()
@@ -228,9 +309,11 @@ class RabbitConsumer(RabbitMQClient):
     def stop(self):
         if not self._is_closing:
             self._is_closing = True
-            self.logger.info('Stopping')
+            self.logger.info("Stopping")
             if self._is_consuming:
-                self.channel.basic_cancel(consumer_tag=self.consumer_tag, callback=self.on_cancel_ok)
+                self.channel.basic_cancel(
+                    consumer_tag=self.consumer_tag, callback=self.on_cancel_ok
+                )
                 self.connection.ioloop.start()
             else:
                 self.connection.ioloop.stop()
@@ -242,10 +325,10 @@ class RabbitConsumer(RabbitMQClient):
 
 
 class RabbitPublisher(RabbitMQClient):
-    """ Used for publishing to task queue """
+    """Used for publishing to task queue"""
 
     def connect(self):
-        """ Initializes connection to RabbitMQ and does queue to exchange binding """
+        """Initializes connection to RabbitMQ and does queue to exchange binding"""
 
         self.connection = pika.BlockingConnection(self.conn_params)
         self.channel = self.connection.channel()
@@ -253,23 +336,43 @@ class RabbitPublisher(RabbitMQClient):
         self.channel.queue_declare(self.queue_id, durable=self.durable)
 
         if self.exchange and self.exchange_type and self.routing_key:
-            self.channel.exchange_declare(exchange=self.exchange, exchange_type=self.exchange_type, durable=self.durable)
-            self.channel.queue_bind(queue=self.queue_id, exchange=self.exchange, routing_key=self.routing_key)
-        self.logger.debug("Blocking Connection established to {}".format(self.conn_params))
+            self.channel.exchange_declare(
+                exchange=self.exchange,
+                exchange_type=self.exchange_type,
+                durable=self.durable,
+            )
+            self.channel.queue_bind(
+                queue=self.queue_id,
+                exchange=self.exchange,
+                routing_key=self.routing_key,
+            )
+        self.logger.debug(
+            "Blocking Connection established to {}".format(self.conn_params)
+        )
 
     def basic_publish(self, msg, durability, routing_key):
 
         msg = json.dumps(msg)
         delivery_mode = 2 if durability else 1  # mode 2 == durable, 1 == not durable
-        props = pika.BasicProperties(delivery_mode=delivery_mode, content_type="application/json",
-                                     content_encoding="utf-8")
+        props = pika.BasicProperties(
+            delivery_mode=delivery_mode,
+            content_type="application/json",
+            content_encoding="utf-8",
+        )
 
         try:
-            exchange = self.exchange or ""  # use default exchange if no exchange is specified
+            exchange = (
+                self.exchange or ""
+            )  # use default exchange if no exchange is specified
             routing_key = routing_key or self.routing_key or self.queue_id  #
-            return self.channel.basic_publish(exchange, routing_key=routing_key, body=msg, properties=props)
+            return self.channel.basic_publish(
+                exchange, routing_key=routing_key, body=msg, properties=props
+            )
         except pika.exceptions.UnroutableError as e:
-            self.logger.error("Message could not be routed to queue with error {}".format(e), exc_info=1)
+            self.logger.error(
+                "Message could not be routed to queue with error {}".format(e),
+                exc_info=1,
+            )
 
     def basic_get(self, requeue=True):
         mtd, props, body = self.channel.basic_get(self.queue_id)

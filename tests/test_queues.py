@@ -39,6 +39,7 @@ def test_listening_inmemory_queue():
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
         q.close()
+
     q.consume(callback=consume)
 
 
@@ -63,8 +64,6 @@ def test_depot_queue(depot_fixture):
     q.clear()
     msg = q.dequeue()
     assert msg is None, "No work should be left to do because queue has been cleared"
-
-
 
 
 def test_listening_depot_queue(depot_fixture):
