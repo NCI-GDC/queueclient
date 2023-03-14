@@ -91,10 +91,15 @@ class QueueClient:
 
 
 class InMemoryQueueClient(QueueClient):
+
+    queues = {}
+
     def __init__(self, queue_id):
 
         super().__init__(queue_id=queue_id)
-        self.q = collections.deque()
+        if not self.queues.get(queue_id):
+            self.queues[queue_id] = collections.deque()
+        self.q = self.queues[queue_id]
 
     def connect(self):
         pass
