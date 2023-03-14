@@ -2,12 +2,10 @@ import json
 import os
 import sched
 import threading
-
 import time
-
 import uuid
 
-from queueclient import InMemoryQueueClient, DepotQueueClient, QueueFactory
+from queueclient import DepotQueueClient, InMemoryQueueClient, QueueFactory
 
 
 def test_inmemory_queue():
