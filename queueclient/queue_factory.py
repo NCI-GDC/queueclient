@@ -6,9 +6,16 @@ from queueclient.rabbitmq import RabbitMQClient
 
 
 class QueueFactory:
+
+    active_in_memory_queues = {}
+
     @staticmethod
     def get_in_memory_client(queue_id: str) -> QueueClient:
-        return InMemoryQueueClient(queue_id=queue_id)
+        if queue_id not in QueueFactory.active_in_memory_queues:
+            QueueFactory.active_in_memory_queues[queue_id] = InMemoryQueueClient(
+                queue_id=queue_id
+            )
+        return QueueFactory.active_in_memory_queues[queue_id]
 
     @staticmethod
     def get_rabbitmq_client(
