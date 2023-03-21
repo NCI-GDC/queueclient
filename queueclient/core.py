@@ -1,7 +1,8 @@
-import collections
 import logging
+import queue
 import time
 from abc import ABCMeta, abstractmethod
+from multiprocessing import Queue
 
 
 class QueueClient:
@@ -91,15 +92,9 @@ class QueueClient:
 
 
 class InMemoryQueueClient(QueueClient):
-
-    queues = {}
-
     def __init__(self, queue_id):
-
         super().__init__(queue_id=queue_id)
-        if not self.queues.get(queue_id):
-            self.queues[queue_id] = collections.deque()
-        self.q = self.queues[queue_id]
+        self.q = Queue()
 
     def connect(self):
         pass
@@ -108,16 +103,17 @@ class InMemoryQueueClient(QueueClient):
         if durable:
             raise ValueError("durable functionality is not supported")
 
-        self.q.appendleft(msg)
+        self.q.put(msg)
         return True
 
     def dequeue(self):
-        if len(self.q) > 0:
-            return self.q.pop()
-        return None
+        try:
+            return self.q.get()
+        except queue.Empty:
+            return None
 
     def status(self):
-        return len(self.q) >= 0
+        return not self.q.empty()
 
     def ping(self):
         return 1
