@@ -113,7 +113,7 @@ class InMemoryQueueClient(QueueClient):
             return None
 
     def status(self):
-        return not self.q.empty()
+        return bool(self.q)
 
     def ping(self):
         return 1
