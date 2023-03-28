@@ -6,7 +6,7 @@ import pytest
 from depot import Depot
 from werkzeug.serving import make_server
 
-from queueclient import QueueFactory
+from queueclient.queue_factory import QueueFactory
 
 logging.basicConfig(level=logging.ERROR)
 
