@@ -115,3 +115,6 @@ src/
 *.tmp
 *.fx*
 *.swp
+
+# Snyk
+*.dccache

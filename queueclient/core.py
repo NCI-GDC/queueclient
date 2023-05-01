@@ -54,7 +54,7 @@ class QueueClient:
         while True:
 
             if self._is_closing:
-                self._is_closing = False
+                self.logger.warning("Queueclient is shutting down.")
                 break
 
             msg = self.dequeue()
@@ -108,7 +108,8 @@ class InMemoryQueueClient(QueueClient):
 
     def dequeue(self):
         try:
-            return self.q.get()
+            # The default consume method loops. Do not block otherwise it cannot shutdown.
+            return self.q.get(block=False)
         except queue.Empty:
             return None
 
