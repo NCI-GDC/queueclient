@@ -48,11 +48,13 @@ class DepotQueueClient(QueueClient):
             self.logger.error(e.message, exc_info=1)
         return False
 
-    def dequeue(self, requeue=True):
+    def dequeue(self, requeue=True, block=False):
         """Retrieves a single JSON object from Depot Server
         Returns:
             object: JSON object
         """
+        if block:
+            self.logger.warning("Blocking is not available in the DepotQueueClient")
         try:
             url = f"{self.depot_server_url}/work/{self.queue_id}"
             response = requests.get(url)

@@ -115,3 +115,9 @@ src/
 *.tmp
 *.fx*
 *.swp
+
+# Snyk
+*.dccache
+
+# VSCode
+.vscode

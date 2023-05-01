@@ -54,10 +54,11 @@ class QueueClient:
         while True:
 
             if self._is_closing:
-                self._is_closing = False
+                self.logger.warning("Queueclient is shutting down.")
                 break
 
-            msg = self.dequeue()
+            # Do not wait for messages so that the queue can be shut down.
+            msg = self.dequeue(block=False)
             if msg:
                 try:
                     callback(msg)
@@ -106,9 +107,17 @@ class InMemoryQueueClient(QueueClient):
         self.q.put(msg)
         return True
 
-    def dequeue(self):
+    def dequeue(self, block=True):
+        """Return a message from the queue
+
+        Args:
+            block (bool, optional): When true, wait for a message on the queue. Can cause locks when used in a separate thread.
+
+        Returns:
+            Optional<Any>: The object in the queue or None
+        """
         try:
-            return self.q.get()
+            return self.q.get(block=block)
         except queue.Empty:
             return None
 
