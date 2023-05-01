@@ -1,5 +1,6 @@
 import json
 import uuid
+from threading import Thread
 
 from queueclient.core import InMemoryQueueClient
 from queueclient.depot import DepotQueueClient
@@ -22,7 +23,7 @@ def test_inmemory_queue():
     assert msg["size"] == 123
 
 
-def test_get_in_memory_client_same_uuid_return_same_queue():
+def test_inmemory_queue_same_uuid_return_same_queue():
     """Tests initializing supported queue types"""
     # get default queue
     q_uuid = uuid.uuid4()
@@ -40,7 +41,7 @@ def test_get_in_memory_client_same_uuid_return_same_queue():
     assert msg["size"] == 123
 
 
-def test_listening_inmemory_queue():
+def test_inmemory_queue_listening():
     # add dummy data to queue
     q = InMemoryQueueClient(str(uuid.uuid4()))
     assert q.status() is True
@@ -55,6 +56,25 @@ def test_listening_inmemory_queue():
         q.close()
 
     q.consume(callback=consume)
+
+
+def test_inmemory_queue_completes():
+    """When the queue is empty, calling close should should exit"""
+    q = InMemoryQueueClient(str(uuid.uuid4()))
+
+    def listen_for_messages():
+        """Wrapper for the thread"""
+        assert q.status() is True
+
+        def consume(msg):
+            pass
+
+        q.consume(callback=consume)
+
+    t = Thread(target=listen_for_messages)
+    t.start()
+    q.close()
+    t.join()
 
 
 def test_depot_queue(depot_fixture):
@@ -80,7 +100,7 @@ def test_depot_queue(depot_fixture):
     assert msg is None, "No work should be left to do because queue has been cleared"
 
 
-def test_listening_depot_queue(depot_fixture):
+def test_depot_queue_listening(depot_fixture):
     # add dummy data to queue
     host, port = depot_fixture
     q = DepotQueueClient(host=host, port=port, queue_id=str(uuid.uuid4()))
@@ -117,7 +137,7 @@ def test_rabbitmq_queue(rmq_fixture):
     qx.consume(consumer_callback, requeue_failed=False)
 
 
-def test_on_failure_callback(rmq_fixture):
+def test_rabbitmq_on_failure_callback(rmq_fixture):
 
     q, qx = rmq_fixture
 

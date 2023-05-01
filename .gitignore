@@ -118,3 +118,6 @@ src/
 
 # Snyk
 *.dccache
+
+# VSCode
+.vscode
