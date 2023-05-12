@@ -6,7 +6,7 @@ import pytest
 from depot import Depot
 from werkzeug.serving import make_server
 
-from queueclient import QueueFactory
+from queueclient.queue_factory import QueueFactory
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -43,6 +43,7 @@ def depot_fixture(request):
     def tear_down():
         # stop depot server
         mock.stop()
+
     request.addfinalizer(tear_down)
     return mock.server.host, mock.server.port
 
@@ -52,8 +53,12 @@ def rmq_fixture():
     rbmq_host = os.environ.get("RABBITMQ_SERVER", "localhost")
     rbmq_vhost = os.environ.get("RABBITMQ_VHOST", "/")
     rbmq_qid = os.environ.get("RABBITMQ_QUEUE", "xtest")
-    q1 = QueueFactory.get_rabbitmq_client(queue_id=rbmq_qid, host=rbmq_host, vhost=rbmq_vhost, durable=False)
-    q2 = QueueFactory.get_rabbitmq_client(queue_id=rbmq_qid, host=rbmq_host, vhost=rbmq_vhost, durable=False)
+    q1 = QueueFactory.get_rabbitmq_client(
+        queue_id=rbmq_qid, host=rbmq_host, vhost=rbmq_vhost, durable=False
+    )
+    q2 = QueueFactory.get_rabbitmq_client(
+        queue_id=rbmq_qid, host=rbmq_host, vhost=rbmq_vhost, durable=False
+    )
     yield q1, q2
 
     q1.close()

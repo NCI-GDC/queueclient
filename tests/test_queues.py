@@ -1,13 +1,9 @@
 import json
-import os
-import sched
-import threading
-
-import time
-
 import uuid
 
-from queueclient import InMemoryQueueClient, DepotQueueClient, QueueFactory
+from queueclient.core import InMemoryQueueClient
+from queueclient.depot import DepotQueueClient
+from queueclient.queue_factory import QueueFactory
 
 
 def test_inmemory_queue():
@@ -26,6 +22,24 @@ def test_inmemory_queue():
     assert msg["size"] == 123
 
 
+def test_get_in_memory_client_same_uuid_return_same_queue():
+    """Tests initializing supported queue types"""
+    # get default queue
+    q_uuid = uuid.uuid4()
+    q = QueueFactory.get_in_memory_client(q_uuid)
+    assert q.status() is True
+
+    response = q.enqueue(msg=dict(did="AAAAA", size=123))
+    assert response is True
+
+    # retrieve
+    q2 = QueueFactory.get_in_memory_client(q_uuid)
+    msg = q2.dequeue()
+    assert msg
+    assert msg["did"] == "AAAAA"
+    assert msg["size"] == 123
+
+
 def test_listening_inmemory_queue():
     # add dummy data to queue
     q = InMemoryQueueClient(str(uuid.uuid4()))
@@ -39,6 +53,7 @@ def test_listening_inmemory_queue():
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
         q.close()
+
     q.consume(callback=consume)
 
 
@@ -63,8 +78,6 @@ def test_depot_queue(depot_fixture):
     q.clear()
     msg = q.dequeue()
     assert msg is None, "No work should be left to do because queue has been cleared"
-
-
 
 
 def test_listening_depot_queue(depot_fixture):
