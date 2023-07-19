@@ -15,7 +15,7 @@ setup(
         "dev": [
             "pytest",
             "pytest-cov",
-            "depot @ git+ssh://git@github.com/NCI-GDC/depot.git@0.0.1#egg=depot",
+            "depot @ git+ssh://git@github.com/NCI-GDC/depot.git@develop#egg=depot",
         ]
     },
 )
