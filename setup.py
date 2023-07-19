@@ -15,7 +15,6 @@ setup(
         "dev": [
             "pytest",
             "pytest-cov",
-            "pifpaf",
             "depot @ git+ssh://git@github.com/NCI-GDC/depot.git@0.0.1#egg=depot",
         ]
     },
