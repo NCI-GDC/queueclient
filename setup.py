@@ -11,4 +11,11 @@ setup(
     packages=find_packages(exclude=("tests", "docs")),
     install_requires=["pika~=1.1", "requests>=2,<3", "simplejson>=3,<4"],
     setup_requires=["setuptools_scm~=6.4"],
+    extras_require={
+        "dev": [
+            "pytest",
+            "pytest-cov",
+            "depot @ git+ssh://git@github.com/NCI-GDC/depot.git@develop#egg=depot",
+        ]
+    },
 )
