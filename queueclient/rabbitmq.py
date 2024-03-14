@@ -148,7 +148,7 @@ class RabbitMQClient(QueueClient):
         return body
 
     def status(self):
-        return self.client.channel.is_open()
+        return self.client.channel.is_open
 
     def ping(self):
         """Not required"""
