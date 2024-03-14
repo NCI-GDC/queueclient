@@ -77,7 +77,10 @@ class RabbitMQClient(QueueClient):
             raise ValueError("RabbitMQ connection unsuccessful %s", e)
 
     def enqueue(self, msg, durable=True, routing_key=None):
-        if not isinstance(self.client, RabbitPublisher):
+        if (
+            not isinstance(self.client, RabbitPublisher)
+            or self.client.connection.is_closed
+        ):
             self.client = RabbitPublisher(
                 self.host,
                 self.v_host,
