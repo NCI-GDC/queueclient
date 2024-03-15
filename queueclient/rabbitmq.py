@@ -77,7 +77,7 @@ class RabbitMQClient(QueueClient):
             raise ValueError("RabbitMQ connection unsuccessful %s", e)
 
     def enqueue(self, msg, durable=True, routing_key=None):
-        if not isinstance(self.client, RabbitPublisher):
+        if not (isinstance(self.client, RabbitPublisher) and self.status()):
             self.client = RabbitPublisher(
                 self.host,
                 self.v_host,
@@ -148,7 +148,7 @@ class RabbitMQClient(QueueClient):
         return body
 
     def status(self):
-        return self.client.channel.is_open()
+        return self.client.channel.is_open
 
     def ping(self):
         """Not required"""
