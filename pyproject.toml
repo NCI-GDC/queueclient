@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=68", "wheel", "setuptools_scm[toml]>=7.0", "versionista>=1.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "queueclient"
+dynamic = [
+  "version",
+  "description",
+  "readme",
+  "requires-python",
+  "license",
+  "authors",
+  "maintainers",
+  "keywords",
+  "classifiers",
+  "urls",
+  "scripts",
+  "gui-scripts",
+  "entry-points",
+  "dependencies",
+  "optional-dependencies"
+]
+
+[tool.black]
+line-length = 98
+include = '\.pyi?$'
+
+[tool.coverage.html]
+title = "queueclient coverage report"
+directory = "docs/htmlcov"
+show_contexts = true
+
+[tool.coverage.run]
+branch = true
+context = "unit tests"
+source = ["queueclient"]
+
+[tool.isort]
+profile = "black"
+known_first_party = ["queueclient"]
+
+[tool.pytest.ini_options]
+minversion = 6.0
+python_files = "test_*.py"
+python_functions = "test_*"
+# Silence warning by opting in to use pytest 6's new default value
+junit_family = "xunit2"
+junit_logging = "system-out"
+console_output_style = "classic"
+log_cli_level = "INFO"
+log_cli = "true"
+addopts = "-rfE --color=yes --cov=queueclient --cov-report term"
+norecursedirs = [
+  ".git",
+  ".tox",
+  "dist",
+  "build"
+]
+testpaths = [
+  "tests"
+]
+
+[tool.setuptools_scm]
+local_scheme = "versionista-local-format"
+version_scheme = "versionista-format"
