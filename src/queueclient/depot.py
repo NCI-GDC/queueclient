@@ -80,9 +80,7 @@ class DepotQueueClient(QueueClient):
         ping_url = f"{self.depot_server_url}/"
         response = requests.get(url=ping_url)
         if response.status_code != 200:
-            raise HTTPError(
-                f"Boom Boom !!!, Depot QueueClient not reachable @ {ping_url}"
-            )
+            raise HTTPError(f"Boom Boom !!!, Depot QueueClient not reachable @ {ping_url}")
 
         message = response.json()
         self.logger.info("Using Depot Version: {}".format(message["version"]))

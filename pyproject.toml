@@ -44,7 +44,6 @@ known_first_party = ["queueclient"]
 minversion = 6.0
 python_files = "test_*.py"
 python_functions = "test_*"
-# Silence warning by opting in to use pytest 6's new default value
 junit_family = "xunit2"
 junit_logging = "system-out"
 console_output_style = "classic"

@@ -207,11 +207,7 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_channel_closed(self, channel, reason):
         self.channel = None
-        if (
-            self._is_closing
-            and not self.connection.is_closing
-            and not self.connection.is_closed
-        ):
+        if self._is_closing and not self.connection.is_closing and not self.connection.is_closed:
             self.connection.close()
         self.logger.error("Channel %i closed: %s", channel, reason)
 
@@ -257,11 +253,7 @@ class RabbitConsumer(RabbitMQClient):
         self._is_closing = True
         if self.channel is not None:
             self.channel.close()
-        if (
-            self.connection
-            and not self.connection.is_closed
-            and not self.connection.is_closing
-        ):
+        if self.connection and not self.connection.is_closed and not self.connection.is_closing:
             self.connection.close()
 
     def _basic_callback(
@@ -281,9 +273,7 @@ class RabbitConsumer(RabbitMQClient):
             if channel.is_open:
                 channel.basic_ack(delivery_tag)
             else:
-                self.logger.info(
-                    "Channel is already closed, message cannot be acknowledged"
-                )
+                self.logger.info("Channel is already closed, message cannot be acknowledged")
 
         def nack_message():
             if channel.is_open:
@@ -357,9 +347,7 @@ class RabbitPublisher(RabbitMQClient):
         )
 
         try:
-            exchange = (
-                self.exchange or ""
-            )  # use default exchange if no exchange is specified
+            exchange = self.exchange or ""  # use default exchange if no exchange is specified
             routing_key = routing_key or self.routing_key or self.queue_id  #
             return self.channel.basic_publish(
                 exchange, routing_key=routing_key, body=msg, properties=props

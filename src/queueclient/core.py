@@ -67,9 +67,7 @@ class QueueClient:
                         self.enqueue(msg)
                     if on_failure_callback:
                         on_failure_callback(msg)
-                    self.logger.error(
-                        f"Exception while processing request {e}", exc_info=1
-                    )
+                    self.logger.error(f"Exception while processing request {e}", exc_info=1)
             time.sleep(1)
 
     def close(self):
@@ -87,9 +85,7 @@ class QueueClient:
     @abstractmethod
     def ping(self):
         """Used for preliminary verification the queue is usable"""
-        raise NotImplementedError(
-            "Boom Boom !!! QueueClient not implemented properly for use"
-        )
+        raise NotImplementedError("Boom Boom !!! QueueClient not implemented properly for use")
 
 
 class InMemoryQueueClient(QueueClient):
