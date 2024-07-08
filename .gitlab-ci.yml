@@ -4,11 +4,3 @@ include:
     ref: master
     file:
       - templates/artifacts/python-library.yaml
-
-tox:
-  services:
-    - name: rabbitmq
-      alias: rabbitmq
-  variables:
-    RABBITMQ_SERVER: rabbitmq
-    RABBITMQ_PORT: 5672
