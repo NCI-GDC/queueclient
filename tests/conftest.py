@@ -88,8 +88,13 @@ def rmq_fixture() -> Tuple[RabbitMQClient, RabbitMQClient]:
 
     Starts a rabbitmq docker container using testcontainers.
     """
+    from pika.connection import Parameters
 
-    with RabbitMqContainer("rabbitmq:3.13.1", username="guest", password="guest") as rabbitmq:
+    Parameters.DEFAULT_CONNECTION_ATTEMPTS = 10
+
+    with RabbitMqContainer(
+        "rabbitmq:3.13.1", username="guest", password="guest", port=5672
+    ) as rabbitmq:
         cl = rabbitmq.get_connection_params()
         rbmq_host = os.environ.get("RABBITMQ_SERVER", rabbitmq.get_container_host_ip())
         rbmq_vhost = os.environ.get("RABBITMQ_VHOST", cl.virtual_host)
@@ -98,14 +103,14 @@ def rmq_fixture() -> Tuple[RabbitMQClient, RabbitMQClient]:
             queue_id=rbmq_qid,
             host=rbmq_host,
             vhost=rbmq_vhost,
-            port=rabbitmq.get_exposed_port(rabbitmq.RABBITMQ_NODE_PORT),
+            port=rabbitmq.get_exposed_port(5672),
             durable=False,
         )
         q2 = QueueFactory.get_rabbitmq_client(
             queue_id=rbmq_qid,
             host=rbmq_host,
             vhost=rbmq_vhost,
-            port=rabbitmq.get_exposed_port(rabbitmq.RABBITMQ_NODE_PORT),
+            port=rabbitmq.get_exposed_port(5672),
             durable=False,
         )
         yield q1, q2
