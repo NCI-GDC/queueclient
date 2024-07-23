@@ -120,10 +120,10 @@ def test_depot_queue_listening(depot_fixture):
     q.consume(callback=consume)
 
 
-def test_rabbitmq_queue(rmq_fixture: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
+def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
     """Tests reading and writing to supported queue types"""
 
-    q, qx = rmq_fixture
+    q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
@@ -139,9 +139,11 @@ def test_rabbitmq_queue(rmq_fixture: Tuple[RabbitMQClient, RabbitMQClient]) -> N
     qx.consume(consumer_callback, requeue_failed=False)
 
 
-def test_rabbitmq_on_failure_callback(rmq_fixture: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
+def test_rabbitmq_on_failure_callback(
+    rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]
+) -> None:
 
-    q, qx = rmq_fixture
+    q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
@@ -160,8 +162,8 @@ def test_rabbitmq_on_failure_callback(rmq_fixture: Tuple[RabbitMQClient, RabbitM
     qx.consume(consumer_callback, requeue_failed=False, on_failure_callback=f_call)
 
 
-def test_rabbitmq_deque(rmq_fixture: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
-    q, qx = rmq_fixture
+def test_rabbitmq_deque(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
+    q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True

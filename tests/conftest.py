@@ -83,37 +83,46 @@ def depot_fixture(request):
 
 
 @pytest.fixture()
-def rmq_fixture() -> Tuple[RabbitMQClient, RabbitMQClient]:
-    """RabbitMQ's initialization pytest fixture.
+def rabbitmq_clients(request: pytest.FixtureRequest) -> Tuple[RabbitMQClient, RabbitMQClient]:
+    """Start a RabbitMQ running on port 5672.
 
     Starts a rabbitmq docker container using testcontainers.
     """
     from pika.connection import Parameters
 
+    # It might take some time to start the image, retrying
+    # connections more than once (the default) helps eliminate
+    # failing tests due to connection timeout
     Parameters.DEFAULT_CONNECTION_ATTEMPTS = 10
 
+    image_version = os.getenv("RABBITMQ_IMAGE_VERSION", "3.13.1")
+    image = f"rabbitmq:{image_version}"
+
     with RabbitMqContainer(
-        "rabbitmq:3.13.1", username="guest", password="guest", port=5672
+        image, username="guest", password="guest", port=Parameters.DEFAULT_PORT
     ) as rabbitmq:
         cl = rabbitmq.get_connection_params()
-        rbmq_host = os.environ.get("RABBITMQ_SERVER", rabbitmq.get_container_host_ip())
-        rbmq_vhost = os.environ.get("RABBITMQ_VHOST", cl.virtual_host)
-        rbmq_qid = os.environ.get("RABBITMQ_QUEUE", "xtest")
+        host = os.environ.get("RABBITMQ_SERVER", rabbitmq.get_container_host_ip())
+        vhost = os.environ.get("RABBITMQ_VHOST", cl.virtual_host)
+        queue_id = os.environ.get("RABBITMQ_QUEUE", "xtest")
         q1 = QueueFactory.get_rabbitmq_client(
-            queue_id=rbmq_qid,
-            host=rbmq_host,
-            vhost=rbmq_vhost,
-            port=rabbitmq.get_exposed_port(5672),
+            queue_id=queue_id,
+            host=host,
+            vhost=vhost,
+            port=rabbitmq.get_exposed_port(Parameters.DEFAULT_PORT),
             durable=False,
         )
         q2 = QueueFactory.get_rabbitmq_client(
-            queue_id=rbmq_qid,
-            host=rbmq_host,
-            vhost=rbmq_vhost,
-            port=rabbitmq.get_exposed_port(5672),
+            queue_id=queue_id,
+            host=host,
+            vhost=vhost,
+            port=rabbitmq.get_exposed_port(Parameters.DEFAULT_PORT),
             durable=False,
         )
-        yield q1, q2
 
-        q1.close()
-        q2.close()
+        def finalize():
+            q1.close()
+            q2.close()
+
+        request.addfinalizer(finalize)
+        return q1, q2
