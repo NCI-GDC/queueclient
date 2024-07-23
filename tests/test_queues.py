@@ -1,7 +1,9 @@
 import json
 import uuid
 from threading import Thread
+from typing import Tuple
 
+from queueclient import RabbitMQClient
 from queueclient.core import InMemoryQueueClient
 from queueclient.depot import DepotQueueClient
 from queueclient.queue_factory import QueueFactory
@@ -59,7 +61,7 @@ def test_inmemory_queue_listening():
 
 
 def test_inmemory_queue_completes():
-    """When the queue is empty, calling close should should exit"""
+    """When the queue is empty, calling close should exit"""
     q = InMemoryQueueClient(str(uuid.uuid4()))
 
     def listen_for_messages():
@@ -118,10 +120,10 @@ def test_depot_queue_listening(depot_fixture):
     q.consume(callback=consume)
 
 
-def test_rabbitmq_queue(rmq_fixture):
+def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
     """Tests reading and writing to supported queue types"""
 
-    q, qx = rmq_fixture
+    q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
@@ -137,9 +139,11 @@ def test_rabbitmq_queue(rmq_fixture):
     qx.consume(consumer_callback, requeue_failed=False)
 
 
-def test_rabbitmq_on_failure_callback(rmq_fixture):
+def test_rabbitmq_on_failure_callback(
+    rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]
+) -> None:
 
-    q, qx = rmq_fixture
+    q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
@@ -158,8 +162,8 @@ def test_rabbitmq_on_failure_callback(rmq_fixture):
     qx.consume(consumer_callback, requeue_failed=False, on_failure_callback=f_call)
 
 
-def test_rabbitmq_deque(rmq_fixture):
-    q, qx = rmq_fixture
+def test_rabbitmq_deque(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
+    q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True

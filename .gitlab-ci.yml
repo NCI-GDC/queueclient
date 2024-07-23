@@ -1,40 +1,19 @@
 ---
-
 include:
   - project: nci-gdc/gitlab-templates
-    ref: 0.2.0
+    ref: master
     file:
-      - templates/global/full.yaml
-      - templates/python/full.yaml
-      - templates/common/python.yaml
+      - templates/artifacts/python-library.yaml
 
 tox:
-  stage: test
-  image: ${BASE_CONTAINER_REGISTRY}/python3.6-builder
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ''
+    DOCKER_DRIVER: overlay2
+
   services:
-    - name: rabbitmq
-      alias: rabbitmq
+    - name: docker:dind
+      command: [--tls=false]
+      alias: docker
   tags:
     - dind
-  variables:
-    RABBITMQ_SERVER: rabbitmq
-    RABBITMQ_PORT: 5672
-  before_script:
-    - !reference [.load_github_key, script]
-    - pip install "tox<4"
-  script:
-    - tox -r -e py
-
-
-# used by release
-.python_versions:
-  parallel:
-    matrix:
-      - BUILD_PY_VERSION: [python3.6]
-      - RELEASE_PY_VERSION: [python3.6]
-
-release:
-  before_script:
-    - git fetch --unshallow || true
-  variables:
-    LEGACY_BASE_CONTAINER_VERSION: 2.3.0

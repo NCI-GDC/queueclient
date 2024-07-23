@@ -111,7 +111,6 @@ venv.bak/
 
 .project
 .pydevproject
-src/
 *.log.*
 *.tmp
 *.fx*
@@ -122,3 +121,4 @@ src/
 
 # VSCode
 .vscode
+report.xml
