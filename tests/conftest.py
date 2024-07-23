@@ -124,5 +124,5 @@ def rabbitmq_clients(request: pytest.FixtureRequest) -> Tuple[RabbitMQClient, Ra
             q1.close()
             q2.close()
 
-        request.addfinalizer(finalize)
-        return q1, q2
+        yield q1, q2
+        finalize()
