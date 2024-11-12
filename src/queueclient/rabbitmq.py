@@ -1,10 +1,12 @@
 import functools
+import logging
 
 import pika
 import pika.exceptions
 import simplejson as json
 
 from queueclient.core import QueueClient
+logger = logging.getLogger(__name__)
 
 
 class RabbitMQClient(QueueClient):
@@ -55,6 +57,7 @@ class RabbitMQClient(QueueClient):
 
         self._callback = None
         self._on_failure_callback = None
+        self._terminate_consumer_callback = None
         self._requeue_failed = True
         self._is_consuming = False
 
@@ -95,16 +98,17 @@ class RabbitMQClient(QueueClient):
         self.client.basic_publish(msg, durable, routing_key)
         return True
 
-    def consume(self, callback, requeue_failed=True, on_failure_callback=None):
+    def consume(self, callback, requeue_failed=True, on_failure_callback=None, exit_callback=None) -> None:
         """Listens for incoming data in queue
         Args:
             callback: function in the form
-                def callback(body):
-                    Args:`
+                def callback(body: str) -> None:
+                    `Args`:
                         body: response retrieved from queue`
                     do something
             requeue_failed (bool): If True requeue task on failure
             on_failure_callback (function): external handling of failed tasks, same signature as callback
+            exit_callback: exit detector
         """
 
         self.client = RabbitConsumer(
@@ -122,11 +126,12 @@ class RabbitMQClient(QueueClient):
         self.client._callback = callback
         self.client._requeue_failed = requeue_failed
         self.client._on_failure_callback = on_failure_callback
+        self.client._terminate_consumer_callback = exit_callback
 
         self.connect()
         self.client.start()
 
-    def dequeue(self, requeue=True):
+    def dequeue(self, block=True, requeue=True):
         """Opens connection, performs consume and closes connection, returns response."""
 
         self.client = RabbitPublisher(
@@ -147,10 +152,12 @@ class RabbitMQClient(QueueClient):
         self.close()
         return body
 
-    def status(self):
-        return self.client.channel.is_open
+    def status(self) -> bool:
+        if self.client:
+            return self.client.channel.is_open
+        return False
 
-    def ping(self):
+    def ping(self) -> bool:
         """Not required"""
         if self.client.channel is None:
             return False
@@ -172,7 +179,7 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_connection_closed(self, _conn, reason):
         self.channel = None
-        self.logger.error(f"Connection closed unexpectedly {_conn}, {reason}")
+        logger.error(f"Connection closed unexpectedly {_conn}, {reason}")
         if self._is_closing:
             # closing is intentional
             self.connection.ioloop.stop()
@@ -181,7 +188,7 @@ class RabbitConsumer(RabbitMQClient):
             self.stop()
 
     def on_connection_open_error(self, _unused_connection, err):
-        self.logger.error("Connection open failed: %s", err)
+        logger.error("Connection open failed: %s - %s", err, self.queue_id)
 
     def on_connection_open(self, _conn):
         self.connection.channel(on_open_callback=self.on_channel_open)
@@ -209,7 +216,7 @@ class RabbitConsumer(RabbitMQClient):
         self.channel = None
         if self._is_closing and not self.connection.is_closing and not self.connection.is_closed:
             self.connection.close()
-        self.logger.error("Channel %i closed: %s", channel, reason)
+        logger.error("Channel %i closed: %s", channel, reason)
 
     def on_exchange_declare_ok(self, _header):
         self.channel.queue_declare(
@@ -247,7 +254,7 @@ class RabbitConsumer(RabbitMQClient):
     def on_consumer_cancelled(self, _frame):
         if self.channel:
             self.channel.close()
-        self.logger.error("RabbitConsumer channel closed unexpectedly: %s", _frame)
+        logger.error("RabbitConsumer channel closed unexpectedly: %s", _frame)
 
     def close(self):
         self._is_closing = True
@@ -273,13 +280,15 @@ class RabbitConsumer(RabbitMQClient):
             if channel.is_open:
                 channel.basic_ack(delivery_tag)
             else:
-                self.logger.info("Channel is already closed, message cannot be acknowledged")
+                logger.info("Channel is already closed, message cannot be acknowledged")
 
         def nack_message():
             if channel.is_open:
                 channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue_failed)
             if on_failure:
                 on_failure(body)
+
+        print(f"{self._terminate_consumer_callback} -- --")
 
         try:
             # py3 returns bytes
@@ -289,7 +298,10 @@ class RabbitConsumer(RabbitMQClient):
             ack_message()
         except Exception as e:
             nack_message()
-            self.logger.error(f"Exception while processing request {e}", exc_info=1)
+            logger.error(f"Exception while processing request {e}", exc_info=e)
+
+        if self._terminate_consumer_callback and self._terminate_consumer_callback():
+            self.stop()
 
     def start(self):
         self.connection.ioloop.start()
@@ -297,12 +309,12 @@ class RabbitConsumer(RabbitMQClient):
     def stop(self):
         if not self._is_closing:
             self._is_closing = True
-            self.logger.info("Stopping")
+            logger.info("Stopping")
             if self._is_consuming:
                 self.channel.basic_cancel(
                     consumer_tag=self.consumer_tag, callback=self.on_cancel_ok
                 )
-                self.connection.ioloop.start()
+                self.connection.ioloop.stop()
             else:
                 self.connection.ioloop.stop()
 
@@ -334,7 +346,7 @@ class RabbitPublisher(RabbitMQClient):
                 exchange=self.exchange,
                 routing_key=self.routing_key,
             )
-        self.logger.debug(f"Blocking Connection established to {self.conn_params}")
+        logger.debug(f"Blocking Connection established to {self.conn_params}")
 
     def basic_publish(self, msg, durability, routing_key):
 
@@ -353,9 +365,9 @@ class RabbitPublisher(RabbitMQClient):
                 exchange, routing_key=routing_key, body=msg, properties=props
             )
         except pika.exceptions.UnroutableError as e:
-            self.logger.error(
+            logger.error(
                 f"Message could not be routed to queue with error {e}",
-                exc_info=1,
+                exc_info=e,
             )
 
     def basic_get(self, requeue=True):
