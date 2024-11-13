@@ -71,7 +71,7 @@ def test_inmemory_queue_completes():
         def consume(msg):
             pass
 
-        q.consume(callback=consume, exit_callback=lambda: True)
+        q.consume(callback=consume, exit_trigger=lambda: True)
 
     t = Thread(target=listen_for_messages)
     t.start()
@@ -116,7 +116,7 @@ def test_depot_queue_listening(depot_fixture):
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
 
-    q.consume(callback=consume, exit_callback=lambda: True)
+    q.consume(callback=consume, exit_trigger=lambda: True)
 
 
 def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
@@ -134,7 +134,7 @@ def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient])
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
 
-    qx.consume(consumer_callback, requeue_failed=False, exit_callback=lambda:  True)
+    qx.consume(consumer_callback, requeue_failed=False, exit_trigger=lambda: True)
 
 
 def test_rabbitmq_on_failure_callback(
@@ -145,6 +145,7 @@ def test_rabbitmq_on_failure_callback(
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
     assert response is True
+
     def consumer_callback(body):
         raise ValueError("misunderstood teens")
 
@@ -155,7 +156,12 @@ def test_rabbitmq_on_failure_callback(
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
 
-    qx.consume(consumer_callback, requeue_failed=False, on_failure_callback=f_call, exit_callback=lambda : True)
+    qx.consume(
+        consumer_callback,
+        requeue_failed=False,
+        on_failure_callback=f_call,
+        exit_trigger=lambda: True,
+    )
 
 
 def test_rabbitmq_deque(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:

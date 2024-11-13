@@ -1,9 +1,9 @@
+import abc
 import logging
 import queue
 import time
-import abc
 from multiprocessing import Queue
-from typing import Any
+from typing import Any, Callable, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,13 @@ class QueueClient(abc.ABC):
         """
         ...
 
-    def consume(self, callback, requeue_failed=True, on_failure_callback=None, exit_callback=None) -> None:
+    def consume(
+        self,
+        callback: Callable[[Any], None],
+        requeue_failed=True,
+        on_failure_callback: Optional[Callable[[Any], None]] = None,
+        exit_trigger: Optional[Callable[[], bool]] = None,
+    ) -> None:
         """Listens for incoming data in queue, initial impl uses a simple loop that sleeps for 1 second
         RabbitMQ uses different implementation
         Args:
@@ -56,33 +62,34 @@ class QueueClient(abc.ABC):
                 def callback(msg):
                     do something
             requeue_failed (bool): requeue failed messages
-            exit_callback: callback function used to force exit
-            on_failure_callback (function): external handling of failed tasks, same signature as callback
+            on_failure_callback (function): external handling of failed tasks, the same signature as callback
+            exit_trigger (function): callback function that returns True/False used to force the consumer to exit.
         """
-        while True:
 
-            if self._is_closing:
-                logger.warning("Queueclient is shutting down.")
-                break
+        def __handle_message(message: Any) -> None:
+            if not message:
+                return
+
+            try:
+                callback(message)
+            except Exception as e:
+                logger.error(f"Exception while processing request {e}", exc_info=e)
+                if requeue_failed:
+                    self.enqueue(message)
+                if on_failure_callback:
+                    on_failure_callback(message)
+
+        while True:
 
             # Do not wait for messages so that the queue can be shut down.
             msg = self.dequeue(block=False)
-            if not msg:
-                print("A")
-                continue
-            try:
-                callback(msg)
-            except Exception as e:
-                if requeue_failed:
-                    self.enqueue(msg)
-                if on_failure_callback:
-                    on_failure_callback(msg)
-                logger.error(f"Exception while processing request {e}", exc_info=e)
-            time.sleep(1)
-            if exit_callback and exit_callback():
-                logger.warning("Shutting down client.")
-                break
+            __handle_message(msg)
 
+            # attempt to exit the consumer
+            if self._is_closing or (exit_trigger and exit_trigger()):
+                logger.info(f"{self.__class__.__name__}[{self.queue_id}] is shutting down.")
+                break
+            time.sleep(1)
 
     def close(self):
         """Close all connections"""

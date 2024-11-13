@@ -1,11 +1,13 @@
 import functools
 import logging
+from typing import Any, Callable, Optional
 
 import pika
 import pika.exceptions
 import simplejson as json
 
 from queueclient.core import QueueClient
+
 logger = logging.getLogger(__name__)
 
 
@@ -98,7 +100,13 @@ class RabbitMQClient(QueueClient):
         self.client.basic_publish(msg, durable, routing_key)
         return True
 
-    def consume(self, callback, requeue_failed=True, on_failure_callback=None, exit_callback=None) -> None:
+    def consume(
+        self,
+        callback: Callable[[Any], None],
+        requeue_failed=True,
+        on_failure_callback: Optional[Callable[[Any], None]] = None,
+        exit_trigger: Optional[Callable[[], None]] = None,
+    ) -> None:
         """Listens for incoming data in queue
         Args:
             callback: function in the form
@@ -107,8 +115,8 @@ class RabbitMQClient(QueueClient):
                         body: response retrieved from queue`
                     do something
             requeue_failed (bool): If True requeue task on failure
-            on_failure_callback (function): external handling of failed tasks, same signature as callback
-            exit_callback: exit detector
+            on_failure_callback (function): external handling of failed tasks, the same signature as callback
+            exit_trigger: callback function that returns True/False used to force the consumer to exit.
         """
 
         self.client = RabbitConsumer(
@@ -126,7 +134,7 @@ class RabbitMQClient(QueueClient):
         self.client._callback = callback
         self.client._requeue_failed = requeue_failed
         self.client._on_failure_callback = on_failure_callback
-        self.client._terminate_consumer_callback = exit_callback
+        self.client._terminate_consumer_callback = exit_trigger
 
         self.connect()
         self.client.start()
