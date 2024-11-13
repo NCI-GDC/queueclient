@@ -76,12 +76,16 @@ class RabbitMQClient(QueueClient):
         self.client = None
 
     def connect(self):
-        try:
-            self.client.connect()
-        except Exception as e:
-            raise ValueError("RabbitMQ connection unsuccessful %s", e)
+        raise RuntimeError("Use one of the queuing/consumer methods to connect")
 
-    def enqueue(self, msg, durable=True, routing_key=None):
+    def enqueue(self, msg: object, durable=True, routing_key=None) -> bool:
+        """Publish a message to queue and keeps connection open.
+
+        Args:
+            msg: JSON serializable message to publish
+            durable (bool): if supported by queue, persist data even if service is restarted
+            routing_key (str): useful for selectively focusing on workers'
+        """
         if not (isinstance(self.client, RabbitPublisher) and self.status()):
             self.client = RabbitPublisher(
                 self.host,
@@ -95,7 +99,7 @@ class RabbitMQClient(QueueClient):
                 self.exchange_type,
                 self.routing_key,
             )
-            self.connect()
+            self.client.connect()
         routing_key = routing_key or self.routing_key or self.queue_id
         self.client.basic_publish(msg, durable, routing_key)
         return True
@@ -136,11 +140,11 @@ class RabbitMQClient(QueueClient):
         self.client._on_failure_callback = on_failure_callback
         self.client._terminate_consumer_callback = exit_trigger
 
-        self.connect()
+        self.client.connect()
         self.client.start()
 
     def dequeue(self, block=True, requeue=True):
-        """Opens connection, performs consume and closes connection, returns response."""
+        """Opens a new connection, performs consume and closes connection, returns response."""
 
         self.client = RabbitPublisher(
             self.host,
@@ -155,9 +159,9 @@ class RabbitMQClient(QueueClient):
             self.routing_key,
         )
 
-        self.connect()
+        self.client.connect()
         body = self.client.basic_get(requeue)
-        self.close()
+        self.client.close()
         return body
 
     def status(self) -> bool:
@@ -173,7 +177,8 @@ class RabbitMQClient(QueueClient):
         return True
 
     def close(self):
-        self.client.close()
+        if self.client:
+            self.client.close()
 
 
 class RabbitConsumer(RabbitMQClient):
@@ -295,8 +300,6 @@ class RabbitConsumer(RabbitMQClient):
                 channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue_failed)
             if on_failure:
                 on_failure(body)
-
-        print(f"{self._terminate_consumer_callback} -- --")
 
         try:
             # py3 returns bytes

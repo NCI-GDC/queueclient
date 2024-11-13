@@ -18,7 +18,6 @@ class QueueClient(abc.ABC):
         self._is_closing = False
         self.queue_id = queue_id
 
-    @abc.abstractmethod
     def connect(self) -> None:
         """Implement this to initialize the queue for use"""
         ...
