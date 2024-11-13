@@ -15,7 +15,7 @@ class QueueClient(abc.ABC):
         Args:
             queue_id (str): A reasonable identifier for this queue
         """
-        self._is_closing = False
+        self.is_closing = False
         self.queue_id = queue_id
 
     def connect(self) -> None:
@@ -85,14 +85,17 @@ class QueueClient(abc.ABC):
             __handle_message(msg)
 
             # attempt to exit the consumer
-            if self._is_closing or (exit_trigger and exit_trigger()):
+            if self.is_closing or (exit_trigger and exit_trigger()):
                 logger.info(f"{self.__class__.__name__}[{self.queue_id}] is shutting down.")
                 break
             time.sleep(1)
 
     def close(self):
         """Close all connections"""
-        self._is_closing = True
+        self.start_closing()
+
+    def start_closing(self) -> None:
+        self.is_closing = True
 
     @abc.abstractmethod
     def status(self) -> bool:

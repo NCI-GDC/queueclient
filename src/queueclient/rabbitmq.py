@@ -73,7 +73,7 @@ class RabbitMQClient(QueueClient):
             credentials=credentials,
         )
 
-        self.client = None
+        self.client: Optional["RabbitMQClient"] = None
 
     def connect(self):
         raise RuntimeError("Use one of the queuing/consumer methods to connect")
@@ -109,7 +109,7 @@ class RabbitMQClient(QueueClient):
         callback: Callable[[Any], None],
         requeue_failed=True,
         on_failure_callback: Optional[Callable[[Any], None]] = None,
-        exit_trigger: Optional[Callable[[], None]] = None,
+        exit_trigger: Optional[Callable[[], bool]] = None,
     ) -> None:
         """Listens for incoming data in queue
         Args:
@@ -180,6 +180,11 @@ class RabbitMQClient(QueueClient):
         if self.client:
             self.client.close()
 
+    def start_closing(self) -> None:
+        print(self.client)
+        if self.client:
+            self.client.is_closing = True
+
 
 class RabbitConsumer(RabbitMQClient):
     def connect(self):
@@ -193,7 +198,7 @@ class RabbitConsumer(RabbitMQClient):
     def on_connection_closed(self, _conn, reason):
         self.channel = None
         logger.error(f"Connection closed unexpectedly {_conn}, {reason}")
-        if self._is_closing:
+        if self.is_closing:
             # closing is intentional
             self.connection.ioloop.stop()
         else:
@@ -227,7 +232,7 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_channel_closed(self, channel, reason):
         self.channel = None
-        if self._is_closing and not self.connection.is_closing and not self.connection.is_closed:
+        if self.is_closing and not self.connection.is_closing and not self.connection.is_closed:
             self.connection.close()
         logger.error("Channel %i closed: %s", channel, reason)
 
@@ -270,7 +275,7 @@ class RabbitConsumer(RabbitMQClient):
         logger.error("RabbitConsumer channel closed unexpectedly: %s", _frame)
 
     def close(self):
-        self._is_closing = True
+        self.is_closing = True
         if self.channel is not None:
             self.channel.close()
         if self.connection and not self.connection.is_closed and not self.connection.is_closing:
@@ -311,23 +316,22 @@ class RabbitConsumer(RabbitMQClient):
             nack_message()
             logger.error(f"Exception while processing request {e}", exc_info=e)
 
-        if self._terminate_consumer_callback and self._terminate_consumer_callback():
+        if self.is_closing or (
+            self._terminate_consumer_callback and self._terminate_consumer_callback()
+        ):
+            logger.info(f"{self.__class__.__name__}[{self.queue_id}] is shutting down.")
             self.stop()
 
     def start(self):
         self.connection.ioloop.start()
 
     def stop(self):
-        if not self._is_closing:
-            self._is_closing = True
-            logger.info("Stopping")
-            if self._is_consuming:
-                self.channel.basic_cancel(
-                    consumer_tag=self.consumer_tag, callback=self.on_cancel_ok
-                )
-                self.connection.ioloop.stop()
-            else:
-                self.connection.ioloop.stop()
+        self.is_closing = True
+        if self._is_consuming:
+            self.channel.basic_cancel(consumer_tag=self.consumer_tag, callback=self.on_cancel_ok)
+            self.connection.ioloop.stop()
+        else:
+            self.connection.ioloop.stop()
 
     def on_cancel_ok(self):
         self._is_consuming = False
@@ -400,6 +404,6 @@ class RabbitPublisher(RabbitMQClient):
         return body
 
     def close(self):
-        self._is_closing = True
+        self.is_closing = True
         if self.connection and self.connection.is_open:
             self.connection.close()

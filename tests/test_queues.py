@@ -155,12 +155,12 @@ def test_rabbitmq_on_failure_callback(
         assert msg
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
+        qx.start_closing()
 
     qx.consume(
         consumer_callback,
         requeue_failed=False,
         on_failure_callback=f_call,
-        exit_trigger=lambda: True,
     )
 
 
