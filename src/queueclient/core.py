@@ -95,6 +95,8 @@ class QueueClient(abc.ABC):
         self.start_closing()
 
     def start_closing(self) -> None:
+        """Initiate a clean exit from the queue.
+        Ensures existing tasks are completed and acknowledged before shutdown."""
         self.is_closing = True
 
     @abc.abstractmethod

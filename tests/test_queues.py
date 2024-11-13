@@ -151,7 +151,6 @@ def test_rabbitmq_on_failure_callback(
 
     def f_call(body):
         msg = json.loads(body)
-        print("xyz")
         assert msg
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
