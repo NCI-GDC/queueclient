@@ -1,6 +1,6 @@
 import os
 
-from deprecation import deprecated
+from deprecated import deprecated
 
 from queueclient.core import InMemoryQueueClient, QueueClient
 from queueclient.depot import DepotQueueClient
@@ -47,7 +47,7 @@ class QueueFactory:
         )
 
     @staticmethod
-    @deprecated(details="Depot server is no longer maintained.")
+    @deprecated(reason="Depot server is no longer maintained.")
     def get_depot_client(queue_id, host="depot.service.consul", port=80, version="v0"):
         depot_server = os.environ.get("DEPOT_SERVER", host)
         depot_port = int(os.environ.get("DEPOT_PORT", port))

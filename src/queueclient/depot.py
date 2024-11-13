@@ -1,7 +1,7 @@
 import logging
 
 import requests
-from deprecation import deprecated
+from deprecated import deprecated
 from requests import HTTPError
 
 from queueclient.core import QueueClient
@@ -9,7 +9,7 @@ from queueclient.core import QueueClient
 logger = logging.getLogger(__name__)
 
 
-@deprecated(details="Depot is no longer maintained internally.")
+@deprecated(reason="Depot is no longer maintained internally.")
 class DepotQueueClient(QueueClient):
     def __init__(self, queue_id, host="depot.service.consul", port=80, version="v0"):
 
