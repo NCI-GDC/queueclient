@@ -196,7 +196,7 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_connection_closed(self, _conn, reason):
         self.channel = None
-        logger.error(f"Connection closed unexpectedly {_conn}, {reason}")
+        logger.debug(f"Connection closed {_conn}, {reason}")
         if self.is_closing:
             # closing is intentional
             self.connection.ioloop.stop()
@@ -233,7 +233,7 @@ class RabbitConsumer(RabbitMQClient):
         self.channel = None
         if self.is_closing and not self.connection.is_closing and not self.connection.is_closed:
             self.connection.close()
-        logger.error("Channel '%s' closed:", msg_channel, exc_info=reason)
+        logger.debug("Channel '%s' closed:", msg_channel.channel_number, exc_info=reason)
 
     def on_exchange_declare_ok(self, _header):
         self.channel.queue_declare(
