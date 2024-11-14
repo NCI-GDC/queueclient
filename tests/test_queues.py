@@ -1,7 +1,7 @@
 import json
 import uuid
 from threading import Thread
-from typing import Tuple
+from typing import Tuple, cast
 
 from queueclient import RabbitMQClient
 from queueclient.core import InMemoryQueueClient
@@ -28,7 +28,7 @@ def test_inmemory_queue():
 def test_inmemory_queue_same_uuid_return_same_queue():
     """Tests initializing supported queue types"""
     # get default queue
-    q_uuid = uuid.uuid4()
+    q_uuid = str(uuid.uuid4())
     q = QueueFactory.get_in_memory_client(q_uuid)
     assert q.status() is True
 
@@ -71,7 +71,7 @@ def test_inmemory_queue_completes():
         def consume(msg):
             pass
 
-        q.consume(callback=consume)
+        q.consume(callback=consume, exit_trigger=lambda: True)
 
     t = Thread(target=listen_for_messages)
     t.start()
@@ -89,7 +89,7 @@ def test_depot_queue(depot_fixture):
     assert response is True
 
     # retrieve
-    msg = q.dequeue()
+    msg = cast(dict, q.dequeue())
     assert msg
     assert msg["did"] == "AAAAA"
     assert msg["size"] == 123
@@ -115,9 +115,8 @@ def test_depot_queue_listening(depot_fixture):
         assert msg
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
-        q.close()
 
-    q.consume(callback=consume)
+    q.consume(callback=consume, exit_trigger=lambda: True)
 
 
 def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
@@ -134,9 +133,8 @@ def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient])
         assert msg
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
-        qx.close()
 
-    qx.consume(consumer_callback, requeue_failed=False)
+    qx.consume(consumer_callback, requeue_failed=False, exit_trigger=lambda: True)
 
 
 def test_rabbitmq_on_failure_callback(
@@ -153,13 +151,16 @@ def test_rabbitmq_on_failure_callback(
 
     def f_call(body):
         msg = json.loads(body)
-
         assert msg
         assert msg["did"] == "AAAAA"
         assert msg["size"] == 123
-        qx.close()
+        qx.start_closing()
 
-    qx.consume(consumer_callback, requeue_failed=False, on_failure_callback=f_call)
+    qx.consume(
+        consumer_callback,
+        requeue_failed=False,
+        on_failure_callback=f_call,
+    )
 
 
 def test_rabbitmq_deque(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:

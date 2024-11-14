@@ -1,9 +1,15 @@
+import logging
+
 import requests
+from deprecated import deprecated
 from requests import HTTPError
 
 from queueclient.core import QueueClient
 
+logger = logging.getLogger(__name__)
 
+
+@deprecated(reason="Depot is no longer maintained internally.")
 class DepotQueueClient(QueueClient):
     def __init__(self, queue_id, host="depot.service.consul", port=80, version="v0"):
 
@@ -25,7 +31,7 @@ class DepotQueueClient(QueueClient):
             response = requests.get(url)
             return response.status_code == 200
         except HTTPError as e:
-            self.logger.error(e.message, exc_info=1)
+            logger.error("HTTP error", exc_info=e)
         return False
 
     def enqueue(self, msg, durable=False, routing_key=""):
@@ -45,7 +51,7 @@ class DepotQueueClient(QueueClient):
             response = requests.put(url, json=msg)
             return response.status_code == 200
         except HTTPError as e:
-            self.logger.error(e.message, exc_info=1)
+            logger.error("HTTP Error", exc_info=e)
         return False
 
     def dequeue(self, requeue=True, block=False):
@@ -54,14 +60,14 @@ class DepotQueueClient(QueueClient):
             object: JSON object
         """
         if block:
-            self.logger.warning("Blocking is not available in the DepotQueueClient")
+            logger.warning("Blocking is not available in the DepotQueueClient")
         try:
             url = f"{self.depot_server_url}/work/{self.queue_id}"
             response = requests.get(url)
             if response.status_code == 200:
                 return response.json()
         except HTTPError as e:
-            self.logger.error(e, exc_info=1)
+            logger.error("Depot http error while de-queuing.", exc_info=e)
         return None
 
     def clear(self):
@@ -83,4 +89,4 @@ class DepotQueueClient(QueueClient):
             raise HTTPError(f"Boom Boom !!!, Depot QueueClient not reachable @ {ping_url}")
 
         message = response.json()
-        self.logger.info("Using Depot Version: {}".format(message["version"]))
+        logger.info("Using Depot Version: {}".format(message["version"]))
