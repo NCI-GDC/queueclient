@@ -23,7 +23,7 @@ class QueueClient(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def enqueue(self, msg: object, durable: str = True, routing_key: str = "") -> bool:
+    def enqueue(self, msg: object, durable: bool = True, routing_key: str = "") -> bool:
         """Publishes a message to a queue
         Args:
             msg (object): JSON serializable object
@@ -35,7 +35,7 @@ class QueueClient(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def dequeue(self, block: bool, requeue=True) -> Any:
+    def dequeue(self, block: bool = False, requeue: bool = True) -> Any:
         """Abstract method to dequeue an item from the queue.
 
         Args:

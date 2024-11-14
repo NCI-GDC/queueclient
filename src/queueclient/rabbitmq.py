@@ -3,8 +3,8 @@ import logging
 from typing import Any, Callable, Optional
 
 import pika
-import pika.exceptions
 import simplejson as json
+from pika import channel, exceptions, frame, spec
 
 from queueclient.core import QueueClient
 
@@ -181,7 +181,6 @@ class RabbitMQClient(QueueClient):
             self.client.close()
 
     def start_closing(self) -> None:
-        print(self.client)
         if self.client:
             self.client.is_closing = True
 
@@ -211,8 +210,8 @@ class RabbitConsumer(RabbitMQClient):
     def on_connection_open(self, _conn):
         self.connection.channel(on_open_callback=self.on_channel_open)
 
-    def on_channel_open(self, channel):
-        self.channel = channel
+    def on_channel_open(self, msg_channel: channel.Channel) -> None:
+        self.channel = msg_channel
         self.channel.add_on_close_callback(self.on_channel_closed)
 
         # setup exchange
@@ -230,11 +229,11 @@ class RabbitConsumer(RabbitMQClient):
                 callback=self.on_queue_declare_ok,
             )
 
-    def on_channel_closed(self, channel, reason):
+    def on_channel_closed(self, msg_channel: channel.Channel, reason: Exception) -> None:
         self.channel = None
         if self.is_closing and not self.connection.is_closing and not self.connection.is_closed:
             self.connection.close()
-        logger.error("Channel %i closed: %s", channel, reason)
+        logger.error("Channel '%s' closed:", msg_channel, exc_info=reason)
 
     def on_exchange_declare_ok(self, _header):
         self.channel.queue_declare(
@@ -283,26 +282,19 @@ class RabbitConsumer(RabbitMQClient):
 
     def _basic_callback(
         self,
-        channel,
-        method,
-        props,
-        body,
-        callback,
-        requeue_failed=True,
-        on_failure=None,
+        msg_channel: channel.Channel,
+        method: spec.Basic.Deliver,
+        _: spec.BasicProperties,
+        body: bytes,
+        callback: Callable[[str], None],
+        requeue_failed: bool = True,
+        on_failure: Callable[[str], None] = None,
     ):
         """Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
         delivery_tag = method.delivery_tag
 
-        def ack_message():
-            if channel.is_open:
-                channel.basic_ack(delivery_tag)
-            else:
-                logger.info("Channel is already closed, message cannot be acknowledged")
-
         def nack_message():
-            if channel.is_open:
-                channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue_failed)
+            msg_channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue_failed)
             if on_failure:
                 on_failure(body)
 
@@ -311,7 +303,7 @@ class RabbitConsumer(RabbitMQClient):
             if isinstance(body, bytes):
                 body = body.decode("utf-8")
             callback(body)
-            ack_message()
+            msg_channel.basic_ack(method.delivery_tag)
         except Exception as e:
             nack_message()
             logger.error(f"Exception while processing request {e}", exc_info=e)
@@ -329,11 +321,10 @@ class RabbitConsumer(RabbitMQClient):
         self.is_closing = True
         if self._is_consuming:
             self.channel.basic_cancel(consumer_tag=self.consumer_tag, callback=self.on_cancel_ok)
-            self.connection.ioloop.stop()
         else:
             self.connection.ioloop.stop()
 
-    def on_cancel_ok(self):
+    def on_cancel_ok(self, _: frame.Method) -> None:
         self._is_consuming = False
         if self.channel and self.channel.is_open:
             self.channel.close()
@@ -386,7 +377,7 @@ class RabbitPublisher(RabbitMQClient):
             )
 
     def basic_get(self, requeue=True):
-        mtd, props, body = self.channel.basic_get(self.queue_id)
+        mtd, _, body = self.channel.basic_get(self.queue_id)
 
         if body:
             try:
