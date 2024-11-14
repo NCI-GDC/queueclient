@@ -78,7 +78,7 @@ class RabbitMQClient(QueueClient):
     def connect(self):
         raise RuntimeError("Use one of the queuing/consumer methods to connect")
 
-    def enqueue(self, msg: object, durable=True, routing_key=None) -> bool:
+    def enqueue(self, msg: Any, durable=True, routing_key=None) -> bool:
         """Publish a message to queue and keeps connection open.
 
         Args:
