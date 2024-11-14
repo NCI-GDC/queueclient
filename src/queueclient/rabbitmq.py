@@ -4,7 +4,7 @@ from typing import Any, Callable, Optional
 
 import pika
 import simplejson as json
-from pika import channel, exceptions, frame, spec
+from pika import channel, connection, exceptions, frame, spec
 
 from queueclient.core import QueueClient
 
@@ -194,9 +194,9 @@ class RabbitConsumer(RabbitMQClient):
             on_open_error_callback=self.on_connection_open_error,
         )
 
-    def on_connection_closed(self, _conn, reason):
+    def on_connection_closed(self, _conn: connection.Connection, reason: Exception) -> None:
         self.channel = None
-        logger.debug(f"Connection closed {_conn}, {reason}")
+        logger.debug(f"Connection '{_conn.params.host}'", exc_info=reason)
         if self.is_closing:
             # closing is intentional
             self.connection.ioloop.stop()
@@ -291,12 +291,6 @@ class RabbitConsumer(RabbitMQClient):
         on_failure: Callable[[str], None] = None,
     ):
         """Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
-        delivery_tag = method.delivery_tag
-
-        def nack_message():
-            msg_channel.basic_nack(delivery_tag=delivery_tag, requeue=requeue_failed)
-            if on_failure:
-                on_failure(body)
 
         try:
             # py3 returns bytes
@@ -305,7 +299,9 @@ class RabbitConsumer(RabbitMQClient):
             callback(body)
             msg_channel.basic_ack(method.delivery_tag)
         except Exception as e:
-            nack_message()
+            msg_channel.basic_nack(delivery_tag=method.delivery_tag, requeue=requeue_failed)
+            if on_failure:
+                on_failure(body)
             logger.error(f"Exception while processing request {e}", exc_info=e)
 
         if self.is_closing or (

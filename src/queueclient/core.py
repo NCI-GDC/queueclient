@@ -120,6 +120,7 @@ class InMemoryQueueClient(QueueClient):
 
     def connect(self):
         """No-op"""
+        pass
 
     def enqueue(self, msg, durable=False, routing_key="") -> bool:
         if durable:
