@@ -85,6 +85,8 @@ class RabbitMQClient(QueueClient):
             msg: JSON serializable message to publish
             durable (bool): if supported by queue, persist data even if service is restarted
             routing_key (str): useful for selectively focusing on workers'
+        Returns:
+            True if the action is successful, False otherwise.
         """
         if not (isinstance(self.client, RabbitPublisher) and self.status()):
             self.client = RabbitPublisher(
