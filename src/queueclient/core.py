@@ -13,7 +13,7 @@ class QueueClient(abc.ABC):
     def __init__(self, queue_id: str) -> None:
         """An abstract queue for communicating work between managers and worker
         Args:
-            queue_id (str): A reasonable identifier for this queue
+            queue_id: A reasonable identifier for this queue
         """
         self.is_closing = False
         self.queue_id = queue_id
@@ -23,12 +23,12 @@ class QueueClient(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def enqueue(self, msg: object, durable: bool = True, routing_key: str = "") -> bool:
+    def enqueue(self, msg: Any, durable: bool = True, routing_key: str = "") -> bool:
         """Publishes a message to a queue
         Args:
-            msg (object): JSON serializable object
-            durable (bool): if supported by queue, persist data even if service is restarted
-            routing_key (str): useful for selectively focusing on workers'
+            msg: JSON serializable object
+            durable: if supported by queue, persist data even if service is restarted
+            routing_key: useful for selectively focusing on workers'
         Returns:
             True if the action is successful, False otherwise.
         """
@@ -40,7 +40,7 @@ class QueueClient(abc.ABC):
 
         Args:
             block: Indicates whether the dequeue operation should block if the queue is empty.
-            requeue: Optional; no-op.
+            requeue: re-insert the item back into the queue, if a handling exception is raised.
 
         Returns:
             Any: The item dequeued from the queue.
@@ -90,7 +90,7 @@ class QueueClient(abc.ABC):
                 break
             time.sleep(1)
 
-    def close(self):
+    def close(self) -> None:
         """Close all connections"""
         self.start_closing()
 
@@ -108,7 +108,7 @@ class QueueClient(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def ping(self):
+    def ping(self) -> None:
         """Used for preliminary verification the queue is usable"""
         ...
 
@@ -129,15 +129,15 @@ class InMemoryQueueClient(QueueClient):
         self.q.put(msg)
         return True
 
-    def dequeue(self, block=True, requeue: bool = True):
+    def dequeue(self, block: bool = True, requeue: bool = True) -> Any:
         """Return a message from the queue
 
         Args:
-            block (bool, optional): When true, wait for a message on the queue. Can cause locks when used in a separate thread.
-            requeue: Optional; no-op.
+            block: When true, wait for a message in the queue. Can cause locks when used in a separate thread.
+            requeue: not used no-op.
 
         Returns:
-            Optional<Any>: The object in the queue or None
+            The object in the queue or None
         """
         try:
             return self.q.get(block=block)
