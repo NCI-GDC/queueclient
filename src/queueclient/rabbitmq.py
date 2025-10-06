@@ -24,7 +24,7 @@ class RabbitMQClient(QueueClient):
         exchange=None,
         exchange_type=None,
         routing_key=None,
-        heartbeat=0,
+        heartbeat=60,  # seconds between connection checks, 60 is default value
     ):
         """
         Args:
