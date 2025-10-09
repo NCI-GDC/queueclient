@@ -82,38 +82,6 @@ version_scheme = "versionista-format"
 [tool.tox]
 env_list = ["py310", "py311", "py312", "py313", "py314"]
 
-[tool.tox.env.publish]
-change_dir = ""
-commands = [
-  [
-    "python",
-    "-m",
-    "setuptools_scm"
-  ],
-  [
-    "python",
-    "-m",
-    "build"
-  ],
-  [
-    "python",
-    "-m",
-    "twine",
-    "check",
-    "dist/*"
-  ],
-  [
-    "python",
-    "-m",
-    "twine",
-    "upload",
-    "dist/*"
-  ]
-]
-deps = ["build", "setuptools-scm", "twine", "versionista"]
-pass_env = ["TWINE_*"]
-skip_install = true
-
 [tool.tox.env_run_base]
 commands = [
   [
