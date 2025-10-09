@@ -12,7 +12,7 @@ variables:
 tox:
   parallel:
     matrix:
-      - BUILD_PY_VERSION: [python3.10, python3.11, python3.12, python3.13]
+      - LANGUAGE_VERSION: [python3.10, python3.11, python3.12, python3.13]
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ''
