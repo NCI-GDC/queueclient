@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 @deprecated(reason="Depot is no longer maintained internally.")
 class DepotQueueClient(QueueClient):
     def __init__(self, queue_id, host="depot.service.consul", port=80, version="v0"):
-
         super().__init__(queue_id=queue_id)
 
         self._is_closing = False
@@ -82,7 +81,6 @@ class DepotQueueClient(QueueClient):
         raise HTTPError("Depot QueueClient could not be setup correctly")
 
     def ping(self):
-
         ping_url = f"{self.depot_server_url}/"
         response = requests.get(url=ping_url)
         if response.status_code != 200:

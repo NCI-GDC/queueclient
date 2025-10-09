@@ -2,14 +2,14 @@ import abc
 import logging
 import queue
 import time
+from collections.abc import Callable
 from multiprocessing import Queue
-from typing import Any, Callable, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
 class QueueClient(abc.ABC):
-
     def __init__(self, queue_id: str) -> None:
         """An abstract queue for communicating work between managers and worker
         Args:
@@ -50,19 +50,22 @@ class QueueClient(abc.ABC):
     def consume(
         self,
         callback: Callable[[Any], None],
-        requeue_failed=True,
-        on_failure_callback: Optional[Callable[[Any], None]] = None,
-        exit_trigger: Optional[Callable[[], bool]] = None,
+        requeue_failed: bool = True,
+        on_failure_callback: Callable[[Any], None] | None = None,
+        exit_trigger: Callable[[], bool] | None = None,
     ) -> None:
-        """Listens for incoming data in queue, initial impl uses a simple loop that sleeps for 1 second
-        RabbitMQ uses different implementation
+        """Listens for incoming data in queue, initial impl uses a simple loop that sleeps for
+        1 second RabbitMQ uses different implementation.
+
         Args:
             callback: function in the form
                 def callback(msg):
                     do something
-            requeue_failed (bool): requeue failed messages
-            on_failure_callback (function): external handling of failed tasks, the same signature as callback
-            exit_trigger (function): callback function that returns True/False used to force the consumer to exit.
+            requeue_failed: requeue failed messages
+            on_failure_callback: external handling of failed tasks, the same signature as
+                callback.
+            exit_trigger: callback function that returns True/False used to force the
+                consumer to exit.
         """
 
         def __handle_message(message: Any) -> None:
@@ -79,7 +82,6 @@ class QueueClient(abc.ABC):
                     on_failure_callback(message)
 
         while True:
-
             # Do not wait for messages so that the queue can be shut down.
             msg = self.dequeue(block=False)
             __handle_message(msg)
@@ -133,7 +135,8 @@ class InMemoryQueueClient(QueueClient):
         """Return a message from the queue
 
         Args:
-            block: When true, wait for a message in the queue. Can cause locks when used in a separate thread.
+            block: When true, wait for a message in the queue. Can cause locks when used in a
+                separate thread.
             requeue: not used no-op.
 
         Returns:

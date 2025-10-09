@@ -4,7 +4,6 @@ import os
 from queueclient import RabbitMQClient
 
 if __name__ == "__main__":
-
     logging.basicConfig(level=logging.DEBUG)
     logging.getLogger("pika").setLevel(logging.ERROR)
 
