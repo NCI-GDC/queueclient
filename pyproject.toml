@@ -1,65 +1,103 @@
 [build-system]
-requires = ["setuptools>=68", "wheel", "setuptools_scm[toml]>=7.0", "versionista>=1.1.0"]
 build-backend = "setuptools.build_meta"
+requires = ["setuptools>=68", "wheel", "setuptools_scm[toml]>=7.0", "versionista>=1.1.0"]
 
 [project]
-name = "queueclient"
-dynamic = [
-  "version",
-  "description",
-  "readme",
-  "requires-python",
-  "license",
-  "authors",
-  "maintainers",
-  "keywords",
-  "classifiers",
-  "urls",
-  "scripts",
-  "gui-scripts",
-  "entry-points",
-  "dependencies",
-  "optional-dependencies"
+authors = [
+  {name = "GDC Feature Team", email = "gdc_dev_questions-aaaaae2lhsbell56tlvh3upgoq@cdis.slack.com"}
 ]
+classifiers = [
+  "License :: OSI Approved :: Apache Software License",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Internet",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14"
+]
+dependencies = ["deprecated", "pika", "requests", "simplejson"]
+description = "Queue Client Facade: A generalized API that allows for connection to multiple queue implementations."
+dynamic = ["version"]
+keywords = ["rabbitmq", "depot"]
+license-files = ["LICENSE"]
+maintainers = [
+  {name = "GDC Feature Team", email = "gdc_dev_questions-aaaaae2lhsbell56tlvh3upgoq@cdis.slack.com"}
+]
+name = "queueclient"
+readme = "README.md"
+requires-python = ">=3.10"
 
-[tool.black]
-line-length = 98
-include = '\.pyi?$'
+[project.optional-dependencies]
+dev = ["coverage[toml]", "depot==1.0.0", "pytest", "pytest-cov", "testcontainers[rabbitmq]"]
+
+[project.urls]
+Repository = "https://github.com/NCI-GDC/queueclient"
 
 [tool.coverage.html]
-title = "queueclient coverage report"
 directory = "docs/htmlcov"
 show_contexts = true
+title = "queueclient coverage report"
 
 [tool.coverage.run]
 branch = true
 context = "unit tests"
 source = ["queueclient"]
 
-[tool.isort]
-profile = "black"
-known_first_party = ["queueclient"]
-
 [tool.pytest.ini_options]
-minversion = 6.0
-python_files = "test_*.py"
-python_functions = "test_*"
+addopts = "-rfE --color=yes --cov=queueclient --cov-report term"
+console_output_style = "classic"
 junit_family = "xunit2"
 junit_logging = "system-out"
-console_output_style = "classic"
+log_cli = true
 log_cli_level = "INFO"
-log_cli = "true"
-addopts = "-rfE --color=yes --cov=queueclient --cov-report term"
-norecursedirs = [
-  ".git",
-  ".tox",
-  "dist",
-  "build"
-]
-testpaths = [
-  "tests"
+minversion = "6.0"
+norecursedirs = [".git", ".tox", "dist", "build"]
+python_files = "test_*.py"
+python_functions = "test_*"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 95
+src = ["src", "tests"]
+target-version = "py310"
+
+[tool.ruff.lint]
+# see https://docs.astral.sh/ruff/rules/
+select = [
+  "E", # pydocstyle errors
+  "F", # pyflakes
+  "I", # isort
+  "N", # pep8 naming
+  "RUF", # ruff specific rules
+  "UP", # pyupgrade
+  "W" # pydocstyle warnings
 ]
 
 [tool.setuptools_scm]
 local_scheme = "versionista-local-format"
 version_scheme = "versionista-format"
+
+[tool.tox]
+env_list = ["py310", "py311", "py312", "py313", "py314"]
+
+[tool.tox.env_run_base]
+commands = [
+  [
+    "python",
+    "-m",
+    "pytest",
+    {replace = "posargs", default = [
+      "--cov-report=html",
+      "--cov-report=xml",
+      "--junit-xml=report.xml"
+    ], extend = true}
+  ]
+]
+extras = ["dev"]
+pass_env = ["RABBITMQ_*", "DOCKER_*"]
+
+[tool.tox.env_run_base.set_env]
+NO_PROXY = "localhost,docker"
+no_proxy = "localhost,docker"

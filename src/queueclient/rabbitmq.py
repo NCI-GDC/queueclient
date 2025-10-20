@@ -1,10 +1,11 @@
 import functools
 import logging
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from typing import Any
 
 import pika
 import simplejson as json
-from pika import channel, connection, exceptions, frame, spec
+from pika import channel, connection, frame, spec
 
 from queueclient.core import QueueClient
 
@@ -73,7 +74,7 @@ class RabbitMQClient(QueueClient):
             credentials=credentials,
         )
 
-        self.client: Optional["RabbitMQClient"] = None
+        self.client: RabbitMQClient | None = None
 
     def connect(self):
         raise RuntimeError("Use one of the queuing/consumer methods to connect")
@@ -110,8 +111,8 @@ class RabbitMQClient(QueueClient):
         self,
         callback: Callable[[Any], None],
         requeue_failed=True,
-        on_failure_callback: Optional[Callable[[Any], None]] = None,
-        exit_trigger: Optional[Callable[[], bool]] = None,
+        on_failure_callback: Callable[[Any], None] | None = None,
+        exit_trigger: Callable[[], bool] | None = None,
     ) -> None:
         """Listens for incoming data in queue
         Args:
@@ -120,9 +121,11 @@ class RabbitMQClient(QueueClient):
                     `Args`:
                         body: response retrieved from queue`
                     do something
-            requeue_failed (bool): If True requeue task on failure
-            on_failure_callback (function): external handling of failed tasks, the same signature as callback
-            exit_trigger: callback function that returns True/False used to force the consumer to exit.
+            requeue_failed: If True requeue task on failure.
+            on_failure_callback: external handling of failed tasks, the same signature as
+                callback.
+            exit_trigger: callback function that returns True/False used to force the consumer
+                to exit.
         """
 
         self.client = RabbitConsumer(
@@ -233,7 +236,11 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_channel_closed(self, msg_channel: channel.Channel, reason: Exception) -> None:
         self.channel = None
-        if self.is_closing and not self.connection.is_closing and not self.connection.is_closed:
+        if (
+            self.is_closing
+            and not self.connection.is_closing
+            and not self.connection.is_closed
+        ):
             self.connection.close()
         logger.debug("Channel '%s' closed:", msg_channel.channel_number, exc_info=reason)
 
@@ -279,7 +286,11 @@ class RabbitConsumer(RabbitMQClient):
         self.is_closing = True
         if self.channel is not None:
             self.channel.close()
-        if self.connection and not self.connection.is_closed and not self.connection.is_closing:
+        if (
+            self.connection
+            and not self.connection.is_closed
+            and not self.connection.is_closing
+        ):
             self.connection.close()
 
     def _basic_callback(
@@ -290,9 +301,9 @@ class RabbitConsumer(RabbitMQClient):
         body: bytes,
         callback: Callable[[str], None],
         requeue_failed: bool = True,
-        on_failure: Callable[[str], None] = None,
+        on_failure: Callable[[str], None] | None = None,
     ):
-        """Wraps user provided callback and adds basic acknowledgement when nothing goes wrong"""
+        """Wraps user provided callback & adds basic acknowledgement when nothing goes wrong"""
 
         try:
             # py3 returns bytes
@@ -318,7 +329,9 @@ class RabbitConsumer(RabbitMQClient):
     def stop(self):
         self.is_closing = True
         if self._is_consuming:
-            self.channel.basic_cancel(consumer_tag=self.consumer_tag, callback=self.on_cancel_ok)
+            self.channel.basic_cancel(
+                consumer_tag=self.consumer_tag, callback=self.on_cancel_ok
+            )
         else:
             self.connection.ioloop.stop()
 
@@ -353,7 +366,6 @@ class RabbitPublisher(RabbitMQClient):
         logger.debug(f"Blocking Connection established to {self.conn_params}")
 
     def basic_publish(self, msg, durability, routing_key):
-
         msg = json.dumps(msg)
         delivery_mode = 2 if durability else 1  # mode 2 == durable, 1 == not durable
         props = pika.BasicProperties(

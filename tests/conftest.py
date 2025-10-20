@@ -2,7 +2,6 @@ import logging
 import os
 from datetime import datetime
 from threading import Thread
-from typing import Tuple
 
 import depot
 import pytest
@@ -39,7 +38,7 @@ class _Depot:
         self.app.queue_data = {}
         self.app.start_time = datetime.now()
         self.app.version = "vt"
-        logger.info("Initializing depot at {}".format(self.app.start_time))
+        logger.info(f"Initializing depot at {self.app.start_time}")
 
     def run(self, *args, **kwargs):
         self.app.run(*args, **kwargs)
@@ -70,7 +69,6 @@ class DepotServer(Thread):
 
 @pytest.fixture(scope="session")
 def depot_fixture(request):
-
     mock = DepotServer()
     mock.start()
 
@@ -83,7 +81,7 @@ def depot_fixture(request):
 
 
 @pytest.fixture()
-def rabbitmq_clients(request: pytest.FixtureRequest) -> Tuple[RabbitMQClient, RabbitMQClient]:
+def rabbitmq_clients(request: pytest.FixtureRequest) -> tuple[RabbitMQClient, RabbitMQClient]:
     """Start a RabbitMQ running on port 5672.
 
     Starts a rabbitmq docker container using testcontainers.

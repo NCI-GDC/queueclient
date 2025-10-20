@@ -1,7 +1,7 @@
 import json
 import uuid
 from threading import Thread
-from typing import Tuple, cast
+from typing import cast
 
 from queueclient import RabbitMQClient
 from queueclient.core import InMemoryQueueClient
@@ -119,7 +119,7 @@ def test_depot_queue_listening(depot_fixture):
     q.consume(callback=consume, exit_trigger=lambda: True)
 
 
-def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
+def test_rabbitmq_queue(rabbitmq_clients: tuple[RabbitMQClient, RabbitMQClient]) -> None:
     """Tests reading and writing to supported queue types"""
 
     q, qx = rabbitmq_clients
@@ -138,9 +138,8 @@ def test_rabbitmq_queue(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient])
 
 
 def test_rabbitmq_on_failure_callback(
-    rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]
+    rabbitmq_clients: tuple[RabbitMQClient, RabbitMQClient],
 ) -> None:
-
     q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))
@@ -163,7 +162,7 @@ def test_rabbitmq_on_failure_callback(
     )
 
 
-def test_rabbitmq_deque(rabbitmq_clients: Tuple[RabbitMQClient, RabbitMQClient]) -> None:
+def test_rabbitmq_deque(rabbitmq_clients: tuple[RabbitMQClient, RabbitMQClient]) -> None:
     q, qx = rabbitmq_clients
 
     response = q.enqueue(msg=dict(did="AAAAA", size=123))

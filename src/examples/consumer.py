@@ -9,7 +9,6 @@ def call_back(body):
 
 
 if __name__ == "__main__":
-
     logging.basicConfig(level=logging.DEBUG)
 
     logging.getLogger("pika").setLevel(logging.ERROR)

@@ -1,4 +1,5 @@
 import os
+from typing import ClassVar
 
 from deprecated import deprecated
 
@@ -8,8 +9,7 @@ from queueclient.rabbitmq import RabbitMQClient
 
 
 class QueueFactory:
-
-    active_in_memory_queues = {}
+    active_in_memory_queues: ClassVar[dict] = {}
 
     @staticmethod
     def get_in_memory_client(queue_id: str) -> QueueClient:
@@ -29,7 +29,6 @@ class QueueFactory:
         password="guest",
         durable=True,
     ):
-
         rabbitmq_url = os.environ.get("RABBITMQ_SERVER", host)
         rabbitmq_port = int(os.environ.get("RABBITMQ_PORT", port))
         rabbitmq_vhost = os.environ.get("RABBITMQ_VHOST", vhost)
