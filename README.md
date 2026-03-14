@@ -1,3 +1,8 @@
+> [!NOTE]
+> The code in this repository has been made public as-is for informational purposes. The repository may use private resources for the building and execution of the code. For example, private registries may be used for dependency resolution. 
+>
+> The documentation may refer to restricted URLs.
+
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commitlogoColor=white)](https://github.com/pre-commit/pre-commit)
 
 ---
