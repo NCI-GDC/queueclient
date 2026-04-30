@@ -24,7 +24,8 @@ JsonDeserializer = Callable[[str], Any]
 
 class QueueClient(abc.ABC):
     def __init__(self, queue_id: str) -> None:
-        """An abstract queue for communicating work between managers and worker
+        """An abstract queue for communicating work between managers and worker.
+
         Args:
             queue_id: A reasonable identifier for this queue
         """
