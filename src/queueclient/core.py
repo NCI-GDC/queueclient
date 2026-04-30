@@ -6,7 +6,20 @@ from collections.abc import Callable
 from multiprocessing import Queue
 from typing import Any
 
+import simplejson as json
+
 logger = logging.getLogger(__name__)
+
+JsonSerializer = Callable[[Any], str]
+"""Function that converts from a type to a utf-8 encoded json string.
+   - json.dumps -> converts dictionary to string
+   - pydantic.BaseModel.model_dump_json -> converts pydantic class to string
+"""
+JsonDeserializer = Callable[[str], Any]
+"""Converts from a utf-8 encoded json string into a type.
+   - json.loads -> converts a string to dictionary
+   - pydantic.BaseModel.model_validate_json -> converts a string to a Pydantic class
+"""
 
 
 class QueueClient(abc.ABC):
@@ -23,24 +36,38 @@ class QueueClient(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def enqueue(self, msg: Any, durable: bool = True, routing_key: str = "") -> bool:
+    def enqueue(
+        self,
+        msg: Any,
+        durable: bool = True,
+        routing_key: str = "",
+        serialize: JsonSerializer = json.dumps,
+    ) -> bool:
         """Publishes a message to a queue
         Args:
-            msg: JSON serializable object
+            msg: message to publish
             durable: if supported by queue, persist data even if service is restarted
             routing_key: useful for selectively focusing on workers'
+            serialize: Converts the msg argument into a UTF-8 json string
         Returns:
             True if the action is successful, False otherwise.
         """
         ...
 
     @abc.abstractmethod
-    def dequeue(self, block: bool = False, requeue: bool = True) -> Any:
+    def dequeue(
+        self,
+        block: bool = False,
+        requeue: bool = True,
+        deserialize: JsonSerializer = json.loads,
+    ) -> Any:
         """Abstract method to dequeue an item from the queue.
 
         Args:
             block: Indicates whether the dequeue operation should block if the queue is empty.
             requeue: re-insert the item back into the queue, if a handling exception is raised.
+            deserialize: A function that will parse the next item on the queue
+              into the return type
 
         Returns:
             Any: The item dequeued from the queue.

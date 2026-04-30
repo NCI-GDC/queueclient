@@ -7,23 +7,12 @@ import pika
 import simplejson as json
 from pika import channel, connection, frame, spec
 
-from queueclient.core import QueueClient
+from queueclient import core
 
 logger = logging.getLogger(__name__)
 
-JsonSerializer = Callable[[Any], str]
-"""Function that converts from a type to a utf-8 encoded json string.
-   - json.dumps -> converts dictionary to string
-   - pydantic.BaseModel.model_dump_json -> converts pydantic class to string
-"""
-JsonDeserializer = Callable[[str], Any]
-"""Converts from a utf-8 encoded json string into a type.
-   - json.loads -> converts a string to dictionary
-   - pydantic.BaseModel.model_validate_json -> converts a string to a Pydantic class
-"""
 
-
-class RabbitMQClient(QueueClient):
+class RabbitMQClient(core.QueueClient):
     def __init__(
         self,
         host="localhost",
@@ -95,7 +84,7 @@ class RabbitMQClient(QueueClient):
         msg: Any,
         durable: bool = True,
         routing_key: str | None = None,
-        serialize: JsonSerializer = json.dumps,
+        serialize: core.JsonSerializer = json.dumps,
     ) -> bool:
         """Publish a message to queue and keeps connection open.
 
@@ -166,7 +155,7 @@ class RabbitMQClient(QueueClient):
         self.client.connect()
         self.client.start()
 
-    def dequeue(self, block=True, requeue=True, deserialize: JsonSerializer = json.loads):
+    def dequeue(self, block=True, requeue=True, deserialize: core.JsonSerializer = json.loads):
         """Opens a new connection, performs consume and closes connection, returns response."""
 
         self.client = RabbitPublisher(
@@ -388,7 +377,7 @@ class RabbitPublisher(RabbitMQClient):
         msg: Any,
         durability: bool,
         routing_key: str | None,
-        serialize: JsonSerializer = json.dumps,
+        serialize: core.JsonSerializer = json.dumps,
     ):
         msg = serialize(msg)
         delivery_mode = 2 if durability else 1  # mode 2 == durable, 1 == not durable
@@ -410,7 +399,7 @@ class RabbitPublisher(RabbitMQClient):
                 exc_info=e,
             )
 
-    def basic_get(self, requeue=True, deserialize: JsonDeserializer = json.loads):
+    def basic_get(self, requeue=True, deserialize: core.JsonDeserializer = json.loads):
         mtd, _, body = self.channel.basic_get(self.queue_id)
 
         if body:
