@@ -81,10 +81,10 @@ class RabbitMQClient(core.QueueClient):
 
     def enqueue(
         self,
-        msg: Any,
+        msg: core.TMessage,
         durable: bool = True,
         routing_key: str | None = None,
-        serialize: core.JsonSerializer = json.dumps,
+        serialize: Callable[[core.TMessage], str] = json.dumps,
     ) -> bool:
         """Publish a message to queue and keeps connection open.
 
@@ -155,7 +155,12 @@ class RabbitMQClient(core.QueueClient):
         self.client.connect()
         self.client.start()
 
-    def dequeue(self, block=True, requeue=True, deserialize: core.JsonSerializer = json.loads):
+    def dequeue(
+        self,
+        block=True,
+        requeue=True,
+        deserialize: Callable[[str], core.TMessage] = json.loads,
+    ) -> core.TMessage:
         """Opens a new connection, performs consume and closes connection, returns response."""
 
         self.client = RabbitPublisher(
@@ -374,10 +379,10 @@ class RabbitPublisher(RabbitMQClient):
 
     def basic_publish(
         self,
-        msg: Any,
+        msg: core.TMessage,
         durability: bool,
         routing_key: str | None,
-        serialize: core.JsonSerializer = json.dumps,
+        serialize: Callable[[core.TMessage], str] = json.dumps,
     ):
         msg = serialize(msg)
         delivery_mode = 2 if durability else 1  # mode 2 == durable, 1 == not durable
@@ -399,7 +404,9 @@ class RabbitPublisher(RabbitMQClient):
                 exc_info=e,
             )
 
-    def basic_get(self, requeue=True, deserialize: core.JsonDeserializer = json.loads):
+    def basic_get(
+        self, requeue=True, deserialize: Callable[[str], core.TMessage] = json.loads
+    ):
         mtd, _, body = self.channel.basic_get(self.queue_id)
 
         if body:

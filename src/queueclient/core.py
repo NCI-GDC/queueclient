@@ -4,22 +4,13 @@ import queue
 import time
 from collections.abc import Callable
 from multiprocessing import Queue
-from typing import Any
+from typing import Any, TypeVar
 
 import simplejson as json
 
-logger = logging.getLogger(__name__)
+TMessage = TypeVar("TMessage")
 
-JsonSerializer = Callable[[Any], str]
-"""Function that converts from a type to a utf-8 encoded json string.
-   - json.dumps -> converts dictionary to string
-   - pydantic.BaseModel.model_dump_json -> converts pydantic class to string
-"""
-JsonDeserializer = Callable[[str], Any]
-"""Converts from a utf-8 encoded json string into a type.
-   - json.loads -> converts a string to dictionary
-   - pydantic.BaseModel.model_validate_json -> converts a string to a Pydantic class
-"""
+logger = logging.getLogger(__name__)
 
 
 class QueueClient(abc.ABC):
@@ -39,10 +30,10 @@ class QueueClient(abc.ABC):
     @abc.abstractmethod
     def enqueue(
         self,
-        msg: Any,
+        msg: TMessage,
         durable: bool = True,
         routing_key: str = "",
-        serialize: JsonSerializer = json.dumps,
+        serialize: Callable[[TMessage], str] = json.dumps,
     ) -> bool:
         """Publishes a message to a queue
         Args:
@@ -60,8 +51,8 @@ class QueueClient(abc.ABC):
         self,
         block: bool = False,
         requeue: bool = True,
-        deserialize: JsonSerializer = json.loads,
-    ) -> Any:
+        deserialize: Callable[[str], TMessage] = json.loads,
+    ) -> TMessage:
         """Abstract method to dequeue an item from the queue.
 
         Args:
@@ -71,7 +62,7 @@ class QueueClient(abc.ABC):
               into the return type
 
         Returns:
-            Any: The item dequeued from the queue.
+            The item dequeued from the queue.
         """
         ...
 
@@ -152,20 +143,44 @@ class InMemoryQueueClient(QueueClient):
         """No-op"""
         pass
 
-    def enqueue(self, msg, durable=False, routing_key="") -> bool:
+    def enqueue(
+        self,
+        msg: TMessage,
+        durable=False,
+        routing_key="",
+        serialize: Callable[[TMessage], str] = json.dumps,
+    ) -> bool:
+        """Add a message to the queue
+
+        Args:
+            msg: the data to queue
+            durable: not supported
+            routing_key: unused
+            serialize: unused
+
+        Returns:
+            The object in the queue or None
+        """
+
         if durable:
             raise ValueError("durable functionality is not supported")
 
         self.q.put(msg)
         return True
 
-    def dequeue(self, block: bool = True, requeue: bool = True) -> Any:
+    def dequeue(
+        self,
+        block: bool = True,
+        requeue: bool = True,
+        deserialize: Callable[[str], TMessage] = json.loads,
+    ) -> TMessage:
         """Return a message from the queue
 
         Args:
             block: When true, wait for a message in the queue. Can cause locks when used in a
                 separate thread.
             requeue: not used no-op.
+            deserialize: unused
 
         Returns:
             The object in the queue or None

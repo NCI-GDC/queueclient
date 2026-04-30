@@ -1,16 +1,18 @@
 import logging
+from collections.abc import Callable
 
 import requests
+import simplejson as json
 from deprecated import deprecated
 from requests import HTTPError
 
-from queueclient.core import QueueClient
+from queueclient import core
 
 logger = logging.getLogger(__name__)
 
 
 @deprecated(reason="Depot is no longer maintained internally.")
-class DepotQueueClient(QueueClient):
+class DepotQueueClient(core.QueueClient):
     def __init__(self, queue_id, host="depot.service.consul", port=80, version="v0"):
         super().__init__(queue_id=queue_id)
 
@@ -33,14 +35,22 @@ class DepotQueueClient(QueueClient):
             logger.error("HTTP error", exc_info=e)
         return False
 
-    def enqueue(self, msg, durable=False, routing_key=""):
+    def enqueue(
+        self,
+        msg: core.TMessage,
+        durable: bool = False,
+        routing_key: str = "",
+        serialize: Callable[[core.TMessage], str] = json.dumps,
+    ) -> bool:
         """Submits a JSON object to Depot Server
         Args:
-            msg (object): JSON object
-            durable (bool): Not supported by server
-            routing_key (str): unused attrib
+            msg: JSON object
+            durable: Not supported by server
+            routing_key: unused attrib
+            serialize: unused
+
         Returns:
-            bool: True if task was submitted successfully
+            True if task was submitted successfully
         """
         if durable:
             raise ValueError("durable functionality is not supported")
@@ -53,8 +63,19 @@ class DepotQueueClient(QueueClient):
             logger.error("HTTP Error", exc_info=e)
         return False
 
-    def dequeue(self, requeue=True, block=False):
+    def dequeue(
+        self,
+        requeue: bool = True,
+        block: bool = False,
+        deserialize: Callable[[str], core.TMessage] = json.loads,
+    ):
         """Retrieves a single JSON object from Depot Server
+
+        Args:
+            requeue: unused
+            block: not available
+            deserialize: unused
+
         Returns:
             object: JSON object
         """
