@@ -11,6 +11,17 @@ from queueclient.core import QueueClient
 
 logger = logging.getLogger(__name__)
 
+JsonSerializer = Callable[[Any], str]
+"""Function that converts from a type to a utf-8 encoded json string.
+   - json.dumps -> converts dictionary to string
+   - pydantic.BaseModel.model_dump_json -> converts pydantic class to string
+"""
+JsonDeserializer = Callable[[str], Any]
+"""Converts from a utf-8 encoded json string into a type.
+   - json.loads -> converts a string to dictionary
+   - pydantic.BaseModel.model_validate_json -> converts a string to a Pydantic class
+"""
+
 
 class RabbitMQClient(QueueClient):
     def __init__(
@@ -79,13 +90,20 @@ class RabbitMQClient(QueueClient):
     def connect(self):
         raise RuntimeError("Use one of the queuing/consumer methods to connect")
 
-    def enqueue(self, msg: Any, durable=True, routing_key=None) -> bool:
+    def enqueue(
+        self,
+        msg: Any,
+        durable: bool = True,
+        routing_key: str | None = None,
+        serialize: JsonSerializer = json.dumps,
+    ) -> bool:
         """Publish a message to queue and keeps connection open.
 
         Args:
-            msg: JSON serializable message to publish
-            durable (bool): if supported by queue, persist data even if service is restarted
-            routing_key (str): useful for selectively focusing on workers'
+            msg: message to publish
+            durable: if supported by queue, persist data even if service is restarted
+            routing_key: useful for selectively focusing on workers'
+            serialize: Converts the msg argument into a UTF-8 json string
         Returns:
             True if the action is successful, False otherwise.
         """
@@ -104,7 +122,7 @@ class RabbitMQClient(QueueClient):
             )
             self.client.connect()
         routing_key = routing_key or self.routing_key or self.queue_id
-        self.client.basic_publish(msg, durable, routing_key)
+        self.client.basic_publish(msg, durable, routing_key, serialize=serialize)
         return True
 
     def consume(
@@ -148,7 +166,7 @@ class RabbitMQClient(QueueClient):
         self.client.connect()
         self.client.start()
 
-    def dequeue(self, block=True, requeue=True):
+    def dequeue(self, block=True, requeue=True, deserialize: JsonSerializer = json.loads):
         """Opens a new connection, performs consume and closes connection, returns response."""
 
         self.client = RabbitPublisher(
@@ -165,7 +183,7 @@ class RabbitMQClient(QueueClient):
         )
 
         self.client.connect()
-        body = self.client.basic_get(requeue)
+        body = self.client.basic_get(requeue, deserialize=deserialize)
         self.client.close()
         return body
 
@@ -365,8 +383,14 @@ class RabbitPublisher(RabbitMQClient):
             )
         logger.debug(f"Blocking Connection established to {self.conn_params}")
 
-    def basic_publish(self, msg, durability, routing_key):
-        msg = json.dumps(msg)
+    def basic_publish(
+        self,
+        msg: Any,
+        durability: bool,
+        routing_key: str | None,
+        serialize: JsonSerializer = json.dumps,
+    ):
+        msg = serialize(msg)
         delivery_mode = 2 if durability else 1  # mode 2 == durable, 1 == not durable
         props = pika.BasicProperties(
             delivery_mode=delivery_mode,
@@ -386,7 +410,7 @@ class RabbitPublisher(RabbitMQClient):
                 exc_info=e,
             )
 
-    def basic_get(self, requeue=True):
+    def basic_get(self, requeue=True, deserialize: JsonDeserializer = json.loads):
         mtd, _, body = self.channel.basic_get(self.queue_id)
 
         if body:
@@ -394,7 +418,7 @@ class RabbitPublisher(RabbitMQClient):
                 # py3 returns bytes
                 if isinstance(body, bytes):
                     body = body.decode("utf-8")
-                body = json.loads(body)
+                body = deserialize(body)
 
                 # acknowledge receipt
                 self.channel.basic_ack(delivery_tag=mtd.delivery_tag)
