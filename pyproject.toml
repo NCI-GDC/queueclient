@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=68", "wheel", "setuptools_scm[toml]>=7.0", "versionista>=1.1.0"]
+requires = ["setuptools>=79.0.1", "setuptools-scm>=8.0"]
 
 [project]
 authors = [
@@ -17,10 +17,15 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14"
 ]
-dependencies = ["deprecated", "pika", "requests", "simplejson"]
+dependencies = [
+  "deprecated",
+  "pika",
+  "requests",
+  "simplejson"
+]
 description = "Queue Client Facade: A generalized API that allows for connection to multiple queue implementations."
 dynamic = ["version"]
-keywords = ["rabbitmq", "depot"]
+keywords = ["queueclient", "rabbitmq"]
 license-files = ["LICENSE"]
 maintainers = [
   {name = "GDC Feature Team", email = "gdc_dev_questions-aaaaae2lhsbell56tlvh3upgoq@cdis.slack.com"}
@@ -30,7 +35,13 @@ readme = "README.md"
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
-dev = ["coverage[toml]", "depot==1.0.0", "pytest", "pytest-cov", "testcontainers[rabbitmq]"]
+dev = [
+  "coverage[toml]",
+  "depot==1.0.0",
+  "pytest",
+  "pytest-cov",
+  "testcontainers[rabbitmq]"
+]
 
 [project.urls]
 Repository = "https://github.com/NCI-GDC/queueclient"
@@ -76,8 +87,7 @@ select = [
 ]
 
 [tool.setuptools_scm]
-local_scheme = "versionista-local-format"
-version_scheme = "versionista-format"
+fallback_version = "0.0.0"
 
 [tool.tox]
 env_list = ["py310", "py311", "py312", "py313", "py314"]
@@ -101,3 +111,7 @@ pass_env = ["RABBITMQ_*", "DOCKER_*"]
 [tool.tox.env_run_base.set_env]
 NO_PROXY = "localhost,docker"
 no_proxy = "localhost,docker"
+
+[[tool.uv.index]]
+name = "nexus"
+url = "https://nexus.osdc.io/repository/pypi-all/simple"

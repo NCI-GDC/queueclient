@@ -1,0 +1,869 @@
+version = 1
+revision = 3
+requires-python = ">=3.10"
+
+[[package]]
+name = "blinker"
+version = "1.9.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/blinker/1.9.0/blinker-1.9.0.tar.gz", hash = "sha256:b4ce2265a7abece45e7cc896e98dbebe6cead56bcf805a3d23136d145f5445bf" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/blinker/1.9.0/blinker-1.9.0-py3-none-any.whl", hash = "sha256:ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc" },
+]
+
+[[package]]
+name = "certifi"
+version = "2026.4.22"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/certifi/2026.4.22/certifi-2026.4.22.tar.gz", hash = "sha256:8d455352a37b71bf76a79caa83a3d6c25afee4a385d632127b6afb3963f1c580" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/certifi/2026.4.22/certifi-2026.4.22-py3-none-any.whl", hash = "sha256:3cb2210c8f88ba2318d29b0388d1023c8492ff72ecdde4ebdaddbb13a31b1c4a" },
+]
+
+[[package]]
+name = "charset-normalizer"
+version = "3.4.7"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7.tar.gz", hash = "sha256:ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:cdd68a1fb318e290a2077696b7eb7a21a49163c455979c639bf5a5dcdc46617d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:e17b8d5d6a8c47c85e68ca8379def1303fd360c3e22093a807cd34a71cd082b8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:511ef87c8aec0783e08ac18565a16d435372bc1ac25a91e6ac7f5ef2b0bff790" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl", hash = "sha256:007d05ec7321d12a40227aae9e2bc6dca73f3cb21058999a1df9e193555a9dcc" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:cf29836da5119f3c8a8a70667b0ef5fdca3bb12f80fd06487cfa575b3909b393" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-manylinux_2_31_armv7l.whl", hash = "sha256:12d8baf840cc7889b37c7c770f478adea7adce3dcb3944d02ec87508e2dcf153" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:d560742f3c0d62afaccf9f41fe485ed69bd7661a241f86a3ef0f0fb8b1a397af" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:b14b2d9dac08e28bb8046a1a0434b1750eb221c8f5b87a68f4fa11a6f97b5e34" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-musllinux_1_2_armv7l.whl", hash = "sha256:bc17a677b21b3502a21f66a8cc64f5bfad4df8a0b8434d661666f8ce90ac3af1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-musllinux_1_2_ppc64le.whl", hash = "sha256:750e02e074872a3fad7f233b47734166440af3cdea0add3e95163110816d6752" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-musllinux_1_2_riscv64.whl", hash = "sha256:4e5163c14bffd570ef2affbfdd77bba66383890797df43dc8b4cc7d6f500bf53" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-musllinux_1_2_s390x.whl", hash = "sha256:6ed74185b2db44f41ef35fd1617c5888e59792da9bbc9190d6c7300617182616" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:94e1885b270625a9a828c9793b4d52a64445299baa1fea5a173bf1d3dd9a1a5a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-win32.whl", hash = "sha256:6785f414ae0f3c733c437e0f3929197934f526d19dfaa75e18fdb4f94c6fb374" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-win_amd64.whl", hash = "sha256:6696b7688f54f5af4462118f0bfa7c1621eeb87154f77fa04b9295ce7a8f2943" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp310-cp310-win_arm64.whl", hash = "sha256:66671f93accb62ed07da56613636f3641f1a12c13046ce91ffc923721f23c008" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:7641bb8895e77f921102f72833904dcd9901df5d6d72a2ab8f31d04b7e51e4e7" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:202389074300232baeb53ae2569a60901f7efadd4245cf3a3bf0617d60b439d7" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:30b8d1d8c52a48c2c5690e152c169b673487a2a58de1ec7393196753063fcd5e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl", hash = "sha256:532bc9bf33a68613fd7d65e4b1c71a6a38d7d42604ecf239c77392e9b4e8998c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:2fe249cb4651fd12605b7288b24751d8bfd46d35f12a20b1ba33dea122e690df" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-manylinux_2_31_armv7l.whl", hash = "sha256:65bcd23054beab4d166035cabbc868a09c1a49d1efe458fe8e4361215df40265" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:08e721811161356f97b4059a9ba7bafb23ea5ee2255402c42881c214e173c6b4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:e060d01aec0a910bdccb8be71faf34e7799ce36950f8294c8bf612cba65a2c9e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-musllinux_1_2_armv7l.whl", hash = "sha256:38c0109396c4cfc574d502df99742a45c72c08eff0a36158b6f04000043dbf38" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-musllinux_1_2_ppc64le.whl", hash = "sha256:1c2a768fdd44ee4a9339a9b0b130049139b8ce3c01d2ce09f67f5a68048d477c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-musllinux_1_2_riscv64.whl", hash = "sha256:1a87ca9d5df6fe460483d9a5bbf2b18f620cbed41b432e2bddb686228282d10b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-musllinux_1_2_s390x.whl", hash = "sha256:d635aab80466bc95771bb78d5370e74d36d1fe31467b6b29b8b57b2a3cd7d22c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:ae196f021b5e7c78e918242d217db021ed2a6ace2bc6ae94c0fc596221c7f58d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-win32.whl", hash = "sha256:adb2597b428735679446b46c8badf467b4ca5f5056aae4d51a19f9570301b1ad" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-win_amd64.whl", hash = "sha256:8e385e4267ab76874ae30db04c627faaaf0b509e1ccc11a95b3fc3e83f855c00" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp311-cp311-win_arm64.whl", hash = "sha256:d4a48e5b3c2a489fae013b7589308a40146ee081f6f509e047e0e096084ceca1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:eca9705049ad3c7345d574e3510665cb2cf844c2f2dcfe675332677f081cbd46" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:6178f72c5508bfc5fd446a5905e698c6212932f25bcdd4b47a757a50605a90e2" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:e1421b502d83040e6d7fb2fb18dff63957f720da3d77b2fbd3187ceb63755d7b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl", hash = "sha256:edac0f1ab77644605be2cbba52e6b7f630731fc42b34cb0f634be1a6eface56a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:5649fd1c7bade02f320a462fdefd0b4bd3ce036065836d4f42e0de958038e116" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-manylinux_2_31_armv7l.whl", hash = "sha256:203104ed3e428044fd943bc4bf45fa73c0730391f9621e37fe39ecf477b128cb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:298930cec56029e05497a76988377cbd7457ba864beeea92ad7e844fe74cd1f1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:708838739abf24b2ceb208d0e22403dd018faeef86ddac04319a62ae884c4f15" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-musllinux_1_2_armv7l.whl", hash = "sha256:0f7eb884681e3938906ed0434f20c63046eacd0111c4ba96f27b76084cd679f5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-musllinux_1_2_ppc64le.whl", hash = "sha256:4dc1e73c36828f982bfe79fadf5919923f8a6f4df2860804db9a98c48824ce8d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-musllinux_1_2_riscv64.whl", hash = "sha256:aed52fea0513bac0ccde438c188c8a471c4e0f457c2dd20cdbf6ea7a450046c7" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-musllinux_1_2_s390x.whl", hash = "sha256:fea24543955a6a729c45a73fe90e08c743f0b3334bbf3201e6c4bc1b0c7fa464" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:bb6d88045545b26da47aa879dd4a89a71d1dce0f0e549b1abcb31dfe4a8eac49" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-win32.whl", hash = "sha256:2257141f39fe65a3fdf38aeccae4b953e5f3b3324f4ff0daf9f15b8518666a2c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-win_amd64.whl", hash = "sha256:5ed6ab538499c8644b8a3e18debabcd7ce684f3fa91cf867521a7a0279cab2d6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp312-cp312-win_arm64.whl", hash = "sha256:56be790f86bfb2c98fb742ce566dfb4816e5a83384616ab59c49e0604d49c51d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:f496c9c3cc02230093d8330875c4c3cdfc3b73612a5fd921c65d39cbcef08063" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:0ea948db76d31190bf08bd371623927ee1339d5f2a0b4b1b4a4439a65298703c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:a277ab8928b9f299723bc1a2dabb1265911b1a76341f90a510368ca44ad9ab66" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl", hash = "sha256:3bec022aec2c514d9cf199522a802bd007cd588ab17ab2525f20f9c34d067c18" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:e044c39e41b92c845bc815e5ae4230804e8e7bc29e399b0437d64222d92809dd" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-manylinux_2_31_armv7l.whl", hash = "sha256:f495a1652cf3fbab2eb0639776dad966c2fb874d79d87ca07f9d5f059b8bd215" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:e712b419df8ba5e42b226c510472b37bd57b38e897d3eca5e8cfd410a29fa859" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:7804338df6fcc08105c7745f1502ba68d900f45fd770d5bdd5288ddccb8a42d8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-musllinux_1_2_armv7l.whl", hash = "sha256:481551899c856c704d58119b5025793fa6730adda3571971af568f66d2424bb5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-musllinux_1_2_ppc64le.whl", hash = "sha256:f59099f9b66f0d7145115e6f80dd8b1d847176df89b234a5a6b3f00437aa0832" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-musllinux_1_2_riscv64.whl", hash = "sha256:f59ad4c0e8f6bba240a9bb85504faa1ab438237199d4cce5f622761507b8f6a6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-musllinux_1_2_s390x.whl", hash = "sha256:3dedcc22d73ec993f42055eff4fcfed9318d1eeb9a6606c55892a26964964e48" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:64f02c6841d7d83f832cd97ccf8eb8a906d06eb95d5276069175c696b024b60a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-win32.whl", hash = "sha256:4042d5c8f957e15221d423ba781e85d553722fc4113f523f2feb7b188cc34c5e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-win_amd64.whl", hash = "sha256:3946fa46a0cf3e4c8cb1cc52f56bb536310d34f25f01ca9b6c16afa767dab110" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp313-cp313-win_arm64.whl", hash = "sha256:80d04837f55fc81da168b98de4f4b797ef007fc8a79ab71c6ec9bc4dd662b15b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-macosx_10_15_universal2.whl", hash = "sha256:c36c333c39be2dbca264d7803333c896ab8fa7d4d6f0ab7edb7dfd7aea6e98c0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:1c2aed2e5e41f24ea8ef1590b8e848a79b56f3a5564a65ceec43c9d692dc7d8a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:54523e136b8948060c0fa0bc7b1b50c32c186f2fceee897a495406bb6e311d2b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl", hash = "sha256:715479b9a2802ecac752a3b0efa2b0b60285cf962ee38414211abdfccc233b41" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:bd6c2a1c7573c64738d716488d2cdd3c00e340e4835707d8fdb8dc1a66ef164e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-manylinux_2_31_armv7l.whl", hash = "sha256:c45e9440fb78f8ddabcf714b68f936737a121355bf59f3907f4e17721b9d1aae" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:3534e7dcbdcf757da6b85a0bbf5b6868786d5982dd959b065e65481644817a18" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:e8ac484bf18ce6975760921bb6148041faa8fef0547200386ea0b52b5d27bf7b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-musllinux_1_2_armv7l.whl", hash = "sha256:a5fe03b42827c13cdccd08e6c0247b6a6d4b5e3cdc53fd1749f5896adcdc2356" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-musllinux_1_2_ppc64le.whl", hash = "sha256:2d6eb928e13016cea4f1f21d1e10c1cebd5a421bc57ddf5b1142ae3f86824fab" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-musllinux_1_2_riscv64.whl", hash = "sha256:e74327fb75de8986940def6e8dee4f127cc9752bee7355bb323cc5b2659b6d46" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-musllinux_1_2_s390x.whl", hash = "sha256:d6038d37043bced98a66e68d3aa2b6a35505dc01328cd65217cefe82f25def44" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:7579e913a5339fb8fa133f6bbcfd8e6749696206cf05acdbdca71a1b436d8e72" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-win32.whl", hash = "sha256:5b77459df20e08151cd6f8b9ef8ef1f961ef73d85c21a555c7eed5b79410ec10" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-win_amd64.whl", hash = "sha256:92a0a01ead5e668468e952e4238cccd7c537364eb7d851ab144ab6627dbbe12f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314-win_arm64.whl", hash = "sha256:67f6279d125ca0046a7fd386d01b311c6363844deac3e5b069b514ba3e63c246" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-macosx_10_15_universal2.whl", hash = "sha256:effc3f449787117233702311a1b7d8f59cba9ced946ba727bdc329ec69028e24" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:fbccdc05410c9ee21bbf16a35f4c1d16123dcdeb8a1d38f33654fa21d0234f79" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:733784b6d6def852c814bce5f318d25da2ee65dd4839a0718641c696e09a2960" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl", hash = "sha256:a89c23ef8d2c6b27fd200a42aa4ac72786e7c60d40efdc76e6011260b6e949c4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:6c114670c45346afedc0d947faf3c7f701051d2518b943679c8ff88befe14f8e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-manylinux_2_31_armv7l.whl", hash = "sha256:a180c5e59792af262bf263b21a3c49353f25945d8d9f70628e73de370d55e1e1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:3c9a494bc5ec77d43cea229c4f6db1e4d8fe7e1bbffa8b6f0f0032430ff8ab44" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:8d828b6667a32a728a1ad1d93957cdf37489c57b97ae6c4de2860fa749b8fc1e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-musllinux_1_2_armv7l.whl", hash = "sha256:cf1493cd8607bec4d8a7b9b004e699fcf8f9103a9284cc94962cb73d20f9d4a3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-musllinux_1_2_ppc64le.whl", hash = "sha256:0c96c3b819b5c3e9e165495db84d41914d6894d55181d2d108cc1a69bfc9cce0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-musllinux_1_2_riscv64.whl", hash = "sha256:752a45dc4a6934060b3b0dab47e04edc3326575f82be64bc4fc293914566503e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-musllinux_1_2_s390x.whl", hash = "sha256:8778f0c7a52e56f75d12dae53ae320fae900a8b9b4164b981b9c5ce059cd1fcb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:ce3412fbe1e31eb81ea42f4169ed94861c56e643189e1e75f0041f3fe7020abe" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-win32.whl", hash = "sha256:c03a41a8784091e67a39648f70c5f97b5b6a37f216896d44d2cdcb82615339a0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-win_amd64.whl", hash = "sha256:03853ed82eeebbce3c2abfdbc98c96dc205f32a79627688ac9a27370ea61a49c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-cp314-cp314t-win_arm64.whl", hash = "sha256:c35abb8bfff0185efac5878da64c45dafd2b37fb0383add1be155a763c1f083d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/charset-normalizer/3.4.7/charset_normalizer-3.4.7-py3-none-any.whl", hash = "sha256:3dce51d0f5e7951f8bb4900c257dad282f49190fdbebecd4ba99bcc41fef404d" },
+]
+
+[[package]]
+name = "click"
+version = "8.3.3"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/click/8.3.3/click-8.3.3.tar.gz", hash = "sha256:398329ad4837b2ff7cbe1dd166a4c0f8900c3ca3a218de04466f38f6497f18a2" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/click/8.3.3/click-8.3.3-py3-none-any.whl", hash = "sha256:a2bf429bb3033c89fa4936ffb35d5cb471e3719e1f3c8a7c3fff0b8314305613" },
+]
+
+[[package]]
+name = "colorama"
+version = "0.4.6"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/colorama/0.4.6/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/colorama/0.4.6/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6" },
+]
+
+[[package]]
+name = "coverage"
+version = "7.13.5"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5.tar.gz", hash = "sha256:c81f6515c4c40141f83f502b07bbfa5c240ba25bbe73da7b33f1e5b6120ff179" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:e0723d2c96324561b9aa76fb982406e11d93cdb388a7a7da2b16e04719cf7ca5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:52f444e86475992506b32d4e5ca55c24fc88d73bcbda0e9745095b28ef4dc0cf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:704de6328e3d612a8f6c07000a878ff38181ec3263d5a11da1db294fa6a9bdf8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:a1a6d79a14e1ec1832cabc833898636ad5f3754a678ef8bb4908515208bf84f4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:79060214983769c7ba3f0cee10b54c97609dca4d478fa1aa32b914480fd5738d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:356e76b46783a98c2a2fe81ec79df4883a1e62895ea952968fb253c114e7f930" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:0cef0cdec915d11254a7f549c1170afecce708d30610c6abdded1f74e581666d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:dc022073d063b25a402454e5712ef9e007113e3a676b96c5f29b2bda29352f40" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:9b74db26dfea4f4e50d48a4602207cd1e78be33182bc9cbf22da94f332f99878" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-musllinux_1_2_ppc64le.whl", hash = "sha256:ad146744ca4fd09b50c482650e3c1b1f4dfa1d4792e0a04a369c7f23336f0400" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-musllinux_1_2_riscv64.whl", hash = "sha256:c555b48be1853fe3997c11c4bd521cdd9a9612352de01fa4508f16ec341e6fe0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:7034b5c56a58ae5e85f23949d52c14aca2cfc6848a31764995b7de88f13a1ea0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-win32.whl", hash = "sha256:eb7fdf1ef130660e7415e0253a01a7d5a88c9c4d158bcf75cbbd922fd65a5b58" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp310-cp310-win_amd64.whl", hash = "sha256:3e1bb5f6c78feeb1be3475789b14a0f0a5b47d505bfc7267126ccbd50289999e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:66a80c616f80181f4d643b0f9e709d97bcea413ecd9631e1dedc7401c8e6695d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:145ede53ccbafb297c1c9287f788d1bc3efd6c900da23bf6931b09eafc931587" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:0672854dc733c342fa3e957e0605256d2bf5934feeac328da9e0b5449634a642" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:ec10e2a42b41c923c2209b846126c6582db5e43a33157e9870ba9fb70dc7854b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:be3d4bbad9d4b037791794ddeedd7d64a56f5933a2c1373e18e9e568b9141686" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:4d2afbc5cc54d286bfb54541aa50b64cdb07a718227168c87b9e2fb8f25e1743" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:3ad050321264c49c2fa67bb599100456fc51d004b82534f379d16445da40fb75" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:7300c8a6d13335b29bb76d7651c66af6bd8658517c43499f110ddc6717bfc209" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:eb07647a5738b89baab047f14edd18ded523de60f3b30e75c2acc826f79c839a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-musllinux_1_2_ppc64le.whl", hash = "sha256:9adb6688e3b53adffefd4a52d72cbd8b02602bfb8f74dcd862337182fd4d1a4e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-musllinux_1_2_riscv64.whl", hash = "sha256:7c8d4bc913dd70b93488d6c496c77f3aff5ea99a07e36a18f865bca55adef8bd" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:0e3c426ffc4cd952f54ee9ffbdd10345709ecc78a3ecfd796a57236bfad0b9b8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-win32.whl", hash = "sha256:259b69bb83ad9894c4b25be2528139eecba9a82646ebdda2d9db1ba28424a6bf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-win_amd64.whl", hash = "sha256:258354455f4e86e3e9d0d17571d522e13b4e1e19bf0f8596bcf9476d61e7d8a9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp311-cp311-win_arm64.whl", hash = "sha256:bff95879c33ec8da99fc9b6fe345ddb5be6414b41d6d1ad1c8f188d26f36e028" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:460cf0114c5016fa841214ff5564aa4864f11948da9440bc97e21ad1f4ba1e01" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:0e223ce4b4ed47f065bfb123687686512e37629be25cc63728557ae7db261422" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:6e3370441f4513c6252bf042b9c36d22491142385049243253c7e48398a15a9f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:03ccc709a17a1de074fb1d11f217342fb0d2b1582ed544f554fc9fc3f07e95f5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:3f4818d065964db3c1c66dc0fbdac5ac692ecbc875555e13374fdbe7eedb4376" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:012d5319e66e9d5a218834642d6c35d265515a62f01157a45bcc036ecf947256" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:8dd02af98971bdb956363e4827d34425cb3df19ee550ef92855b0acb9c7ce51c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:f08fd75c50a760c7eb068ae823777268daaf16a80b918fa58eea888f8e3919f5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:843ea8643cf967d1ac7e8ecd4bb00c99135adf4816c0c0593fdcc47b597fcf09" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-musllinux_1_2_ppc64le.whl", hash = "sha256:9d44d7aa963820b1b971dbecd90bfe5fe8f81cff79787eb6cca15750bd2f79b9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-musllinux_1_2_riscv64.whl", hash = "sha256:7132bed4bd7b836200c591410ae7d97bf7ae8be6fc87d160b2bd881df929e7bf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:a698e363641b98843c517817db75373c83254781426e94ada3197cabbc2c919c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-win32.whl", hash = "sha256:bdba0a6b8812e8c7df002d908a9a2ea3c36e92611b5708633c50869e6d922fdf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-win_amd64.whl", hash = "sha256:d2c87e0c473a10bffe991502eac389220533024c8082ec1ce849f4218dded810" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp312-cp312-win_arm64.whl", hash = "sha256:bf69236a9a81bdca3bff53796237aab096cdbf8d78a66ad61e992d9dac7eb2de" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:5ec4af212df513e399cf11610cc27063f1586419e814755ab362e50a85ea69c1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:941617e518602e2d64942c88ec8499f7fbd49d3f6c4327d3a71d43a1973032f3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:da305e9937617ee95c2e39d8ff9f040e0487cbf1ac174f777ed5eddd7a7c1f26" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:78e696e1cc714e57e8b25760b33a8b1026b7048d270140d25dafe1b0a1ee05a3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:02ca0eed225b2ff301c474aeeeae27d26e2537942aa0f87491d3e147e784a82b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:04690832cbea4e4663d9149e05dba142546ca05cb1848816760e7f58285c970a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:0590e44dd2745c696a778f7bab6aa95256de2cbc8b8cff4f7db8ff09813d6969" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:d7cfad2d6d81dd298ab6b89fe72c3b7b05ec7544bdda3b707ddaecff8d25c161" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:e092b9499de38ae0fbfbc603a74660eb6ff3e869e507b50d85a13b6db9863e15" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-musllinux_1_2_ppc64le.whl", hash = "sha256:48c39bc4a04d983a54a705a6389512883d4a3b9862991b3617d547940e9f52b1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-musllinux_1_2_riscv64.whl", hash = "sha256:2d3807015f138ffea1ed9afeeb8624fd781703f2858b62a8dd8da5a0994c57b6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:ee2aa19e03161671ec964004fb74b2257805d9710bf14a5c704558b9d8dbaf17" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-win32.whl", hash = "sha256:ce1998c0483007608c8382f4ff50164bfc5bd07a2246dd272aa4043b75e61e85" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-win_amd64.whl", hash = "sha256:631efb83f01569670a5e866ceb80fe483e7c159fac6f167e6571522636104a0b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313-win_arm64.whl", hash = "sha256:f4cd16206ad171cbc2470dbea9103cf9a7607d5fe8c242fdf1edf36174020664" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-macosx_10_13_x86_64.whl", hash = "sha256:0428cbef5783ad91fe240f673cc1f76b25e74bbfe1a13115e4aa30d3f538162d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-macosx_11_0_arm64.whl", hash = "sha256:e0b216a19534b2427cc201a26c25da4a48633f29a487c61258643e89d28200c0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:972a9cd27894afe4bc2b1480107054e062df08e671df7c2f18c205e805ccd806" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:4b59148601efcd2bac8c4dbf1f0ad6391693ccf7a74b8205781751637076aee3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:505d7083c8b0c87a8fa8c07370c285847c1f77739b22e299ad75a6af6c32c5c9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:60365289c3741e4db327e7baff2a4aaacf22f788e80fa4683393891b70a89fbd" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:1b88c69c8ef5d4b6fe7dea66d6636056a0f6a7527c440e890cf9259011f5e606" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-musllinux_1_2_aarch64.whl", hash = "sha256:5b13955d31d1633cf9376908089b7cebe7d15ddad7aeaabcbe969a595a97e95e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-musllinux_1_2_i686.whl", hash = "sha256:f70c9ab2595c56f81a89620e22899eea8b212a4041bd728ac6f4a28bf5d3ddd0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-musllinux_1_2_ppc64le.whl", hash = "sha256:084b84a8c63e8d6fc7e3931b316a9bcafca1458d753c539db82d31ed20091a87" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-musllinux_1_2_riscv64.whl", hash = "sha256:ad14385487393e386e2ea988b09d62dd42c397662ac2dabc3832d71253eee479" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-musllinux_1_2_x86_64.whl", hash = "sha256:7f2c47b36fe7709a6e83bfadf4eefb90bd25fbe4014d715224c4316f808e59a2" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-win32.whl", hash = "sha256:67e9bc5449801fad0e5dff329499fb090ba4c5800b86805c80617b4e29809b2a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-win_amd64.whl", hash = "sha256:da86cdcf10d2519e10cabb8ac2de03da1bcb6e4853790b7fbd48523332e3a819" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp313-cp313t-win_arm64.whl", hash = "sha256:0ecf12ecb326fe2c339d93fc131816f3a7367d223db37817208905c89bded911" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:fbabfaceaeb587e16f7008f7795cd80d20ec548dc7f94fbb0d4ec2e038ce563f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:9bb2a28101a443669a423b665939381084412b81c3f8c0fcfbac57f4e30b5b8e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:bd3a2fbc1c6cccb3c5106140d87cc6a8715110373ef42b63cf5aea29df8c217a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:6c36ddb64ed9d7e496028d1d00dfec3e428e0aabf4006583bb1839958d280510" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:380e8e9084d8eb38db3a9176a1a4f3c0082c3806fa0dc882d1d87abc3c789247" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:e808af52a0513762df4d945ea164a24b37f2f518cbe97e03deaa0ee66139b4d6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:e301d30dd7e95ae068671d746ba8c34e945a82682e62918e41b2679acd2051a0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:800bc829053c80d240a687ceeb927a94fd108bbdc68dfbe505d0d75ab578a882" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-musllinux_1_2_i686.whl", hash = "sha256:0b67af5492adb31940ee418a5a655c28e48165da5afab8c7fa6fd72a142f8740" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-musllinux_1_2_ppc64le.whl", hash = "sha256:c9136ff29c3a91e25b1d1552b5308e53a1e0653a23e53b6366d7c2dcbbaf8a16" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-musllinux_1_2_riscv64.whl", hash = "sha256:cff784eef7f0b8f6cb28804fbddcfa99f89efe4cc35fb5627e3ac58f91ed3ac0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:68a4953be99b17ac3c23b6efbc8a38330d99680c9458927491d18700ef23ded0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-win32.whl", hash = "sha256:35a31f2b1578185fbe6aa2e74cea1b1d0bbf4c552774247d9160d29b80ed56cc" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-win_amd64.whl", hash = "sha256:2aa055ae1857258f9e0045be26a6d62bdb47a72448b62d7b55f4820f361a2633" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314-win_arm64.whl", hash = "sha256:1b11eef33edeae9d142f9b4358edb76273b3bfd30bc3df9a4f95d0e49caf94e8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:10a0c37f0b646eaff7cce1874c31d1f1ccb297688d4c747291f4f4c70741cc8b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:b5db73ba3c41c7008037fa731ad5459fc3944cb7452fc0aa9f822ad3533c583c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:750db93a81e3e5a9831b534be7b1229df848b2e125a604fe6651e48aa070e5f9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:9ddb4f4a5479f2539644be484da179b653273bca1a323947d48ab107b3ed1f29" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:d8a7a2049c14f413163e2bdabd37e41179b1d1ccb10ffc6ccc4b7a718429c607" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:e1c85e0b6c05c592ea6d8768a66a254bfb3874b53774b12d4c89c481eb78cb90" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:777c4d1eff1b67876139d24288aaf1817f6c03d6bae9c5cc8d27b83bcfe38fe3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:6697e29b93707167687543480a40f0db8f356e86d9f67ddf2e37e2dfd91a9dab" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-musllinux_1_2_i686.whl", hash = "sha256:8fdf453a942c3e4d99bd80088141c4c6960bb232c409d9c3558e2dbaa3998562" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-musllinux_1_2_ppc64le.whl", hash = "sha256:32ca0c0114c9834a43f045a87dcebd69d108d8ffb666957ea65aa132f50332e2" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-musllinux_1_2_riscv64.whl", hash = "sha256:8769751c10f339021e2638cd354e13adeac54004d1941119b2c96fe5276d45ea" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:cec2d83125531bd153175354055cdb7a09987af08a9430bd173c937c6d0fba2a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-win32.whl", hash = "sha256:0cd9ed7a8b181775459296e402ca4fb27db1279740a24e93b3b41942ebe4b215" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-win_amd64.whl", hash = "sha256:301e3b7dfefecaca37c9f1aa6f0049b7d4ab8dd933742b607765d757aca77d43" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-cp314-cp314t-win_arm64.whl", hash = "sha256:9dacc2ad679b292709e0f5fc1ac74a6d4d5562e424058962c7bb0c658ad25e45" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/coverage/7.13.5/coverage-7.13.5-py3-none-any.whl", hash = "sha256:34b02417cf070e173989b3db962f7ed56d2f644307b2cf9d5a0f258e13084a61" },
+]
+
+[package.optional-dependencies]
+toml = [
+    { name = "tomli", marker = "python_full_version <= '3.11'" },
+]
+
+[[package]]
+name = "depot"
+version = "1.0.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "flask" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/depot/1.0.0/depot-1.0.0.tar.gz", hash = "sha256:9248d3460b18391e99c1f925adc15cd8f467e0c07169eaae67b81185ee5d17a9" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/depot/1.0.0/depot-1.0.0-py3-none-any.whl", hash = "sha256:8e7d4244bff95a1f51175c148fcf6def3e6a1043d0b2a67b45f9b6fdc303a524" },
+]
+
+[[package]]
+name = "deprecated"
+version = "1.3.1"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "wrapt" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/deprecated/1.3.1/deprecated-1.3.1.tar.gz", hash = "sha256:b1b50e0ff0c1fddaa5708a2c6b0a6588bb09b892825ab2b214ac9ea9d92a5223" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/deprecated/1.3.1/deprecated-1.3.1-py2.py3-none-any.whl", hash = "sha256:597bfef186b6f60181535a29fbe44865ce137a5079f295b479886c82729d5f3f" },
+]
+
+[[package]]
+name = "docker"
+version = "7.1.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "pywin32", marker = "sys_platform == 'win32'" },
+    { name = "requests" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/docker/7.1.0/docker-7.1.0.tar.gz", hash = "sha256:ad8c70e6e3f8926cb8a92619b832b4ea5299e2831c14284663184e200546fa6c" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/docker/7.1.0/docker-7.1.0-py3-none-any.whl", hash = "sha256:c96b93b7f0a746f9e77d325bcfb87422a3d8bd4f03136ae8a85b37f1898d5fc0" },
+]
+
+[[package]]
+name = "exceptiongroup"
+version = "1.3.1"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/exceptiongroup/1.3.1/exceptiongroup-1.3.1.tar.gz", hash = "sha256:8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/exceptiongroup/1.3.1/exceptiongroup-1.3.1-py3-none-any.whl", hash = "sha256:a7a39a3bd276781e98394987d3a5701d0c4edffb633bb7a5144577f82c773598" },
+]
+
+[[package]]
+name = "flask"
+version = "3.1.3"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "blinker" },
+    { name = "click" },
+    { name = "itsdangerous" },
+    { name = "jinja2" },
+    { name = "markupsafe" },
+    { name = "werkzeug" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/flask/3.1.3/flask-3.1.3.tar.gz", hash = "sha256:0ef0e52b8a9cd932855379197dd8f94047b359ca0a78695144304cb45f87c9eb" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/flask/3.1.3/flask-3.1.3-py3-none-any.whl", hash = "sha256:f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c" },
+]
+
+[[package]]
+name = "idna"
+version = "3.13"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/idna/3.13/idna-3.13.tar.gz", hash = "sha256:585ea8fe5d69b9181ec1afba340451fba6ba764af97026f92a91d4eef164a242" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/idna/3.13/idna-3.13-py3-none-any.whl", hash = "sha256:892ea0cde124a99ce773decba204c5552b69c3c67ffd5f232eb7696135bc8bb3" },
+]
+
+[[package]]
+name = "iniconfig"
+version = "2.3.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/iniconfig/2.3.0/iniconfig-2.3.0.tar.gz", hash = "sha256:c76315c77db068650d49c5b56314774a7804df16fee4402c1f19d6d15d8c4730" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/iniconfig/2.3.0/iniconfig-2.3.0-py3-none-any.whl", hash = "sha256:f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12" },
+]
+
+[[package]]
+name = "itsdangerous"
+version = "2.2.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/itsdangerous/2.2.0/itsdangerous-2.2.0.tar.gz", hash = "sha256:e0050c0b7da1eea53ffaf149c0cfbb5c6e2e2b69c4bef22c81fa6eb73e5f6173" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/itsdangerous/2.2.0/itsdangerous-2.2.0-py3-none-any.whl", hash = "sha256:c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef" },
+]
+
+[[package]]
+name = "jinja2"
+version = "3.1.6"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "markupsafe" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/jinja2/3.1.6/jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/jinja2/3.1.6/jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67" },
+]
+
+[[package]]
+name = "markupsafe"
+version = "3.0.3"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3.tar.gz", hash = "sha256:722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2f981d352f04553a7171b8e44369f2af4055f888dfb147d55e42d29e29e74559" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:e1c1493fb6e50ab01d20a22826e57520f1284df32f2d8601fdd90b6304601419" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:1ba88449deb3de88bd40044603fafffb7bc2b055d626a330323a9ed736661695" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:f42d0984e947b8adf7dd6dde396e720934d12c506ce84eea8476409563607591" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:c0c0b3ade1c0b13b936d7970b1d37a57acde9199dc2aecc4c336773e1d86049c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:0303439a41979d9e74d18ff5e2dd8c43ed6c6001fd40e5bf2e43f7bd9bbc523f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-musllinux_1_2_riscv64.whl", hash = "sha256:d2ee202e79d8ed691ceebae8e0486bd9a2cd4794cec4824e1c99b6f5009502f6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:177b5253b2834fe3678cb4a5f0059808258584c559193998be2601324fdeafb1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-win32.whl", hash = "sha256:2a15a08b17dd94c53a1da0438822d70ebcd13f8c3a95abe3a9ef9f11a94830aa" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-win_amd64.whl", hash = "sha256:c4ffb7ebf07cfe8931028e3e4c85f0357459a3f9f9490886198848f4fa002ec8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp310-cp310-win_arm64.whl", hash = "sha256:e2103a929dfa2fcaf9bb4e7c091983a49c9ac3b19c9061b6d5427dd7d14d81a1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:1cc7ea17a6824959616c525620e387f6dd30fec8cb44f649e31712db02123dad" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:4bd4cd07944443f5a265608cc6aab442e4f74dff8088b0dfc8238647b8f6ae9a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:6b5420a1d9450023228968e7e6a9ce57f65d148ab56d2313fcd589eee96a7a50" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0bf2a864d67e76e5c9a34dc26ec616a66b9888e25e7b9460e1c76d3293bd9dbf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:bc51efed119bc9cfdf792cdeaa4d67e8f6fcccab66ed4bfdd6bde3e59bfcbb2f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:068f375c472b3e7acbe2d5318dea141359e6900156b5b2ba06a30b169086b91a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-musllinux_1_2_riscv64.whl", hash = "sha256:7be7b61bb172e1ed687f1754f8e7484f1c8019780f6f6b0786e76bb01c2ae115" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:f9e130248f4462aaa8e2552d547f36ddadbeaa573879158d721bbd33dfe4743a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-win32.whl", hash = "sha256:0db14f5dafddbb6d9208827849fad01f1a2609380add406671a26386cdf15a19" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-win_amd64.whl", hash = "sha256:de8a88e63464af587c950061a5e6a67d3632e36df62b986892331d4620a35c01" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp311-cp311-win_arm64.whl", hash = "sha256:3b562dd9e9ea93f13d53989d23a7e775fdfd1066c33494ff43f5418bc8c58a5c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:d53197da72cc091b024dd97249dfc7794d6a56530370992a5e1a08983ad9230e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:1872df69a4de6aead3491198eaf13810b565bdbeec3ae2dc8780f14458ec73ce" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:3a7e8ae81ae39e62a41ec302f972ba6ae23a5c5396c8e60113e9066ef893da0d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:d6dd0be5b5b189d31db7cda48b91d7e0a9795f31430b7f271219ab30f1d3ac9d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:94c6f0bb423f739146aec64595853541634bde58b2135f27f61c1ffd1cd4d16a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:be8813b57049a7dc738189df53d69395eba14fb99345e0a5994914a3864c8a4b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-musllinux_1_2_riscv64.whl", hash = "sha256:83891d0e9fb81a825d9a6d61e3f07550ca70a076484292a70fde82c4b807286f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:77f0643abe7495da77fb436f50f8dab76dbc6e5fd25d39589a0f1fe6548bfa2b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-win32.whl", hash = "sha256:d88b440e37a16e651bda4c7c2b930eb586fd15ca7406cb39e211fcff3bf3017d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-win_amd64.whl", hash = "sha256:26a5784ded40c9e318cfc2bdb30fe164bdb8665ded9cd64d500a34fb42067b1c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp312-cp312-win_arm64.whl", hash = "sha256:35add3b638a5d900e807944a078b51922212fb3dedb01633a8defc4b01a3c85f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:e1cf1972137e83c5d4c136c43ced9ac51d0e124706ee1c8aa8532c1287fa8795" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:116bb52f642a37c115f517494ea5feb03889e04df47eeff5b130b1808ce7c219" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:133a43e73a802c5562be9bbcd03d090aa5a1fe899db609c29e8c8d815c5f6de6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:ccfcd093f13f0f0b7fdd0f198b90053bf7b2f02a3927a30e63f3ccc9df56b676" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:509fa21c6deb7a7a273d629cf5ec029bc209d1a51178615ddf718f5918992ab9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:a4afe79fb3de0b7097d81da19090f4df4f8d3a2b3adaa8764138aac2e44f3af1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-musllinux_1_2_riscv64.whl", hash = "sha256:795e7751525cae078558e679d646ae45574b47ed6e7771863fcc079a6171a0fc" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:8485f406a96febb5140bfeca44a73e3ce5116b2501ac54fe953e488fb1d03b12" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-win32.whl", hash = "sha256:bdd37121970bfd8be76c5fb069c7751683bdf373db1ed6c010162b2a130248ed" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-win_amd64.whl", hash = "sha256:9a1abfdc021a164803f4d485104931fb8f8c1efd55bc6b748d2f5774e78b62c5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313-win_arm64.whl", hash = "sha256:7e68f88e5b8799aa49c85cd116c932a1ac15caaa3f5db09087854d218359e485" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-macosx_10_13_x86_64.whl", hash = "sha256:218551f6df4868a8d527e3062d0fb968682fe92054e89978594c28e642c43a73" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-macosx_11_0_arm64.whl", hash = "sha256:3524b778fe5cfb3452a09d31e7b5adefeea8c5be1d43c4f810ba09f2ceb29d37" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:4e885a3d1efa2eadc93c894a21770e4bc67899e3543680313b09f139e149ab19" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:8709b08f4a89aa7586de0aadc8da56180242ee0ada3999749b183aa23df95025" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:b8512a91625c9b3da6f127803b166b629725e68af71f8184ae7e7d54686a56d6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-musllinux_1_2_aarch64.whl", hash = "sha256:9b79b7a16f7fedff2495d684f2b59b0457c3b493778c9eed31111be64d58279f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-musllinux_1_2_riscv64.whl", hash = "sha256:12c63dfb4a98206f045aa9563db46507995f7ef6d83b2f68eda65c307c6829eb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-musllinux_1_2_x86_64.whl", hash = "sha256:8f71bc33915be5186016f675cd83a1e08523649b0e33efdb898db577ef5bb009" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-win32.whl", hash = "sha256:69c0b73548bc525c8cb9a251cddf1931d1db4d2258e9599c28c07ef3580ef354" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-win_amd64.whl", hash = "sha256:1b4b79e8ebf6b55351f0d91fe80f893b4743f104bff22e90697db1590e47a218" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp313-cp313t-win_arm64.whl", hash = "sha256:ad2cf8aa28b8c020ab2fc8287b0f823d0a7d8630784c31e9ee5edea20f406287" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-macosx_10_13_x86_64.whl", hash = "sha256:eaa9599de571d72e2daf60164784109f19978b327a3910d3e9de8c97b5b70cfe" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:c47a551199eb8eb2121d4f0f15ae0f923d31350ab9280078d1e5f12b249e0026" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:f34c41761022dd093b4b6896d4810782ffbabe30f2d443ff5f083e0cbbb8c737" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:457a69a9577064c05a97c41f4e65148652db078a3a509039e64d3467b9e7ef97" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:e8afc3f2ccfa24215f8cb28dcf43f0113ac3c37c2f0f0806d8c70e4228c5cf4d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:ec15a59cf5af7be74194f7ab02d0f59a62bdcf1a537677ce67a2537c9b87fcda" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-musllinux_1_2_riscv64.whl", hash = "sha256:0eb9ff8191e8498cca014656ae6b8d61f39da5f95b488805da4bb029cccbfbaf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:2713baf880df847f2bece4230d4d094280f4e67b1e813eec43b4c0e144a34ffe" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-win32.whl", hash = "sha256:729586769a26dbceff69f7a7dbbf59ab6572b99d94576a5592625d5b411576b9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-win_amd64.whl", hash = "sha256:bdc919ead48f234740ad807933cdf545180bfbe9342c2bb451556db2ed958581" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314-win_arm64.whl", hash = "sha256:5a7d5dc5140555cf21a6fefbdbf8723f06fcd2f63ef108f2854de715e4422cb4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-macosx_10_13_x86_64.whl", hash = "sha256:1353ef0c1b138e1907ae78e2f6c63ff67501122006b0f9abad68fda5f4ffc6ab" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:1085e7fbddd3be5f89cc898938f42c0b3c711fdcb37d75221de2666af647c175" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:1b52b4fb9df4eb9ae465f8d0c228a00624de2334f216f178a995ccdcf82c4634" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:fed51ac40f757d41b7c48425901843666a6677e3e8eb0abcff09e4ba6e664f50" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:f190daf01f13c72eac4efd5c430a8de82489d9cff23c364c3ea822545032993e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:e56b7d45a839a697b5eb268c82a71bd8c7f6c94d6fd50c3d577fa39a9f1409f5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-musllinux_1_2_riscv64.whl", hash = "sha256:f3e98bb3798ead92273dc0e5fd0f31ade220f59a266ffd8a4f6065e0a3ce0523" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:5678211cb9333a6468fb8d8be0305520aa073f50d17f089b5b4b477ea6e67fdc" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-win32.whl", hash = "sha256:915c04ba3851909ce68ccc2b8e2cd691618c4dc4c4232fb7982bca3f41fd8c3d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-win_amd64.whl", hash = "sha256:4faffd047e07c38848ce017e8725090413cd80cbc23d86e55c587bf979e579c9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/markupsafe/3.0.3/markupsafe-3.0.3-cp314-cp314t-win_arm64.whl", hash = "sha256:32001d6a8fc98c8cb5c947787c5d08b0a50663d139f1305bac5885d98d9b40fa" },
+]
+
+[[package]]
+name = "packaging"
+version = "26.2"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/packaging/26.2/packaging-26.2.tar.gz", hash = "sha256:ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/packaging/26.2/packaging-26.2-py3-none-any.whl", hash = "sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e" },
+]
+
+[[package]]
+name = "pika"
+version = "1.3.2"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/pika/1.3.2/pika-1.3.2.tar.gz", hash = "sha256:b2a327ddddf8570b4965b3576ac77091b850262d34ce8c1d8cb4e4146aa4145f" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pika/1.3.2/pika-1.3.2-py3-none-any.whl", hash = "sha256:0779a7c1fafd805672796085560d290213a465e4f6f76a6fb19e378d8041a14f" },
+]
+
+[[package]]
+name = "pluggy"
+version = "1.6.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/pluggy/1.6.0/pluggy-1.6.0.tar.gz", hash = "sha256:7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pluggy/1.6.0/pluggy-1.6.0-py3-none-any.whl", hash = "sha256:e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746" },
+]
+
+[[package]]
+name = "pygments"
+version = "2.20.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/pygments/2.20.0/pygments-2.20.0.tar.gz", hash = "sha256:6757cd03768053ff99f3039c1a36d6c0aa0b263438fcab17520b30a303a82b5f" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pygments/2.20.0/pygments-2.20.0-py3-none-any.whl", hash = "sha256:81a9e26dd42fd28a23a2d169d86d7ac03b46e2f8b59ed4698fb4785f946d0176" },
+]
+
+[[package]]
+name = "pytest"
+version = "9.0.3"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "exceptiongroup", marker = "python_full_version < '3.11'" },
+    { name = "iniconfig" },
+    { name = "packaging" },
+    { name = "pluggy" },
+    { name = "pygments" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/pytest/9.0.3/pytest-9.0.3.tar.gz", hash = "sha256:b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pytest/9.0.3/pytest-9.0.3-py3-none-any.whl", hash = "sha256:2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9" },
+]
+
+[[package]]
+name = "pytest-cov"
+version = "7.1.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "coverage", extra = ["toml"] },
+    { name = "pluggy" },
+    { name = "pytest" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/pytest-cov/7.1.0/pytest_cov-7.1.0.tar.gz", hash = "sha256:30674f2b5f6351aa09702a9c8c364f6a01c27aae0c1366ae8016160d1efc56b2" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pytest-cov/7.1.0/pytest_cov-7.1.0-py3-none-any.whl", hash = "sha256:a0461110b7865f9a271aa1b51e516c9a95de9d696734a2f71e3e78f46e1d4678" },
+]
+
+[[package]]
+name = "python-dotenv"
+version = "1.2.2"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/python-dotenv/1.2.2/python_dotenv-1.2.2.tar.gz", hash = "sha256:2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/python-dotenv/1.2.2/python_dotenv-1.2.2-py3-none-any.whl", hash = "sha256:1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a" },
+]
+
+[[package]]
+name = "pywin32"
+version = "311"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp310-cp310-win32.whl", hash = "sha256:d03ff496d2a0cd4a5893504789d4a15399133fe82517455e78bad62efbb7f0a3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp310-cp310-win_amd64.whl", hash = "sha256:797c2772017851984b97180b0bebe4b620bb86328e8a884bb626156295a63b3b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp310-cp310-win_arm64.whl", hash = "sha256:0502d1facf1fed4839a9a51ccbcc63d952cf318f78ffc00a7e78528ac27d7a2b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp311-cp311-win32.whl", hash = "sha256:184eb5e436dea364dcd3d2316d577d625c0351bf237c4e9a5fabbcfa5a58b151" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp311-cp311-win_amd64.whl", hash = "sha256:3ce80b34b22b17ccbd937a6e78e7225d80c52f5ab9940fe0506a1a16f3dab503" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp311-cp311-win_arm64.whl", hash = "sha256:a733f1388e1a842abb67ffa8e7aad0e70ac519e09b0f6a784e65a136ec7cefd2" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp312-cp312-win32.whl", hash = "sha256:750ec6e621af2b948540032557b10a2d43b0cee2ae9758c54154d711cc852d31" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp312-cp312-win_amd64.whl", hash = "sha256:b8c095edad5c211ff31c05223658e71bf7116daa0ecf3ad85f3201ea3190d067" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp312-cp312-win_arm64.whl", hash = "sha256:e286f46a9a39c4a18b319c28f59b61de793654af2f395c102b4f819e584b5852" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp313-cp313-win32.whl", hash = "sha256:f95ba5a847cba10dd8c4d8fefa9f2a6cf283b8b88ed6178fa8a6c1ab16054d0d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp313-cp313-win_amd64.whl", hash = "sha256:718a38f7e5b058e76aee1c56ddd06908116d35147e133427e59a3983f703a20d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp313-cp313-win_arm64.whl", hash = "sha256:7b4075d959648406202d92a2310cb990fea19b535c7f4a78d3f5e10b926eeb8a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp314-cp314-win32.whl", hash = "sha256:b7a2c10b93f8986666d0c803ee19b5990885872a7de910fc460f9b0c2fbf92ee" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp314-cp314-win_amd64.whl", hash = "sha256:3aca44c046bd2ed8c90de9cb8427f581c479e594e99b5c0bb19b29c10fd6cb87" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/pywin32/311/pywin32-311-cp314-cp314-win_arm64.whl", hash = "sha256:a508e2d9025764a8270f93111a970e1d0fbfc33f4153b388bb649b7eec4f9b42" },
+]
+
+[[package]]
+name = "queueclient"
+source = { editable = "." }
+dependencies = [
+    { name = "deprecated" },
+    { name = "pika" },
+    { name = "requests" },
+    { name = "simplejson" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "coverage", extra = ["toml"] },
+    { name = "depot" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "testcontainers", extra = ["rabbitmq"] },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "coverage", extras = ["toml"], marker = "extra == 'dev'" },
+    { name = "depot", marker = "extra == 'dev'", specifier = "==1.0.0" },
+    { name = "deprecated" },
+    { name = "pika" },
+    { name = "pytest", marker = "extra == 'dev'" },
+    { name = "pytest-cov", marker = "extra == 'dev'" },
+    { name = "requests" },
+    { name = "simplejson" },
+    { name = "testcontainers", extras = ["rabbitmq"], marker = "extra == 'dev'" },
+]
+provides-extras = ["dev"]
+
+[[package]]
+name = "requests"
+version = "2.33.1"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "certifi" },
+    { name = "charset-normalizer" },
+    { name = "idna" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/requests/2.33.1/requests-2.33.1.tar.gz", hash = "sha256:18817f8c57c6263968bc123d237e3b8b08ac046f5456bd1e307ee8f4250d3517" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/requests/2.33.1/requests-2.33.1-py3-none-any.whl", hash = "sha256:4e6d1ef462f3626a1f0a0a9c42dd93c63bad33f9f1c1937509b8c5c8718ab56a" },
+]
+
+[[package]]
+name = "simplejson"
+version = "4.1.1"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1.tar.gz", hash = "sha256:c08eb9f7a90f77ae470e19a07472e9a79ebc0d1c2315d86a72767665bd5ba79f" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:7f61eefab86235c800e7f4e37d977080ec424bb2bf0b74e95a2d17ecb48eac0a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:4484960512db9c8124bfa91e0d8a9f9c302338f1c5454e74c21d7d022df10f46" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:b75c7ef874dbb350f41827cdf3cee23f5257bdcb0df46d4c01b34badb62dcfe8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:c7494c75b95171194f965ea609e97081837a26494d91dcc046ad27dd9c3503e2" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:1778e09a6e4bb4ef304627915dc4a838569d9e6b737c787925b4e98244bbbc16" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:67e43e7c0555e10de6d83e1408035652fad28c983516e38c4e3a9a748c9af129" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:93bf6653420258372444de90194dab8de8ff13d74b5d4263a5fefbbe8b8d2060" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-musllinux_1_2_ppc64le.whl", hash = "sha256:0662cfe0482c9796bd097213b27f006815bfdc9b671264c3c0b7fc0e72b71d00" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:a9ab55d2459f6d0fdf9984a7a0fb0280dae12979f4fcc3171f5096a4fcf5fafe" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-win32.whl", hash = "sha256:dfb84ace97acbdf1916c5a675387493fc5a7f67c2e15d4a7687143f8c73024d4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp310-cp310-win_amd64.whl", hash = "sha256:8eb821ef27f688f59ed4a93b17a666a7ebacf8dd65fecaa2b3c531a3aea62eaf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:2867c64d92abd1992c15666fae198203093f593e43d6b81adf176bae530d493a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:4c47c46e16c8ea9e4850061e6ed5aa2b9cd2074cb2274bfd9c138cba15ce7453" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:e294e33dbf316a9bbdd4030d46503c9b0f19470ae7ad6af5bae6c426bc2e869f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:7ce252b28fddbdd83db5bd7d93dad2a8a591d7ada098afec9c1b23d6b722a7a4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:4c44ef6b02a4eb67ed17a72342341792149b3ff46f15426c26e970e49addf327" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:82bfca2b85a34178c25829c703f0a9e9f113a5af7539285bd3efb583a0bf1ba3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:0e4b23f71dd781f8830f1663dc01a4944d3dbf87a1f93d78fba1cf64722d0ccf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-musllinux_1_2_ppc64le.whl", hash = "sha256:82fee635d7b73ad801030b05a75fbd34a098da0c2ecf600667a03636d09e1e42" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:68e62eda21192c5ea9bb92d571ca46a4477fef48762f50d433de2b4253051551" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-win32.whl", hash = "sha256:ffd3d82294b47f5ec64050021ace95fd62628a0c1cc8bbf4d06d2d1fb697e055" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp311-cp311-win_amd64.whl", hash = "sha256:78a3fe0995be42bed62a26aa78e0e0b4d87c6545785346b9cc898f3389569a35" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:19040a17154dc03d289bab68d73ce0a6a0be01de30c584bbdd93490bead14b22" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:a94ebaecdbaa80d9551a3ec6bf0c9302fc8b53ab6c1b2bfd498a1df4cb28158d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:67341c95c0a168ab4a6d1e807e50463f1c8da932c3286d81e201266c427061fa" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:45ec18e337fec538b7e902d489505c450b2454653d1290f3f50385e6fd8aa607" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:820c69a4710400e9b248d5670647d60be58824369282d3925e516b3ff1a7cd82" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:2e708d373a10e4378ef2d59f8361850c7150fd907ed49efe49bc5492160476d1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:980fc33353f81fd12d8c49d44f8c2760d1dc8192285e627c5180d141035b228a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-musllinux_1_2_ppc64le.whl", hash = "sha256:de2ed102fff88dacf543699f53ee3a533cc11539a39baa176b7e09dd783069d6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:2785ff8edc0e28bf773a32543a6bbed46351453c997b3f6709c744e3c2f7eabb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-win32.whl", hash = "sha256:2e0d5ead6d14610467ec356ec1f6b5d8a56aa216abaad8d41c8b873b16cf313f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp312-cp312-win_amd64.whl", hash = "sha256:63a5451f557d6be48a231bae932458655c620902b868170b2f1c8afed496f6b4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:dff52fc7af272e84fc21cc5a06c927c823ca6ae00af14f3b0d7707b42775ed98" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:971aed0647ad6e840a3943bec812fcda5f2d26a5497a4981d1fb49aa4f9a396c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:249e2e220aa6d9b9d936bde84eb7bf79d5b6c5a8273c6e411f8b1635a9073f2d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:8e5cdd6a5d52299f345c15ab5678cc4249e24f383f361d986afbc3c7072a6b6b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:642cec364e0676e2d5a73fa4d31d0c7c55886997caa2fde24e8292ca44d32728" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:76fe296ca1df23d290033f10aaacf534fd1b3e3007e7f9ff8aa68b21413aaa78" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:8f0ad25b7dc4e0fb23858355819f2e994f1a5badcdcde8737eac7921c2f1ed2a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-musllinux_1_2_ppc64le.whl", hash = "sha256:a59ebd0533f03fd06ff0c42ba0f02d93cbcdd7944922bf3b93911327a95b901f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:bccbf4419676b517939852e5aeff2af6aee4dc046881c67a1581fa6f1cb01abd" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-win32.whl", hash = "sha256:6c845363eb5fd166fb7c72243da38f4fcfde666ede7fdf2cc6fd7762894626f7" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp313-cp313-win_amd64.whl", hash = "sha256:104d8324c34f25b4b90800bc5fa363780cbc3d8496aef061cba7ce1af9162270" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-macosx_10_15_universal2.whl", hash = "sha256:ed7473602b6625de793b6acba49aa949f144a475f538792067e4cf2fda2071f5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:225c9caa324c5b554d009fb9cac22aee7711e71bd96f487938c659af467e828e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:95407269340c7f22f09776ea7b717a52cf56cfcf119b5e45f66faa4a26445bea" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:3851658d642c1184d2023f0e6c9ce44a21eb1629e74e7c84ef956b128841fe12" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:95a3bb0f78e85f4937f99092239f2011ce06f0f2d803df5c299cc05abbeae008" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:bbfdaa7c0603f75b7b14b211b7f2be44696d4e26833ad2d91d5c87bf5fb9a920" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:39e3c584071dced8c21b4689f0254303521daeb9b5bc1f4289755d71fa3cb0d3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-musllinux_1_2_ppc64le.whl", hash = "sha256:036a27bd0469b9d79557cbddb392969f876cd7f278cfbd0fba81534927a06575" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:b70bfd2f67f3351baba08aa3ae9233c83f21fd95ae5e6b3d0ecb8c647929112f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-win32.whl", hash = "sha256:37233c72ce88d06acb92747347742b3c07871eba6789f060c179c9302dde8efe" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314-win_amd64.whl", hash = "sha256:cc0442dea71cd9cbf30a0b8b9929ab5aa6c02c0443a3d977351e6ec5bada4388" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-macosx_10_15_universal2.whl", hash = "sha256:c996a4d38290c515af347740659ce095b425449c164a5c9fa3977caa6eff5dbe" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:c65c763fb20d7ca113c1c14dce2fc04a0fc3a57aceff533d6fdac707c7bffb40" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:0da5c9f57206ee7ef280ff7f1d924937b0a64f9a271a5ef371a2ecdbebba7421" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:ea3426e786425d10e9e82f8a6eda74a7d6eb10d99165ac3d0d3bbcb65c0ea343" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:d75cea7a1025edd7e439b2966b3d977c45b5b899e2adaf422811b3ac702ed9fb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-manylinux2014_ppc64le.manylinux_2_17_ppc64le.manylinux_2_28_ppc64le.whl", hash = "sha256:63c2ada8e58f266491f19eed2eeeb7c25c6141e52f8f9e820f6bb94156cf8dbc" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:d1fffb56305c5b475ee746cf9e04f97423ba5aaacd292dc1255bd75b1d3b124b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-musllinux_1_2_ppc64le.whl", hash = "sha256:a6525ec733f43d0541206cffa64fd2aad5a7ae3eb76566aff49cd4db6382209a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:861e393260508efa64d8805a8e49c416c3484907e3f146ce966c69552b49b9a3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-win32.whl", hash = "sha256:d083b89d30948a751d3d97476c2ed91e4caaa24a1a1459bdbadb8876242c71fe" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-win_amd64.whl", hash = "sha256:4cbb299d0528ec0447fe366d8c9641860e28f997a62730690fef905f1f41046e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-py3-none-any.whl", hash = "sha256:2ce92b3748f02423e26d2bfb636fb9d7a8f67c8f5854dcae69d350d123b2eee2" },
+]
+
+[[package]]
+name = "testcontainers"
+version = "4.14.2"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "docker" },
+    { name = "python-dotenv" },
+    { name = "typing-extensions" },
+    { name = "urllib3" },
+    { name = "wrapt" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/testcontainers/4.14.2/testcontainers-4.14.2.tar.gz", hash = "sha256:1340ccf16fe3acd9389a6c9e1d9ab21d9fe99a8afdf8165f89c3e69c1967d239" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/testcontainers/4.14.2/testcontainers-4.14.2-py3-none-any.whl", hash = "sha256:0d0522c3cd8f8d9627cda41f7a6b51b639fa57bdc492923c045117933c668d68" },
+]
+
+[package.optional-dependencies]
+rabbitmq = [
+    { name = "pika" },
+]
+
+[[package]]
+name = "tomli"
+version = "2.4.1"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1.tar.gz", hash = "sha256:7c7e1a961a0b2f2472c1ac5b69affa0ae1132c39adcb67aba98568702b9cc23f" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:f8f0fc26ec2cc2b965b7a3b87cd19c5c6b8c5e5f436b984e85f486d652285c30" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:4ab97e64ccda8756376892c53a72bd1f964e519c77236368527f758fbc36a53a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:96481a5786729fd470164b47cdb3e0e58062a496f455ee41b4403be77cb5a076" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:5a881ab208c0baf688221f8cecc5401bd291d67e38a1ac884d6736cbcd8247e9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:47149d5bd38761ac8be13a84864bf0b7b70bc051806bc3669ab1cbc56216b23c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:ec9bfaf3ad2df51ace80688143a6a4ebc09a248f6ff781a9945e51937008fcbc" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-win32.whl", hash = "sha256:ff2983983d34813c1aeb0fa89091e76c3a22889ee83ab27c5eeb45100560c049" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-win_amd64.whl", hash = "sha256:5ee18d9ebdb417e384b58fe414e8d6af9f4e7a0ae761519fb50f721de398dd4e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp311-cp311-win_arm64.whl", hash = "sha256:c2541745709bad0264b7d4705ad453b76ccd191e64aa6f0fc66b69a293a45ece" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:c742f741d58a28940ce01d58f0ab2ea3ced8b12402f162f4d534dfe18ba1cd6a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:7f86fd587c4ed9dd76f318225e7d9b29cfc5a9d43de44e5754db8d1128487085" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ff18e6a727ee0ab0388507b89d1bc6a22b138d1e2fa56d1ad494586d61d2eae9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:136443dbd7e1dee43c68ac2694fde36b2849865fa258d39bf822c10e8068eac5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:5e262d41726bc187e69af7825504c933b6794dc3fbd5945e41a79bb14c31f585" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:5cb41aa38891e073ee49d55fbc7839cfdb2bc0e600add13874d048c94aadddd1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-win32.whl", hash = "sha256:da25dc3563bff5965356133435b757a795a17b17d01dbc0f42fb32447ddfd917" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-win_amd64.whl", hash = "sha256:52c8ef851d9a240f11a88c003eacb03c31fc1c9c4ec64a99a0f922b93874fda9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp312-cp312-win_arm64.whl", hash = "sha256:f758f1b9299d059cc3f6546ae2af89670cb1c4d48ea29c3cacc4fe7de3058257" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:36d2bd2ad5fb9eaddba5226aa02c8ec3fa4f192631e347b3ed28186d43be6b54" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:eb0dc4e38e6a1fd579e5d50369aa2e10acfc9cace504579b2faabb478e76941a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:c7f2c7f2b9ca6bdeef8f0fa897f8e05085923eb091721675170254cbc5b02897" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:f3c6818a1a86dd6dca7ddcaaf76947d5ba31aecc28cb1b67009a5877c9a64f3f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:d312ef37c91508b0ab2cee7da26ec0b3ed2f03ce12bd87a588d771ae15dcf82d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:51529d40e3ca50046d7606fa99ce3956a617f9b36380da3b7f0dd3dd28e68cb5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-win32.whl", hash = "sha256:2190f2e9dd7508d2a90ded5ed369255980a1bcdd58e52f7fe24b8162bf9fedbd" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-win_amd64.whl", hash = "sha256:8d65a2fbf9d2f8352685bc1364177ee3923d6baf5e7f43ea4959d7d8bc326a36" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp313-cp313-win_arm64.whl", hash = "sha256:4b605484e43cdc43f0954ddae319fb75f04cc10dd80d830540060ee7cd0243cd" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:fd0409a3653af6c147209d267a0e4243f0ae46b011aa978b1080359fddc9b6cf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:a120733b01c45e9a0c34aeef92bf0cf1d56cfe81ed9d47d562f9ed591a9828ac" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:559db847dc486944896521f68d8190be1c9e719fced785720d2216fe7022b662" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:01f520d4f53ef97964a240a035ec2a869fe1a37dde002b57ebc4417a27ccd853" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:7f94b27a62cfad8496c8d2513e1a222dd446f095fca8987fceef261225538a15" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:ede3e6487c5ef5d28634ba3f31f989030ad6af71edfb0055cbbd14189ff240ba" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-win32.whl", hash = "sha256:3d48a93ee1c9b79c04bb38772ee1b64dcf18ff43085896ea460ca8dec96f35f6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-win_amd64.whl", hash = "sha256:88dceee75c2c63af144e456745e10101eb67361050196b0b6af5d717254dddf7" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314-win_arm64.whl", hash = "sha256:b8c198f8c1805dc42708689ed6864951fd2494f924149d3e4bce7710f8eb5232" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:d4d8fe59808a54658fcc0160ecfb1b30f9089906c50b23bcb4c69eddc19ec2b4" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:7008df2e7655c495dd12d2a4ad038ff878d4ca4b81fccaf82b714e07eae4402c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:1d8591993e228b0c930c4bb0db464bdad97b3289fb981255d6c9a41aedc84b2d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:734e20b57ba95624ecf1841e72b53f6e186355e216e5412de414e3c51e5e3c41" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:8a650c2dbafa08d42e51ba0b62740dae4ecb9338eefa093aa5c78ceb546fcd5c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:504aa796fe0569bb43171066009ead363de03675276d2d121ac1a4572397870f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-win32.whl", hash = "sha256:b1d22e6e9387bf4739fbe23bfa80e93f6b0373a7f1b96c6227c32bef95a4d7a8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-win_amd64.whl", hash = "sha256:2c1c351919aca02858f740c6d33adea0c5deea37f9ecca1cc1ef9e884a619d26" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-cp314-cp314t-win_arm64.whl", hash = "sha256:eab21f45c7f66c13f2a9e0e1535309cee140182a9cdae1e041d02e47291e8396" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tomli/2.4.1/tomli-2.4.1-py3-none-any.whl", hash = "sha256:0d85819802132122da43cb86656f8d1f8c6587d54ae7dcaf30e90533028b49fe" },
+]
+
+[[package]]
+name = "typing-extensions"
+version = "4.15.0"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/typing-extensions/4.15.0/typing_extensions-4.15.0.tar.gz", hash = "sha256:0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/typing-extensions/4.15.0/typing_extensions-4.15.0-py3-none-any.whl", hash = "sha256:f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548" },
+]
+
+[[package]]
+name = "urllib3"
+version = "2.6.3"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/urllib3/2.6.3/urllib3-2.6.3.tar.gz", hash = "sha256:1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/urllib3/2.6.3/urllib3-2.6.3-py3-none-any.whl", hash = "sha256:bf272323e553dfb2e87d9bfd225ca7b0f467b919d7bbd355436d3fd37cb0acd4" },
+]
+
+[[package]]
+name = "werkzeug"
+version = "3.1.8"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+dependencies = [
+    { name = "markupsafe" },
+]
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/werkzeug/3.1.8/werkzeug-3.1.8.tar.gz", hash = "sha256:9bad61a4268dac112f1c5cd4630a56ede601b6ed420300677a869083d70a4c44" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/werkzeug/3.1.8/werkzeug-3.1.8-py3-none-any.whl", hash = "sha256:63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50" },
+]
+
+[[package]]
+name = "wrapt"
+version = "2.1.2"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2.tar.gz", hash = "sha256:3996a67eecc2c68fd47b4e3c564405a5777367adfd9b8abb58387b63ee83b21e" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:4b7a86d99a14f76facb269dc148590c01aaf47584071809a70da30555228158c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:a819e39017f95bf7aede768f75915635aa8f671f2993c036991b8d3bfe8dbb6f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:5681123e60aed0e64c7d44f72bbf8b4ce45f79d81467e2c4c728629f5baf06eb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:2b8b28e97a44d21836259739ae76284e180b18abbb4dcfdff07a415cf1016c3e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:cef91c95a50596fcdc31397eb6955476f82ae8a3f5a8eabdc13611b60ee380ba" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:dad63212b168de8569b1c512f4eac4b57f2c6934b30df32d6ee9534a79f1493f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-musllinux_1_2_riscv64.whl", hash = "sha256:d307aa6888d5efab2c1cde09843d48c843990be13069003184b67d426d145394" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:c87cf3f0c85e27b3ac7d9ad95da166bf8739ca215a8b171e8404a2d739897a45" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-win32.whl", hash = "sha256:d1c5fea4f9fe3762e2b905fdd67df51e4be7a73b7674957af2d2ade71a5c075d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-win_amd64.whl", hash = "sha256:d8f7740e1af13dff2684e4d56fe604a7e04d6c94e737a60568d8d4238b9a0c71" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp310-cp310-win_arm64.whl", hash = "sha256:1c6cc827c00dc839350155f316f1f8b4b0c370f52b6a19e782e2bda89600c7dc" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:96159a0ee2b0277d44201c3b5be479a9979cf154e8c82fa5df49586a8e7679bb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:98ba61833a77b747901e9012072f038795de7fc77849f1faa965464f3f87ff2d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:767c0dbbe76cae2a60dd2b235ac0c87c9cccf4898aef8062e57bead46b5f6894" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:9c691a6bc752c0cc4711cc0c00896fcd0f116abc253609ef64ef930032821842" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:f3b7d73012ea75aee5844de58c88f44cf62d0d62711e39da5a82824a7c4626a8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:577dff354e7acd9d411eaf4bfe76b724c89c89c8fc9b7e127ee28c5f7bcb25b6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-musllinux_1_2_riscv64.whl", hash = "sha256:3d7b6fd105f8b24e5bd23ccf41cb1d1099796524bcc6f7fbb8fe576c44befbc9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:866abdbf4612e0b34764922ef8b1c5668867610a718d3053d59e24a5e5fcfc15" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-win32.whl", hash = "sha256:5a0a0a3a882393095573344075189eb2d566e0fd205a2b6414e9997b1b800a8b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-win_amd64.whl", hash = "sha256:64a07a71d2730ba56f11d1a4b91f7817dc79bc134c11516b75d1921a7c6fcda1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp311-cp311-win_arm64.whl", hash = "sha256:b89f095fe98bc12107f82a9f7d570dc83a0870291aeb6b1d7a7d35575f55d98a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:ff2aad9c4cda28a8f0653fc2d487596458c2a3f475e56ba02909e950a9efa6a9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:6433ea84e1cfacf32021d2a4ee909554ade7fd392caa6f7c13f1f4bf7b8e8748" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:c20b757c268d30d6215916a5fa8461048d023865d888e437fab451139cad6c8e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:79847b83eb38e70d93dc392c7c5b587efe65b3e7afcc167aa8abd5d60e8761c8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:f8fba1bae256186a83d1875b2b1f4e2d1242e8fac0f58ec0d7e41b26967b965c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:e3d3b35eedcf5f7d022291ecd7533321c4775f7b9cd0050a31a68499ba45757c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-musllinux_1_2_riscv64.whl", hash = "sha256:6f2c5390460de57fa9582bc8a1b7a6c86e1a41dfad74c5225fc07044c15cc8d1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:7dfa9f2cf65d027b951d05c662cc99ee3bd01f6e4691ed39848a7a5fffc902b2" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-win32.whl", hash = "sha256:eba8155747eb2cae4a0b913d9ebd12a1db4d860fc4c829d7578c7b989bd3f2f0" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-win_amd64.whl", hash = "sha256:1c51c738d7d9faa0b3601708e7e2eda9bf779e1b601dce6c77411f2a1b324a63" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp312-cp312-win_arm64.whl", hash = "sha256:c8e46ae8e4032792eb2f677dbd0d557170a8e5524d22acc55199f43efedd39bf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:787fd6f4d67befa6fe2abdffcbd3de2d82dfc6fb8a6d850407c53332709d030b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:4bdf26e03e6d0da3f0e9422fd36bcebf7bc0eeb55fdf9c727a09abc6b9fe472e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:bbac24d879aa22998e87f6b3f481a5216311e7d53c7db87f189a7a0266dafffb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:16997dfb9d67addc2e3f41b62a104341e80cac52f91110dece393923c0ebd5ca" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:162e4e2ba7542da9027821cb6e7c5e068d64f9a10b5f15512ea28e954893a267" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:f29c827a8d9936ac320746747a016c4bc66ef639f5cd0d32df24f5eacbf9c69f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-musllinux_1_2_riscv64.whl", hash = "sha256:a9dd9813825f7ecb018c17fd147a01845eb330254dff86d3b5816f20f4d6aaf8" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:6f8dbdd3719e534860d6a78526aafc220e0241f981367018c2875178cf83a413" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-win32.whl", hash = "sha256:5c35b5d82b16a3bc6e0a04349b606a0582bc29f573786aebe98e0c159bc48db6" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-win_amd64.whl", hash = "sha256:f8bc1c264d8d1cf5b3560a87bbdd31131573eb25f9f9447bb6252b8d4c44a3a1" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313-win_arm64.whl", hash = "sha256:3beb22f674550d5634642c645aba4c72a2c66fb185ae1aebe1e955fae5a13baf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-macosx_10_13_x86_64.whl", hash = "sha256:0fc04bc8664a8bc4c8e00b37b5355cffca2535209fba1abb09ae2b7c76ddf82b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-macosx_11_0_arm64.whl", hash = "sha256:a9b9d50c9af998875a1482a038eb05755dfd6fe303a313f6a940bb53a83c3f18" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:2d3ff4f0024dd224290c0eabf0240f1bfc1f26363431505fb1b0283d3b08f11d" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:3278c471f4468ad544a691b31bb856374fbdefb7fee1a152153e64019379f015" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:a8914c754d3134a3032601c6984db1c576e6abaf3fc68094bb8ab1379d75ff92" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-musllinux_1_2_aarch64.whl", hash = "sha256:ff95d4264e55839be37bafe1536db2ab2de19da6b65f9244f01f332b5286cfbf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-musllinux_1_2_riscv64.whl", hash = "sha256:76405518ca4e1b76fbb1b9f686cff93aebae03920cc55ceeec48ff9f719c5f67" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-musllinux_1_2_x86_64.whl", hash = "sha256:c0be8b5a74c5824e9359b53e7e58bef71a729bacc82e16587db1c4ebc91f7c5a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-win32.whl", hash = "sha256:f01277d9a5fc1862f26f7626da9cf443bebc0abd2f303f41c5e995b15887dabd" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-win_amd64.whl", hash = "sha256:84ce8f1c2104d2f6daa912b1b5b039f331febfeee74f8042ad4e04992bd95c8f" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp313-cp313t-win_arm64.whl", hash = "sha256:a93cd767e37faeddbe07d8fc4212d5cba660af59bdb0f6372c93faaa13e6e679" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:1370e516598854e5b4366e09ce81e08bfe94d42b0fd569b88ec46cc56d9164a9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:6de1a3851c27e0bd6a04ca993ea6f80fc53e6c742ee1601f486c08e9f9b900a9" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:de9f1a2bbc5ac7f6012ec24525bdd444765a2ff64b5985ac6e0692144838542e" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:970d57ed83fa040d8b20c52fe74a6ae7e3775ae8cff5efd6a81e06b19078484c" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:3969c56e4563c375861c8df14fa55146e81ac11c8db49ea6fb7f2ba58bc1ff9a" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-musllinux_1_2_aarch64.whl", hash = "sha256:57d7c0c980abdc5f1d98b11a2aa3bb159790add80258c717fa49a99921456d90" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-musllinux_1_2_riscv64.whl", hash = "sha256:776867878e83130c7a04237010463372e877c1c994d449ca6aaafeab6aab2586" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:fab036efe5464ec3291411fabb80a7a39e2dd80bae9bcbeeca5087fdfa891e19" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-win32.whl", hash = "sha256:e6ed62c82ddf58d001096ae84ce7f833db97ae2263bff31c9b336ba8cfe3f508" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-win_amd64.whl", hash = "sha256:467e7c76315390331c67073073d00662015bb730c566820c9ca9b54e4d67fd04" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314-win_arm64.whl", hash = "sha256:da1f00a557c66225d53b095a97eace0fc5349e3bfda28fa34ffae238978ee575" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:62503ffbc2d3a69891cf29beeaccdb4d5e0a126e2b6a851688d4777e01428dbb" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:c7e6cd120ef837d5b6f860a6ea3745f8763805c418bb2f12eeb1fa6e25f22d22" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:3769a77df8e756d65fbc050333f423c01ae012b4f6731aaf70cf2bef61b34596" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:a76d61a2e851996150ba0f80582dd92a870643fa481f3b3846f229de88caf044" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-manylinux_2_31_riscv64.manylinux_2_39_riscv64.whl", hash = "sha256:6f97edc9842cf215312b75fe737ee7c8adda75a89979f8e11558dfff6343cc4b" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-musllinux_1_2_aarch64.whl", hash = "sha256:4006c351de6d5007aa33a551f600404ba44228a89e833d2fadc5caa5de8edfbf" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-musllinux_1_2_riscv64.whl", hash = "sha256:a9372fc3639a878c8e7d87e1556fa209091b0a66e912c611e3f833e2c4202be2" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:3144b027ff30cbd2fca07c0a87e67011adb717eb5f5bd8496325c17e454257a3" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-win32.whl", hash = "sha256:3b8d15e52e195813efe5db8cec156eebe339aaf84222f4f4f051a6c01f237ed7" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-win_amd64.whl", hash = "sha256:08ffa54146a7559f5b8df4b289b46d963a8e74ed16ba3687f99896101a3990c5" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-cp314-cp314t-win_arm64.whl", hash = "sha256:72aaa9d0d8e4ed0e2e98019cea47a21f823c9dd4b43c7b77bba6679ffcca6a00" },
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/wrapt/2.1.2/wrapt-2.1.2-py3-none-any.whl", hash = "sha256:b8fd6fa2b2c4e7621808f8c62e8317f4aae56e59721ad933bac5239d913cf0e8" },
+]
