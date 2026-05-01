@@ -4,14 +4,19 @@ import queue
 import time
 from collections.abc import Callable
 from multiprocessing import Queue
-from typing import Any
+from typing import Any, TypeVar
+
+import simplejson as json
+
+TMessage = TypeVar("TMessage")
 
 logger = logging.getLogger(__name__)
 
 
 class QueueClient(abc.ABC):
     def __init__(self, queue_id: str) -> None:
-        """An abstract queue for communicating work between managers and worker
+        """An abstract queue for communicating work between managers and worker.
+
         Args:
             queue_id: A reasonable identifier for this queue
         """
@@ -23,27 +28,41 @@ class QueueClient(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def enqueue(self, msg: Any, durable: bool = True, routing_key: str = "") -> bool:
+    def enqueue(
+        self,
+        msg: TMessage,
+        durable: bool = True,
+        routing_key: str = "",
+        serialize: Callable[[TMessage], str] = json.dumps,
+    ) -> bool:
         """Publishes a message to a queue
         Args:
-            msg: JSON serializable object
+            msg: message to publish
             durable: if supported by queue, persist data even if service is restarted
             routing_key: useful for selectively focusing on workers'
+            serialize: Converts the msg argument into a UTF-8 json string
         Returns:
             True if the action is successful, False otherwise.
         """
         ...
 
     @abc.abstractmethod
-    def dequeue(self, block: bool = False, requeue: bool = True) -> Any:
+    def dequeue(
+        self,
+        block: bool = False,
+        requeue: bool = True,
+        deserialize: Callable[[str], TMessage] = json.loads,
+    ) -> TMessage:
         """Abstract method to dequeue an item from the queue.
 
         Args:
             block: Indicates whether the dequeue operation should block if the queue is empty.
             requeue: re-insert the item back into the queue, if a handling exception is raised.
+            deserialize: A function that will parse the next item on the queue
+              into the return type
 
         Returns:
-            Any: The item dequeued from the queue.
+            The item dequeued from the queue.
         """
         ...
 
@@ -124,20 +143,44 @@ class InMemoryQueueClient(QueueClient):
         """No-op"""
         pass
 
-    def enqueue(self, msg, durable=False, routing_key="") -> bool:
+    def enqueue(
+        self,
+        msg: TMessage,
+        durable=False,
+        routing_key="",
+        serialize: Callable[[TMessage], str] = json.dumps,
+    ) -> bool:
+        """Add a message to the queue
+
+        Args:
+            msg: the data to queue
+            durable: not supported
+            routing_key: unused
+            serialize: unused
+
+        Returns:
+            The object in the queue or None
+        """
+
         if durable:
             raise ValueError("durable functionality is not supported")
 
         self.q.put(msg)
         return True
 
-    def dequeue(self, block: bool = True, requeue: bool = True) -> Any:
+    def dequeue(
+        self,
+        block: bool = True,
+        requeue: bool = True,
+        deserialize: Callable[[str], TMessage] = json.loads,
+    ) -> TMessage:
         """Return a message from the queue
 
         Args:
             block: When true, wait for a message in the queue. Can cause locks when used in a
                 separate thread.
             requeue: not used no-op.
+            deserialize: unused
 
         Returns:
             The object in the queue or None
