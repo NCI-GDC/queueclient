@@ -6,6 +6,7 @@ from typing import Any
 import pika
 import simplejson as json
 from pika import channel, connection, frame, spec
+from pika.exceptions import StreamLostError
 
 from queueclient import core
 
@@ -111,7 +112,28 @@ class RabbitMQClient(core.QueueClient):
             )
             self.client.connect()
         routing_key = routing_key or self.routing_key or self.queue_id
-        self.client.basic_publish(msg, durable, routing_key, serialize=serialize)
+        try:
+            self.client.basic_publish(msg, durable, routing_key, serialize=serialize)
+        except StreamLostError as e:
+            logger.error("Stream lost during publish; reconnecting", exc_info=e)
+            if self.client:
+                self.client.close()
+            self.client = None
+            # optional: retry once
+            self.client = RabbitPublisher(
+                self.host,
+                self.v_host,
+                self.port,
+                self.queue_id,
+                self.username,
+                self.password,
+                self.durable,
+                self.exchange,
+                self.exchange_type,
+                self.routing_key,
+            )
+            self.client.connect()
+            self.client.basic_publish(msg, durable, routing_key, serialize=serialize)
         return True
 
     def consume(
@@ -182,9 +204,11 @@ class RabbitMQClient(core.QueueClient):
         return body
 
     def status(self) -> bool:
-        if self.client:
-            return self.client.channel.is_open
-        return False
+        if not self.client:
+            return False
+        conn = getattr(self.client, "connection", None)
+        chan = getattr(self.client, "channel", None)
+        return bool(conn and chan and conn.is_open and chan.is_open)
 
     def ping(self) -> bool:
         """Not required"""
@@ -196,6 +220,7 @@ class RabbitMQClient(core.QueueClient):
     def close(self):
         if self.client:
             self.client.close()
+            self.client = None  # remove stale client names
 
     def start_closing(self) -> None:
         if self.client:
