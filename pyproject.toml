@@ -21,7 +21,8 @@ dependencies = [
   "deprecated",
   "pika",
   "requests",
-  "simplejson"
+  "simplejson",
+  "tenacity"
 ]
 description = "Queue Client Facade: A generalized API that allows for connection to multiple queue implementations."
 dynamic = ["version"]

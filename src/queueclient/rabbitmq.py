@@ -5,6 +5,7 @@ from typing import Any
 
 import pika
 import simplejson as json
+import tenacity
 from pika import channel, connection, frame, spec
 from pika.exceptions import StreamLostError
 
@@ -402,6 +403,19 @@ class RabbitPublisher(RabbitMQClient):
             )
         logger.debug(f"Blocking Connection established to {self.conn_params}")
 
+    def close(self):
+        self.is_closing = True
+        if self.connection and self.connection.is_open:
+            self.connection.close()
+        self.connection = None
+        self.channel = None
+
+    @tenacity.retry(
+        retry=tenacity.retry_if_exception_type(pika.exceptions.StreamLostError),
+        stop=tenacity.stop_after_attempt(5),
+        wait=tenacity.wait_exponential(multiplier=0.5, max=5),
+        reraise=True,
+    )
     def basic_publish(
         self,
         msg: core.TMessage,
@@ -409,6 +423,27 @@ class RabbitPublisher(RabbitMQClient):
         routing_key: str | None,
         serialize: Callable[[core.TMessage], str] = json.dumps,
     ):
+        """
+        Publish with automatic retry on StreamLostError.
+        Each retry will re-establish the BlockingConnection if needed.
+        """
+        # (Re)connect if connection is not usable
+        if not (
+            self.connection
+            and self.connection.is_open
+            and self.channel
+            and self.channel.is_open
+        ):
+            logger.warning("Publisher connection not open; reconnecting before publish.")
+            if self.connection:
+                try:
+                    self.connection.close()
+                except Exception:
+                    logger.debug("Error closing dead connection", exc_info=True)
+            self.connection = None
+            self.channel = None
+            self.connect()
+
         msg = serialize(msg)
         delivery_mode = 2 if durability else 1  # mode 2 == durable, 1 == not durable
         props = pika.BasicProperties(
@@ -417,12 +452,17 @@ class RabbitPublisher(RabbitMQClient):
             content_encoding="utf-8",
         )
 
+        exchange = self.exchange or ""  # default exchange if none specified
+        routing_key = routing_key or self.routing_key or self.queue_id
+
         try:
-            exchange = self.exchange or ""  # use default exchange if no exchange is specified
-            routing_key = routing_key or self.routing_key or self.queue_id  #
             return self.channel.basic_publish(
                 exchange, routing_key=routing_key, body=msg, properties=props
             )
+        except pika.exceptions.StreamLostError as e:
+            logger.error("Stream lost during publish; will retry via tenacity", exc_info=e)
+            # Let tenacity handle reconnect/retry by re-raising
+            raise
         except pika.exceptions.UnroutableError as e:
             logger.error(
                 f"Message could not be routed to queue with error {e}",
@@ -448,8 +488,3 @@ class RabbitPublisher(RabbitMQClient):
                 self.channel.basic_nack(delivery_tag=mtd.delivery_tag, requeue=requeue)
                 raise e
         return body
-
-    def close(self):
-        self.is_closing = True
-        if self.connection and self.connection.is_open:
-            self.connection.close()
