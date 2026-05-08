@@ -22,7 +22,12 @@ def log_final_error(retry_state: tenacity.RetryCallState):
     """
     if retry_state.outcome.failed:
         exc = retry_state.outcome.exception()
-        logger.error("Tenacity reports final failure: %s", exc, exc_info=exc)
+        logger.error(
+            "Tenacity reports final failure after %d attempts: %s",
+            retry_state.attempt_number,
+            exc,
+            exc_info=exc,
+        )
 
 
 class RabbitMQClient(core.QueueClient):
@@ -95,10 +100,46 @@ class RabbitMQClient(core.QueueClient):
             credentials=credentials,
         )
 
+        # Optional: maximum time spent retrying a single reconnect sequence
+        self.reconnect_max_delay_seconds = 300  # 5 minutes
+
         self.client: RabbitMQClient | None = None
 
     def connect(self):
         raise RuntimeError("Use one of the queuing/consumer methods to connect")
+
+    def _build_publish_retry(self):
+        return tenacity.retry(
+            wait=tenacity.wait_exponential(multiplier=0.5, min=0.5, max=5),
+            stop=tenacity.stop_after_delay(self.reconnect_max_delay_seconds),
+            retry=tenacity.retry_if_exception_type(StreamLostError),
+            reraise=True,
+            after=log_final_error,
+        )
+
+    def _ensure_publisher(self):
+        if not (isinstance(self.client, RabbitPublisher) and self.status()):
+            self.client = RabbitPublisher(
+                self.host,
+                self.v_host,
+                self.port,
+                self.queue_id,
+                self.username,
+                self.password,
+                self.durable,
+                self.exchange,
+                self.exchange_type,
+                self.routing_key,
+            )
+            self.client.connect()
+
+    @staticmethod
+    def _close_publisher(client: "RabbitPublisher | None") -> None:
+        if client:
+            try:
+                client.close()
+            except Exception:
+                logger.debug("Error closing publisher during retry", exc_info=True)
 
     def enqueue(
         self,
@@ -117,43 +158,25 @@ class RabbitMQClient(core.QueueClient):
         Returns:
             True if the action is successful, False otherwise.
         """
-        if not (isinstance(self.client, RabbitPublisher) and self.status()):
-            self.client = RabbitPublisher(
-                self.host,
-                self.v_host,
-                self.port,
-                self.queue_id,
-                self.username,
-                self.password,
-                self.durable,
-                self.exchange,
-                self.exchange_type,
-                self.routing_key,
-            )
-            self.client.connect()
-        routing_key = routing_key or self.routing_key or self.queue_id
-        try:
-            self.client.basic_publish(msg, durable, routing_key, serialize=serialize)
-        except StreamLostError as e:
-            logger.error("Stream lost during publish; reconnecting", exc_info=e)
-            if self.client:
-                self.client.close()
-            self.client = None
-            # optional: retry once
-            self.client = RabbitPublisher(
-                self.host,
-                self.v_host,
-                self.port,
-                self.queue_id,
-                self.username,
-                self.password,
-                self.durable,
-                self.exchange,
-                self.exchange_type,
-                self.routing_key,
-            )
-            self.client.connect()
-            self.client.basic_publish(msg, durable, routing_key, serialize=serialize)
+        retry_decorator = self._build_publish_retry()
+
+        @retry_decorator
+        def do_publish():
+            self._ensure_publisher()
+            rk = routing_key or self.routing_key or self.queue_id
+            try:
+                return self.client.basic_publish(msg, durable, rk, serialize=serialize)
+            except StreamLostError:
+                logger.warning(
+                    "StreamLostError while publishing to queue %s; will retry via tenacity",
+                    self.queue_id,
+                )
+                # reset client before retrying
+                RabbitMQClient._close_publisher(self.client)
+                self.client = None
+                raise
+
+        do_publish()
         return True
 
     def consume(
@@ -255,9 +278,6 @@ class RabbitConsumer(RabbitMQClient):
 
         # Keeps track of whether we are intentionally shutting down
         self.is_closing = False
-
-        # Optional: maximum time spent retrying a single reconnect sequence
-        self.reconnect_max_delay_seconds = 300  # 5 minutes
 
     def connect(self):
         """Establish a new SelectConnection."""
@@ -553,13 +573,6 @@ class RabbitPublisher(RabbitMQClient):
         self.connection = None
         self.channel = None
 
-    @tenacity.retry(
-        retry=tenacity.retry_if_exception_type(pika.exceptions.StreamLostError),
-        stop=tenacity.stop_after_attempt(5),
-        wait=tenacity.wait_exponential(multiplier=0.5, max=5),
-        reraise=True,
-        after=log_final_error,
-    )
     def basic_publish(
         self,
         msg: core.TMessage,
@@ -579,7 +592,8 @@ class RabbitPublisher(RabbitMQClient):
             and self.channel.is_open
         ):
             logger.warning("Publisher connection not open; reconnecting before publish.")
-            if self.connection:
+
+            if self.connection is not None and not self.connection.is_closed:
                 try:
                     self.connection.close()
                 except Exception:
@@ -599,19 +613,9 @@ class RabbitPublisher(RabbitMQClient):
         exchange = self.exchange or ""  # default exchange if none specified
         routing_key = routing_key or self.routing_key or self.queue_id
 
-        try:
-            return self.channel.basic_publish(
-                exchange, routing_key=routing_key, body=msg, properties=props
-            )
-        except pika.exceptions.StreamLostError:
-            logger.warning("Stream lost during publish; will retry via tenacity")
-            # Let tenacity handle reconnect/retry by re-raising
-            raise
-        except pika.exceptions.UnroutableError as e:
-            logger.error(
-                f"Message could not be routed to queue with error {e}",
-                exc_info=e,
-            )
+        return self.channel.basic_publish(
+            exchange, routing_key=routing_key, body=msg, properties=props
+        )
 
     def basic_get(
         self, requeue=True, deserialize: Callable[[str], core.TMessage] = json.loads
