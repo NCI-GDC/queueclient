@@ -15,6 +15,16 @@ from queueclient import core
 logger = logging.getLogger(__name__)
 
 
+def log_final_error(retry_state: tenacity.RetryCallState):
+    """tenacity log helper.
+
+    To be called on final failure with `after`
+    """
+    if retry_state.outcome.failed:
+        exc = retry_state.outcome.exception()
+        logger.error("Tenacity reports final failure: %s", exc, exc_info=exc)
+
+
 class RabbitMQClient(core.QueueClient):
     """
     RabbitMQ implmentation of the QueueClient.
@@ -449,6 +459,7 @@ class RabbitConsumer(RabbitMQClient):
             stop=tenacity.stop_after_delay(self.reconnect_max_delay_seconds),
             retry=tenacity.retry_if_exception_type(Exception),
             reraise=True,
+            after=log_final_error,
         )
 
     def _reconnect_once(self):
@@ -547,6 +558,7 @@ class RabbitPublisher(RabbitMQClient):
         stop=tenacity.stop_after_attempt(5),
         wait=tenacity.wait_exponential(multiplier=0.5, max=5),
         reraise=True,
+        after=log_final_error,
     )
     def basic_publish(
         self,
