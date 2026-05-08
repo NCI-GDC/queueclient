@@ -23,8 +23,10 @@ def log_final_error(retry_state: tenacity.RetryCallState):
     if retry_state.outcome.failed:
         exc = retry_state.outcome.exception()
         logger.error(
-            "Tenacity reports final failure after %d attempts: %s",
+            "Tenacity (fn=%r) reports final failure after %d attempts, elapsed=%.2fs: %s",
+            retry_state.fn,
             retry_state.attempt_number,
+            retry_state.seconds_since_start,
             exc,
             exc_info=exc,
         )
@@ -159,6 +161,7 @@ class RabbitMQClient(core.QueueClient):
             True if the action is successful, False otherwise.
         """
         retry_decorator = self._build_publish_retry()
+        logger.info("Retry decorator: %r", retry_decorator)
 
         @retry_decorator
         def do_publish():
