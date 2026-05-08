@@ -439,7 +439,7 @@ class RabbitPublisher(RabbitMQClient):
                 try:
                     self.connection.close()
                 except Exception:
-                    logger.debug("Error closing dead connection", exc_info=True)
+                    logger.debug("Error closing dead connection")
             self.connection = None
             self.channel = None
             self.connect()
@@ -459,8 +459,8 @@ class RabbitPublisher(RabbitMQClient):
             return self.channel.basic_publish(
                 exchange, routing_key=routing_key, body=msg, properties=props
             )
-        except pika.exceptions.StreamLostError as e:
-            logger.error("Stream lost during publish; will retry via tenacity", exc_info=e)
+        except pika.exceptions.StreamLostError:
+            logger.warning("Stream lost during publish; will retry via tenacity")
             # Let tenacity handle reconnect/retry by re-raising
             raise
         except pika.exceptions.UnroutableError as e:
