@@ -373,7 +373,7 @@ class RabbitConsumer(RabbitMQClient):
 
     def close(self):
         self.is_closing = True
-        if self.channel is not None:
+        if self.channel and not self.channel.is_closed and not self.channel.is_closing:
             self.channel.close()
         if (
             self.connection
