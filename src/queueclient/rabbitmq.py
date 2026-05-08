@@ -1,5 +1,6 @@
 import functools
 import logging
+import threading
 from collections.abc import Callable
 from typing import Any
 
@@ -237,7 +238,26 @@ class RabbitMQClient(core.QueueClient):
 
 
 class RabbitConsumer(RabbitMQClient):
+    """RabbitMQ consumer with tenacity-based reconnection."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Keeps track of whether we are intentionally shutting down
+        self.is_closing = False
+
+        # Optional: maximum time spent retrying a single reconnect sequence
+        self.reconnect_max_delay_seconds = 300  # 5 minutes
+
     def connect(self):
+        """Establish a new SelectConnection."""
+        logger.info(
+            "Connecting to RabbitMQ: host=%s, vhost=%s, queue=%s",
+            self.host,
+            self.v_host,
+            self.queue_id,
+        )
+        self.is_closing = False
         self.connection = pika.SelectConnection(
             self.conn_params,
             on_open_callback=self.on_connection_open,
@@ -247,21 +267,33 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_connection_closed(self, _conn: connection.Connection, reason: Exception) -> None:
         self.channel = None
-        logger.debug(f"Connection '{_conn.params.host}'", exc_info=reason)
+        logger.warning(
+            "Connection closed for queue %s: %r (is_closing=%s)",
+            self.queue_id,
+            reason,
+            self.is_closing,
+        )
         if self.is_closing:
             # closing is intentional
-            self.connection.ioloop.stop()
+            try:
+                self.connection.ioloop.stop()
+            except Exception:
+                logger.debug("ioloop.stop() raised but will be ignored", exc_info=True)
         else:
-            # closing not intentional, try to schedule restart
-            self.stop()
+            # Unintentional close: schedule reconnect with tenacity
+            self._schedule_reconnect(reason=reason)
 
     def on_connection_open_error(self, _unused_connection, err):
         logger.error("Connection open failed: %s - %s", err, self.queue_id)
+        # Use tenacity-based reconnect
+        self._schedule_reconnect(reason=err)
 
     def on_connection_open(self, _conn):
+        logger.info("Connection opened to %s", _conn.params.host)
         self.connection.channel(on_open_callback=self.on_channel_open)
 
     def on_channel_open(self, msg_channel: channel.Channel) -> None:
+        logger.info("Channel opened for queue %s", self.queue_id)
         self.channel = msg_channel
         self.channel.add_on_close_callback(self.on_channel_closed)
 
@@ -282,13 +314,19 @@ class RabbitConsumer(RabbitMQClient):
 
     def on_channel_closed(self, msg_channel: channel.Channel, reason: Exception) -> None:
         self.channel = None
+        logger.debug(
+            "Channel '%s' closed for queue %s: %r",
+            msg_channel.channel_number,
+            self.queue_id,
+            reason,
+        )
         if (
             self.is_closing
+            and self.connection
             and not self.connection.is_closing
             and not self.connection.is_closed
         ):
             self.connection.close()
-        logger.debug("Channel '%s' closed:", msg_channel.channel_number, exc_info=reason)
 
     def on_exchange_declare_ok(self, _header):
         self.channel.queue_declare(
@@ -322,11 +360,16 @@ class RabbitConsumer(RabbitMQClient):
             queue=self.queue_id, on_message_callback=on_basic_consume
         )
         self._is_consuming = True
+        logger.info("Started consuming on queue %s", self.queue_id)
 
     def on_consumer_cancelled(self, _frame):
         if self.channel:
             self.channel.close()
-        logger.error("RabbitConsumer channel closed unexpectedly: %s", _frame)
+        logger.error(
+            "RabbitConsumer channel closed unexpectedly for queue %s: %s",
+            self.queue_id,
+            _frame,
+        )
 
     def close(self):
         self.is_closing = True
@@ -370,21 +413,102 @@ class RabbitConsumer(RabbitMQClient):
             self.stop()
 
     def start(self):
+        """Start the ioloop; this call blocks until the loop stops."""
+        logger.info("Starting RabbitConsumer ioloop for queue %s", self.queue_id)
         self.connection.ioloop.start()
+        logger.info("RabbitConsumer ioloop stopped for queue %s", self.queue_id)
 
     def stop(self):
+        """Initiate a (graceful) shutdown of the consumer."""
+        logger.info("Stopping RabbitConsumer for queue %s", self.queue_id)
         self.is_closing = True
-        if self._is_consuming and self.channel:
+        if self._is_consuming and self.channel and self.channel.is_open:
+            # Cancel current consumer; on_cancel_ok will close channel / stop loop
             self.channel.basic_cancel(
                 consumer_tag=self.consumer_tag, callback=self.on_cancel_ok
             )
         else:
-            self.connection.ioloop.stop()
+            # No active consumer or channel; stop ioloop directly
+            if self.connection and not self.connection.is_closed:
+                self.connection.ioloop.stop()
 
     def on_cancel_ok(self, _: frame.Method) -> None:
         self._is_consuming = False
         if self.channel and self.channel.is_open:
             self.channel.close()
+        if self.connection and not self.connection.is_closed:
+            self.connection.ioloop.stop()
+
+    # -------------------------------------------------------------------------
+    # Tenacity-based reconnect
+    # -------------------------------------------------------------------------
+    def _build_reconnect_retry(self):
+        """Return a tenacity retry decorator configured for reconnects."""
+        return tenacity.retry(
+            wait=tenacity.wait_exponential(multiplier=1, min=1, max=30),
+            stop=tenacity.stop_after_delay(self.reconnect_max_delay_seconds),
+            retry=tenacity.retry_if_exception_type(Exception),
+            reraise=True,
+        )
+
+    def _reconnect_once(self):
+        """Perform one reconnect attempt: connect + start ioloop."""
+        # Note: this method is deliberately small; tenacity will retry it.
+        if self.is_closing:
+            # If we're intentionally closing, do not reconnect
+            logger.info(
+                "Not reconnecting RabbitConsumer for queue %s (is_closing=True)",
+                self.queue_id,
+            )
+            return
+
+        logger.info("Attempting reconnect for queue %s", self.queue_id)
+        self.connect()
+        # This will block until ioloop stops again (either normal stop or another failure)
+        self.start()
+
+    def _schedule_reconnect(self, reason: Exception | None = None):
+        """Stop current loop and spawn a thread that will retry reconnect via tenacity."""
+        if self.is_closing:
+            logger.info(
+                "Not scheduling reconnect for queue %s; closing is intentional",
+                self.queue_id,
+            )
+            return
+
+        logger.warning("Scheduling reconnect for queue %s; reason=%r", self.queue_id, reason)
+
+        # Stop current ioloop safely
+        try:
+            if self.connection and not self.connection.is_closed:
+                self.connection.ioloop.stop()
+        except Exception:
+            logger.debug("ioloop.stop() raised but will be ignored", exc_info=True)
+
+        retry_decorator = self._build_reconnect_retry()
+
+        @retry_decorator
+        def reconnect_with_retry():
+            self._reconnect_once()
+
+        # Run reconnect attempts in a background thread so we don't block any caller.
+        def run():
+            try:
+                reconnect_with_retry()
+            except tenacity.RetryError as exc:
+                # All retries exhausted
+                logger.error(
+                    "RabbitConsumer reconnect attempts exhausted for queue %s; last error: %s",
+                    self.queue_id,
+                    exc.last_attempt.exception() if exc.last_attempt else exc,
+                )
+            except Exception:
+                logger.exception(
+                    "Unexpected error while reconnecting RabbitConsumer for queue %s",
+                    self.queue_id,
+                )
+
+        threading.Thread(target=run, daemon=True).start()
 
 
 class RabbitPublisher(RabbitMQClient):
