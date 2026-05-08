@@ -15,6 +15,14 @@ logger = logging.getLogger(__name__)
 
 
 class RabbitMQClient(core.QueueClient):
+    """
+    RabbitMQ implmentation of the QueueClient.
+
+    Terms:
+        qos: quality of service. controls how many messages can be
+             sent to a consumer without acknowledgement
+    """
+
     def __init__(
         self,
         host="localhost",
@@ -64,7 +72,7 @@ class RabbitMQClient(core.QueueClient):
         self._on_failure_callback = None
         self._terminate_consumer_callback = None
         self._requeue_failed = True
-        self._is_consuming = False
+        self._is_consuming = False  # what is this?
 
         credentials = pika.PlainCredentials(username, password, erase_on_connect=True)
         self.conn_params = pika.ConnectionParameters(
@@ -366,7 +374,7 @@ class RabbitConsumer(RabbitMQClient):
 
     def stop(self):
         self.is_closing = True
-        if self._is_consuming:
+        if self._is_consuming and self.channel:
             self.channel.basic_cancel(
                 consumer_tag=self.consumer_tag, callback=self.on_cancel_ok
             )
