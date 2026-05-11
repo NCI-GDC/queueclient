@@ -189,7 +189,11 @@ class RabbitMQClient(core.QueueClient):
                     )
                     RabbitMQClient._close_publisher(self.client)
                     self.client = None
-                    raise
+                else:
+                    logger.exception(
+                        "Non-retryable exception while publishing to %s", self.queue_id
+                    )
+                raise  # always re-raise
 
         do_publish()
         return True
