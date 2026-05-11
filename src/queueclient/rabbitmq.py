@@ -8,11 +8,21 @@ import pika
 import simplejson as json
 import tenacity
 from pika import channel, connection, frame, spec
-from pika.exceptions import StreamLostError
 
 from queueclient import core
 
 logger = logging.getLogger(__name__)
+
+
+def should_retry(e: BaseException) -> bool:
+    """Handles all the connection errors that may occur."""
+    if isinstance(e, pika.exceptions.StreamLostError):
+        return True
+    if isinstance(e, ConnectionError):
+        return True
+
+    logger.exception("Do not retry: %r", e)
+    return False
 
 
 def log_final_error(retry_state: tenacity.RetryCallState):
@@ -114,7 +124,7 @@ class RabbitMQClient(core.QueueClient):
         return tenacity.retry(
             wait=tenacity.wait_exponential(multiplier=0.5, min=0.5, max=5),
             stop=tenacity.stop_after_delay(self.reconnect_max_delay_seconds),
-            retry=tenacity.retry_if_exception_type(StreamLostError),
+            retry=tenacity.retry_if_exception(should_retry),
             reraise=True,
             after=log_final_error,
         )
@@ -169,15 +179,17 @@ class RabbitMQClient(core.QueueClient):
             rk = routing_key or self.routing_key or self.queue_id
             try:
                 return self.client.basic_publish(msg, durable, rk, serialize=serialize)
-            except StreamLostError:
-                logger.warning(
-                    "StreamLostError while publishing to queue %s; will retry via tenacity",
-                    self.queue_id,
-                )
-                # reset client before retrying
-                RabbitMQClient._close_publisher(self.client)
-                self.client = None
-                raise
+            except Exception as e:
+                if should_retry(e):
+                    logger.warning(
+                        "Retryable exception %r while publishing to queue %s; "
+                        "will retry via tenacity",
+                        e,
+                        self.queue_id,
+                    )
+                    RabbitMQClient._close_publisher(self.client)
+                    self.client = None
+                    raise
 
         do_publish()
         return True
@@ -480,7 +492,7 @@ class RabbitConsumer(RabbitMQClient):
         return tenacity.retry(
             wait=tenacity.wait_exponential(multiplier=1, min=1, max=30),
             stop=tenacity.stop_after_delay(self.reconnect_max_delay_seconds),
-            retry=tenacity.retry_if_exception_type(Exception),
+            retry=tenacity.retry_if_exception(should_retry),
             reraise=True,
             after=log_final_error,
         )
