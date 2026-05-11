@@ -32,7 +32,7 @@ def log_failure(retry_state: tenacity.RetryCallState):
     """
     if retry_state.outcome.failed:
         exc = retry_state.outcome.exception()
-        logger.warning(
+        logger.info(
             "Tenacity (fn=%r) reports failure after %d attempts, elapsed=%.2fs: %s",
             retry_state.fn,
             retry_state.attempt_number,
@@ -199,7 +199,7 @@ class RabbitMQClient(core.QueueClient):
                 return self.client.basic_publish(msg, durable, rk, serialize=serialize)
             except Exception as e:
                 if should_retry(e):
-                    logger.warning(
+                    logger.info(
                         "Retryable exception %r while publishing to queue %s; "
                         "will retry via tenacity",
                         e,
