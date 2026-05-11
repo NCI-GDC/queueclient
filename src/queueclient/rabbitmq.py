@@ -25,15 +25,32 @@ def should_retry(e: BaseException) -> bool:
     return False
 
 
-def log_final_error(retry_state: tenacity.RetryCallState):
+def log_failure(retry_state: tenacity.RetryCallState):
     """tenacity log helper.
 
     To be called on final failure with `after`
     """
     if retry_state.outcome.failed:
         exc = retry_state.outcome.exception()
-        logger.error(
-            "Tenacity (fn=%r) reports final failure after %d attempts, elapsed=%.2fs: %s",
+        logger.warning(
+            "Tenacity (fn=%r) reports failure after %d attempts, elapsed=%.2fs: %s",
+            retry_state.fn,
+            retry_state.attempt_number,
+            retry_state.seconds_since_start,
+            exc,
+        )
+
+
+def log_final_failure(retry_state: tenacity.RetryCallState):
+    """tenacity log helper.
+
+    To be called on final failure with `after`
+    """
+    if retry_state.outcome.failed:
+        exc = retry_state.outcome.exception()
+        logger.exception(
+            "Tenacity (fn=%r) reports failure after %d attempts, elapsed=%.2fs: %s."
+            " Cannot continue",
             retry_state.fn,
             retry_state.attempt_number,
             retry_state.seconds_since_start,
@@ -100,7 +117,7 @@ class RabbitMQClient(core.QueueClient):
         self._on_failure_callback = None
         self._terminate_consumer_callback = None
         self._requeue_failed = True
-        self._is_consuming = False  # what is this?
+        self._is_consuming = False
 
         credentials = pika.PlainCredentials(username, password, erase_on_connect=True)
         self.conn_params = pika.ConnectionParameters(
@@ -126,7 +143,8 @@ class RabbitMQClient(core.QueueClient):
             stop=tenacity.stop_after_delay(self.reconnect_max_delay_seconds),
             retry=tenacity.retry_if_exception(should_retry),
             reraise=True,
-            after=log_final_error,
+            after=log_failure,
+            retry_error_callback=log_final_failure,
         )
 
     def _ensure_publisher(self):
@@ -498,7 +516,8 @@ class RabbitConsumer(RabbitMQClient):
             stop=tenacity.stop_after_delay(self.reconnect_max_delay_seconds),
             retry=tenacity.retry_if_exception(should_retry),
             reraise=True,
-            after=log_final_error,
+            after=log_failure,
+            retry_error_callback=log_final_failure,
         )
 
     def _reconnect_once(self):
