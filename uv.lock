@@ -562,6 +562,7 @@ dependencies = [
     { name = "pika" },
     { name = "requests" },
     { name = "simplejson" },
+    { name = "tenacity" },
 ]
 
 [package.optional-dependencies]
@@ -583,6 +584,7 @@ requires-dist = [
     { name = "pytest-cov", marker = "extra == 'dev'" },
     { name = "requests" },
     { name = "simplejson" },
+    { name = "tenacity" },
     { name = "testcontainers", extras = ["rabbitmq"], marker = "extra == 'dev'" },
 ]
 provides-extras = ["dev"]
@@ -675,6 +677,15 @@ wheels = [
     { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-win32.whl", hash = "sha256:d083b89d30948a751d3d97476c2ed91e4caaa24a1a1459bdbadb8876242c71fe" },
     { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-cp314-cp314t-win_amd64.whl", hash = "sha256:4cbb299d0528ec0447fe366d8c9641860e28f997a62730690fef905f1f41046e" },
     { url = "https://nexus.osdc.io/repository/pypi-all/packages/simplejson/4.1.1/simplejson-4.1.1-py3-none-any.whl", hash = "sha256:2ce92b3748f02423e26d2bfb636fb9d7a8f67c8f5854dcae69d350d123b2eee2" },
+]
+
+[[package]]
+name = "tenacity"
+version = "9.1.4"
+source = { registry = "https://nexus.osdc.io/repository/pypi-all/simple" }
+sdist = { url = "https://nexus.osdc.io/repository/pypi-all/packages/tenacity/9.1.4/tenacity-9.1.4.tar.gz", hash = "sha256:adb31d4c263f2bd041081ab33b498309a57c77f9acf2db65aadf0898179cf93a" }
+wheels = [
+    { url = "https://nexus.osdc.io/repository/pypi-all/packages/tenacity/9.1.4/tenacity-9.1.4-py3-none-any.whl", hash = "sha256:6095a360c919085f28c6527de529e76a06ad89b23659fa881ae0649b867a9d55" },
 ]
 
 [[package]]
