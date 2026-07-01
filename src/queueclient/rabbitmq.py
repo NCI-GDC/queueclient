@@ -80,7 +80,10 @@ class RabbitMQClient(core.QueueClient):
         exchange=None,
         exchange_type=None,
         routing_key=None,
-        heartbeat=60,  # seconds between connection checks, 60 is default value
+        # We have long running jobs (terabyte sized transfer) which blocks the heartbeats.
+        # A failed heartbeat will cause the server to drop the client.
+        # Don't use a short heartbeat unless you need it.
+        heartbeat=3600,
     ):
         """
         Args:
