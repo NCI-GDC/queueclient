@@ -13,6 +13,8 @@ from queueclient import core
 
 logger = logging.getLogger(__name__)
 
+RABBITMQ_MAX_ALLOWED_HEARTBEAT_SEC = 65535
+
 
 def should_retry(e: BaseException) -> bool:
     """Handles all the connection errors that may occur."""
@@ -83,9 +85,8 @@ class RabbitMQClient(core.QueueClient):
         # We have long running jobs (terabyte sized transfer) which blocks the heartbeats.
         # A failed heartbeat will cause the server to drop the client.
         # The largest file so far is 2.2TB which takes 14 hours to process with `inspector`.
-        # Set to 24 hours to prevent hang-ups from the server.
-        # 65635 is the maximum value
-        heartbeat=65535,
+        # The maximum allowed heartbeat is just over 18 hours.
+        heartbeat=RABBITMQ_MAX_ALLOWED_HEARTBEAT_SEC,
     ):
         """
         Args:
