@@ -84,7 +84,8 @@ class RabbitMQClient(core.QueueClient):
         # A failed heartbeat will cause the server to drop the client.
         # The largest file so far is 2.2TB which takes 14 hours to process with `inspector`.
         # Set to 24 hours to prevent hang-ups from the server.
-        heartbeat=86400,
+        # 65635 is the maximum value
+        heartbeat=65535,
     ):
         """
         Args:
